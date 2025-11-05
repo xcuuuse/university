@@ -1,0 +1,128 @@
+subject_domain_of_recommendation_systems
+=> nrel_main_idtf:
+   [Предметная область систем рекомендаций]
+   (*
+      <- lang_ru;;
+   *);
+<- concept_subject_domain;
+=> nrel_ontology:
+   structural_specification_of_subject_domain_of_recommendation_systems;
+   set_theoretic_ontology_of_subject_domain_of_recommendation_systems;;
+
+structural_specification_of_subject_domain_of_recommendation_systems = [*
+<- concept_structural_specification_of_subject_domain;;
+
+subject_domain_of_recommendation_systems = [*
+-> rrel_maximum_studied_object_class:
+   concept_recommendation_system;;
+-> rrel_not_maximum_studied_object_class:
+   concept_user;
+   concept_item;
+   concept_rating;
+   concept_profile;
+   concept_dataset;
+   concept_recommendation_algorithm;
+   concept_collaborative_filtering;
+   concept_content_based_filtering;;
+-> rrel_explored_relation:
+   nrel_user_rates_item;
+   nrel_user_profile;
+   nrel_item_features;
+   nrel_algorithm_uses_dataset;
+   nrel_algorithm_generates_recommendation;
+   nrel_algorithm_combines_approaches;
+   nrel_algorithm_evaluated_by_metric;
+   nrel_metric_type;
+   nrel_similar_users;
+   nrel_similar_items;;
+*];;
+<= nrel_child_subject_domain:
+   subject_domain_of_intelligent_systems;;
+=> nrel_child_subject_domain:
+   subject_domain_of_recommendation_systems_in_Python;
+   subject_domain_of_recommendation_systems_in_CPP;;
+*];;
+
+subject_domain_of_recommendation_systems = [*
+recommendation_system_RS
+<- concept_recommendation_system;
+=> nrel_composition:
+   user_U;
+   item_I;
+   recommendation_algorithm_A;
+   dataset_D;;
+
+user_U
+<- concept_user;
+=> nrel_user_profile:
+   profile_P;;
+
+item_I
+<- concept_item;
+=> nrel_item_features:
+   feature_F;;
+
+recommendation_algorithm_A
+<- concept_recommendation_algorithm;
+=> nrel_algorithm_uses_dataset:
+   dataset_D;
+=> nrel_algorithm_generates_recommendation:
+   recommendation_R;
+=> nrel_algorithm_evaluated_by_metric:
+   metric_M;;
+
+dataset_D
+<- concept_dataset;
+=> nrel_inclusion:
+   rating_Relation;;
+
+recommendation_R
+<- concept_recommendation;;
+
+metric_M
+<- concept_metric;
+<= nrel_metric_type:
+   concept_precision;
+   concept_recall;
+   concept_F1_score;;
+*];;
+
+set_theoretic_ontology_of_subject_domain_of_recommendation_systems = [*
+<- concept_set_theoretic_ontology_of_subject_domain;;
+
+concept_recommendation_system
+=> nrel_subdividing: {
+   concept_collaborative_filtering;
+   concept_content_based_filtering;
+   concept_hybrid_approach
+};;
+
+concept_recommendation_algorithm
+=> nrel_inclusion:
+   concept_recommendation_system;;
+
+concept_dataset
+=> nrel_subdividing: {
+   concept_training_dataset;
+   concept_testing_dataset
+};;
+
+concept_metric
+=> nrel_subdividing: {
+   concept_precision;
+   concept_recall;
+   concept_F1_score
+};;
+
+nrel_algorithm_combines_approaches
+=> nrel_inclusion:
+   nrel_algorithm_uses_dataset;;
+
+nrel_user_rates_item
+=> nrel_inclusion:
+   nrel_user_profile;;
+
+nrel_association
+=> nrel_inclusion:
+   nrel_similarity_relation;;
+*];;
