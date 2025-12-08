@@ -1,0 +1,11 @@
+rrel_user
+<- sc_node_role_relation;
+=> nrel_main_idtf:
+    [пользователь']
+    (*
+        <- lang_ru;;
+    *);
+=> nrel_first_domain:
+    concept_recommendation_system;
+=> nrel_second_domain:
+    concept_user;;

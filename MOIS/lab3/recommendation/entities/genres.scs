@@ -1,0 +1,31 @@
+ScienceFiction
+<- concept_genre;
+=> nrel_genre_name:
+    [Научная фантастика]
+    (*
+        <- lang_ru;;
+    *);;
+
+Action
+<- concept_genre;
+=> nrel_genre_name:
+    [Боевик]
+    (*
+        <- lang_ru;;
+    *);;
+
+Suspense
+<- concept_genre;
+=> nrel_genre_name:
+    [Саспенс]
+    (*
+      <-lang_ru;;
+    *);;
+  
+Thriller
+<- concept_genre;
+=> nrel_genre_name:
+    [Триллер]
+    (*
+        <- lang_ru;;
+    *);;

@@ -1,0 +1,8 @@
+concept_genre
+<- sc_node_class;
+=> nrel_main_idtf:
+    [жанр]
+    (*
+        <- lang_ru;;
+    *);;
+

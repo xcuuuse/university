@@ -1,0 +1,23 @@
+Interstellar
+<- concept_object;
+=> nrel_object_name:
+    [Интерстеллар]
+    (*
+        <- lang_ru;;
+    *);;
+
+Matrix
+<- concept_object;
+=> nrel_object_name:
+    [Матрица]
+    (*
+        <- lang_ru;;
+    *);;
+
+MazeRunner
+<- concept_object;
+=> nrel_object_name:
+    [Бегущий в лабиринте]
+    (*
+        <- lang_ru;;
+    *);;

@@ -1,0 +1,53 @@
+@search_latest_ratings_template = {
+    rrel_init_template: {
+        rrel_template: [*
+            @input_param1 = (.._recommendation_system <-_ concept_recommendation_system);;
+            rrel_user _-> (.._recommendation_system _-> .._user);;
+            @output_param1 = (.._user <-_ concept_user);;
+        *];
+        rrel_template_input_params: {
+            @input_param1
+        };
+        rrel_template_output_params: {
+            @output_param1
+        }
+    } (* <- nrel_search_set_template;; *);
+    rrel_next_template: {
+        rrel_init_template: {
+            rrel_template: [*
+                @input_param1 = (.._user <-_ concept_user);;
+                rrel_rating _-> (.._user _-> .._rating);;
+                @output_param1 = (.._rating <-_ concept_rating);;
+            *];
+            rrel_template_input_params: {
+                @input_param1
+            };
+            rrel_template_output_params: {
+                @output_param1
+            }
+        } (* <- nrel_search_set_template;; *);
+        rrel_next_template: {
+            rrel_init_template: {
+                rrel_template: [*
+                    @input_param1 = (.._rating <-_ concept_rating);;
+                    nrel_number _-> (.._rating _=> .._number);;
+                    @output_param1 = (.._number <-_ lang_ru);;
+                *];
+                rrel_template_input_params: {
+                    @input_param1
+                };
+                rrel_template_output_params: {
+                    @output_param1
+                }
+            } (* <- nrel_search_template;; *)
+        } (* <- nrel_fixed_search_strategy_template;; *)
+    } (* <- nrel_fixed_search_strategy_template;; *)
+};;
+
+@search_latest_ratings_template
+<- nrel_fixed_search_strategy_template;
+=> nrel_main_idtf:
+    [Шаблон поиска последней оценки пользователя]
+    (*
+        <- lang_ru;;
+    *);;

@@ -36,7 +36,7 @@ void* generator(void*)
     using namespace std::chrono_literals;
     for (double x = 0.0; x <= 10; x++)
     {
-        auto p = make_shared<Point>(x, x * x);
+        auto p = make_shared<Point>(x, x*x);
         
         pthread_mutex_lock(&mutex);
         buffer.push(p);

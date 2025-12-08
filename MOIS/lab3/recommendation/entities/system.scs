@@ -1,0 +1,46 @@
+RecommendationSystem
+<- concept_recommendation_system;
+=> nrel_main_idtf:
+    [Система рекомендаций]
+    (*
+        <- lang_ru;;
+    *);
+-> rrel_user:
+    user1;
+    user2;;
+
+user1
+=> nrel_main_idtf:
+    [Пользователь 1]
+    (*
+        <- lang_ru;;
+    *);
+<- concept_user;
+-> rrel_rating:
+    first_rating;
+-> rrel_rated_object:
+    Interstellar;
+-> rrel_favourite_genre:
+    ScienceFiction;
+-> rrel_recommended_genre:
+    Suspense;
+-> rrel_recommended_object:
+    MazeRunner;;
+
+user2
+=> nrel_main_idtf:
+    [Пользователь 2]
+    (*
+        <- lang_ru;;
+    *);
+<- concept_user;
+-> rrel_rating:
+    second_rating;
+-> rrel_rated_object:
+    Matrix;
+-> rrel_favourite_genre:
+    Action;
+-> rrel_recommended_genre:
+    Thriller;
+-> rrel_recommended_object:
+    MazeRunner;;

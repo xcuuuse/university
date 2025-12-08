@@ -1,0 +1,9 @@
+concept_rating
+<- sc_node_class;
+=> nrel_main_idtf:
+    [оценка]
+    (*
+        <- lang_ru;;
+    *);
+<= nrel_inclusion:
+    concept_number;;

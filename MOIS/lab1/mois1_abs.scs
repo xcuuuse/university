@@ -1,0 +1,29 @@
+concept_recomendation_system_user
+=> nrel_main_idtf:
+  [пользователь в системе рекомендаций]
+  (*
+    <- lang_ru;;
+  *);
+
+=> nrel_main_idtf:
+  [recomendation system user]
+  (*
+    <- lang_ru;;
+  *);
+<- rrel_explored_concept:
+  subject_domain_of_informaation_retrieval;
+
+=> nrel_inclusion:
+  concept_recomendation_system_entity;
+
+=> nrel_definition:
+  [пользователь в системе рекомендаций -
+   субъект, для которого система
+    формирует рекомендации, исходя из его
+   предпочтений или предпочтениий других пользователей, схожих с ним.]
+   (*
+    <- lang_ru;;
+   *);;
+
+
+  

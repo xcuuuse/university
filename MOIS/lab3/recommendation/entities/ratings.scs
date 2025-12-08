@@ -1,0 +1,15 @@
+first_rating
+<- concept_rating;
+=> nrel_number:
+    [четыре]
+    (*
+        <- lang_ru;;
+    *);;
+
+second_rating
+<- concept_rating;
+=> nrel_number:
+    [пять]
+    (*
+        <- lang_ru;;
+    *);;

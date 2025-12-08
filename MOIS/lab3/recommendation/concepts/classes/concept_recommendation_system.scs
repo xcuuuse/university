@@ -1,0 +1,8 @@
+concept_recommendation_system
+<- sc_node_class;
+=> nrel_main_idtf:
+    [система рекомендаций]
+    (*
+        <- lang_ru;;
+    *);;
+
