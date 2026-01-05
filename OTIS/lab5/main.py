@@ -47,3 +47,4 @@ print("Goal preferences:")
 for goal, weight in sorted_goals:
     print(f"{goal}: {weight}")
 
+
