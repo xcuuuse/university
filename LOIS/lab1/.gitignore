@@ -1,0 +1,14 @@
+﻿cmake-build-*/
+.idea/
+*.exe
+*.o
+*.out
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+cmake-build-debug/
+cmake-build-release/
+#временно
+src/programm_full.cpp

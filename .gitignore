@@ -5,3 +5,4 @@ pytest.ini
 **.coverage
 **/.idea
 WW2/
+LOIS/
