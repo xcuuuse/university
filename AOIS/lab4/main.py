@@ -1,46 +1,42 @@
-import src.task1 as task1
-import src.task2 as task2
+
+from src.task1 import (build_truth_table,
+                       print_truth_table,
+                       print_sdnf,
+                       print_minimization,
+                       multi_output_synthesis,
+                       print_circuit_description,
+                       verify as verify_task1)
+from src.task2 import (build_truth_table as build_truth_table2,
+                       print_truth_table as print_truth_table2,
+                       print_karnaugh,
+                       minimize_all,
+                       count_gates,
+                       verify as verify_task2)
+
 N = 5
 
 
 def main():
-    var_names = ("X1", "X2", "X3")
+    # Задание 1 — ОДС-3 (СДНФ)
+    table = build_truth_table()
+    print_truth_table(table)
+    print_sdnf(table)
+    print_minimization(table)
+    multi_output_synthesis(table)
+    print_circuit_description(table)
+    verify_task1(table)
 
-    table = task1.build_truth_table()
-    task1.print_truth_table(table)
+    # Задание 2 — Преобразователь 8421 → 8421+5
+    table2 = build_truth_table2(N)
+    print_truth_table2(table2, N)
 
-    task1.print_sdnf(table, var_names)
+    print("\n  Таблицы Вейча-Карно:")
+    for fi, fname in [(4, "y4"), (5, "y3"), (6, "y2"), (7, "y1")]:
+        print_karnaugh(table2, fi, fname)
 
-    task1.print_minimization(table, var_names)
-
-    task1.multi_output_synthesis(table, var_names)
-
-    task1.print_circuit_description(table)
-
-    task1.verify(table)
-
-    n = N
-    table = task2.build_truth_table(n)
-    task2.print_truth_table(table, n)
-
-    print("\n" + "=" * 60)
-    print("  КАРТЫ КАРНО")
-    print("=" * 60)
-    for fi, fname in zip(range(4, 8), ["y4", "y3", "y2", "y1"]):
-        task2.print_karnaugh(table, fi, fname)
-
-    results = task2.minimize_all(table)
-    
-    print("\n" + "=" * 60)
-    print("  ИТОГОВЫЕ МИНИМИЗИРОВАННЫЕ ФОРМУЛЫ")
-    print("=" * 60)
-    for fname in ["y4", "y3", "y2", "y1"]:
-        data = results[fname]
-        print(f"  {fname} = {data[2]}")
-
-    task2.count_gates(results)
-
-    task2.verify(table, results, n)
+    results = minimize_all(table2)
+    count_gates(results)
+    verify_task2(table2, results, N)
 
 
 if __name__ == "__main__":

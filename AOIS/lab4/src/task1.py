@@ -303,3 +303,7 @@ def verify(table):
     else:
         print(f"  Обнаружено ошибок: {errors}")
     print("=" * 50)
+
+
+if __name__ == "__main__":
+    t
