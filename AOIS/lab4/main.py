@@ -17,7 +17,6 @@ N = 5
 
 
 def main():
-    # Задание 1 — ОДС-3 (СДНФ)
     table = build_truth_table()
     print_truth_table(table)
     print_sdnf(table)
@@ -25,8 +24,6 @@ def main():
     multi_output_synthesis(table)
     print_circuit_description(table)
     verify_task1(table)
-
-    # Задание 2 — Преобразователь 8421 → 8421+5
     table2 = build_truth_table2(N)
     print_truth_table2(table2, N)
 
