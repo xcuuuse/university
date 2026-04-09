@@ -26,7 +26,7 @@ def build_truth_table(n):
 
 def print_truth_table(table, n):
     print("\n" + "=" * 60)
-    print(f"  ТАБЛИЦА ИСТИННОСТИ  (8421 → 8421+{n})")
+    print(f"  ТАБЛИЦА ИСТИННОСТИ  (8421 -> 8421+{n})")
     print("=" * 60)
     print("  J  | x4 x3 x2 x1 | y4 y3 y2 y1 | Определён?")
     print("-" * 55)
@@ -173,8 +173,6 @@ def implicant_to_str_dnf(impl):
 
 
 def implicant_to_str_knf(impl):
-    # В КНФ: скобка — дизъюнкт; переменная входит без инверсии если val==0,
-    # с инверсией (!x) если val==1
     parts = []
     for val, name in zip(impl, VAR_NAMES):
         if val is None:
@@ -329,8 +327,6 @@ def verify(table, results, n):
             for val, name in zip(impl, VAR_NAMES):
                 if val is None:
                     continue
-                # В КНФ val==0 → x входит прямо; clause=True если x==1 (т.е. x != 0)
-                # val==1 → !x входит; clause=True если x==0 (т.е. x != 1)
                 clause = clause or (bits_dict[name] != val)
             if not clause:
                 return 0
