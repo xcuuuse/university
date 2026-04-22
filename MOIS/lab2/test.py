@@ -72,7 +72,7 @@ class ProbabilityEngine(KnowledgeEngine):
         NOT(Probability())
     )
     def unknown(self, w, t, s, sp, e):
-        print("Unknown")
+        print("Неизвестно")
         print(f"Введённые параметры: погода={w}, время={t}, состояние дороги={s}, скорость={sp}, опыт водителя={e}")
 
 
