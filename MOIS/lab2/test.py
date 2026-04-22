@@ -15,12 +15,12 @@ class ProbabilityEngine(KnowledgeEngine):
     @Rule(NOT(Parameter(name='время_суток')))
     def ask_time(self):
         value = input("Время суток(день/ночь/неизвестно): ").strip().lower()
-        self.declare(Parameter(name='время суток', value=value))
+        self.declare(Parameter(name='время_суток', value=value))
 
     @Rule(NOT(Parameter(name='состояние_дороги')))
     def ask_road_state(self):
         value = input("Состояние дороги (целая/поврежденная/неизвестно): ").strip().lower()
-        self.declare(Parameter(name='состояние дороги', value=value))
+        self.declare(Parameter(name='состояние_дороги', value=value))
 
     @Rule(NOT(Parameter(name='скорость')))
     def ask_speed(self):
@@ -30,7 +30,7 @@ class ProbabilityEngine(KnowledgeEngine):
     @Rule(NOT(Parameter(name='опыт_водителя')))
     def ask_driver_experience(self):
         value = input("Опыт водителя(нет/средний/высокий/неизвестно): ").strip().lower()
-        self.declare(Parameter(name='время суток', value=value))
+        self.declare(Parameter(name='опыт_водителя', value=value))
 
     @Rule(
         Parameter(name='погода', value='пасмурная'),
