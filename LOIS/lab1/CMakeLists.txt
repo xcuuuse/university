@@ -8,5 +8,5 @@ add_executable(lab1 src/main.cpp
         src/node/node.cpp
         src/parser/parser.h
         src/parser/parser.cpp
-        src/utils.cpp)
+)
 target_include_directories(lab1 PRIVATE ${CMAKE_SOURCE_DIR}/src)

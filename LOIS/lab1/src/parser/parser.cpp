@@ -41,8 +41,7 @@ void Parser::expect(char c) {
     if (peek() != c) {
         throw std::invalid_argument(
                 std::string("Ожидался '") + c + "', получен '"
-                + (peek() ? std::string(1, peek()) : "конец строки")
-                + "' на позиции " + std::to_string(pos + 1));
+                + (peek() ? std::string(1, peek()) : "конец строки"));
     }
     consume();
 }

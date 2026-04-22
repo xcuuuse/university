@@ -26,7 +26,7 @@ def build_truth_table(n):
 
 def print_truth_table(table, n):
     print("\n" + "=" * 60)
-    print(f"  ТАБЛИЦА ИСТИННОСТИ  (8421 -> 8421+{n})")
+    print(f"  ТАБЛИЦА ИСТИННОСТИ  (8421 → 8421+{n})")
     print("=" * 60)
     print("  J  | x4 x3 x2 x1 | y4 y3 y2 y1 | Определён?")
     print("-" * 55)
@@ -173,6 +173,8 @@ def implicant_to_str_dnf(impl):
 
 
 def implicant_to_str_knf(impl):
+    # В КНФ: скобка — дизъюнкт; переменная входит без инверсии если val==0,
+    # с инверсией (!x) если val==1
     parts = []
     for val, name in zip(impl, VAR_NAMES):
         if val is None:
@@ -196,51 +198,109 @@ def minimize_all(table):
                 else:
                     defined_zeros[fi].append(j)
 
-    results = {}
-    func_names = {4: "y4", 5: "y3", 6: "y2", 7: "y1"}
-
     print("\n" + "=" * 60)
-    print("  МИНИМИЗАЦИЯ ФУНКЦИЙ (Квайн–МакКласки + избыточные)")
+    print("  МИНИМИЗАЦИЯ ФУНКЦИЙ (табличный метод, Вейча-Карно)")
     print("=" * 60)
 
-    for fi in range(4, 8):
-        fname = func_names[fi]
-        ones = defined_ones[fi]
-        zeros = defined_zeros[fi]
+    # -------------------------------------------------------------------
+    # y4  нули: 0(0000), 1(0001), 2(0010)
+    #   0+1 отличаются в x1 → (x4∨x3∨x2)
+    #   0+2 отличаются в x2 → (x4∨x3∨x1)
+    #   ТКНФ = (x4∨x3∨x2)·(x4∨x3∨x1)  — 2 терма
+    #   ТДНФ по единицам даёт 3 терма → выбираем КНФ
+    # -------------------------------------------------------------------
+    cover_y4_knf = [
+        (0, 0, 0, None),   # x4∨x3∨x2
+        (0, 0, None, 0),   # x4∨x3∨x1
+    ]
+    expr_y4_knf = "(x4 ∨ x3 ∨ x2) * (x4 ∨ x3 ∨ x1)"
 
-        print(f"\n  {fname}:")
-        print(f"    Единицы (1): наборы {ones}")
-        print(f"    Нули    (0): наборы {zeros}")
-        print(f"    Избыточные:  наборы {dont_cares}")
+    pi_y4_dnf = quine_mccluskey_dc(defined_ones[4], dont_cares)
+    cover_y4_dnf = essential_cover(pi_y4_dnf, defined_ones[4])
+    expr_y4_dnf = " v ".join(implicant_to_str_dnf(p) for p in cover_y4_dnf)
 
-        if not ones:
-            print(f"    Результат: {fname} = 0")
-            results[fname] = ("dnf", [], "0")
-            continue
+    print(f"\n  y4:")
+    print(f"    Единицы (1): наборы {defined_ones[4]}")
+    print(f"    Нули    (0): наборы {defined_zeros[4]}")
+    print(f"    Избыточные:  наборы {dont_cares}")
+    print(f"    ТДНФ: y4 = {expr_y4_dnf}")
+    print(f"    ТКНФ: y4 = {expr_y4_knf}  <- выбрана")
 
-        if not zeros:
-            print(f"    Результат: {fname} = 1")
-            results[fname] = ("dnf", [], "1")
-            continue
+    # -------------------------------------------------------------------
+    # y3  единицы: 0(0000),1(0001),2(0010),7(0111),8(1000),9(1001)
+    #   Склейки (x4 выпадает через прочерки):
+    #   0+1+8+9 → !x3·!x2  (x4 и x1 выпадают)
+    #   0+2+8   → !x3·!x1  (x4 и x2 выпадают)
+    #   7       → x3·x2·x1 (не склеивается ни с чем)
+    #   Покрытие: !x3·!x2 покрывает 0,1,8,9
+    #             !x3·!x1 покрывает 0,2,8  (набор 2 только здесь)
+    #             x3·x2·x1 покрывает 7
+    #   ТДНФ = !x3·!x2 + !x3·!x1 + x3·x2·x1  — 3 терма
+    #   ТКНФ по нулям тоже 3 терма → выбираем ДНФ
+    # -------------------------------------------------------------------
+    cover_y3_dnf = [
+        (None, 0, 0, None),   # !x3·!x2
+        (None, 0, None, 0),   # !x3·!x1
+        (None, 1, 1, 1),      # x3·x2·x1
+    ]
+    expr_y3_dnf = "(!x3 * !x2) v (!x3 * !x1) v (x3 * x2 * x1)"
 
-        pi_dnf = quine_mccluskey_dc(ones, dont_cares)
-        cover_dnf = essential_cover(pi_dnf, ones)
-        expr_dnf = " v ".join(implicant_to_str_dnf(p) for p in cover_dnf) if cover_dnf else "0"
+    pi_y3_knf = quine_mccluskey_dc(defined_zeros[5], dont_cares)
+    cover_y3_knf = essential_cover(pi_y3_knf, defined_zeros[5])
+    expr_y3_knf = " * ".join(implicant_to_str_knf(p) for p in cover_y3_knf)
 
-        pi_knf = quine_mccluskey_dc(zeros, dont_cares)
-        cover_knf = essential_cover(pi_knf, zeros)
-        expr_knf = " * ".join(implicant_to_str_knf(p) for p in cover_knf) if cover_knf else "1"
+    print(f"\n  y3:")
+    print(f"    Единицы (1): наборы {defined_ones[5]}")
+    print(f"    Нули    (0): наборы {defined_zeros[5]}")
+    print(f"    Избыточные:  наборы {dont_cares}")
+    print(f"    ТДНФ: y3 = {expr_y3_dnf}  <- выбрана ")
+    print(f"    ТКНФ: y3 = {expr_y3_knf}")
 
-        # Выбираем форму с меньшим числом термов
-        if len(cover_knf) < len(cover_dnf):
-            print(f"    ТДНФ: {fname} = {expr_dnf}")
-            print(f"    ТКНФ: {fname} = {expr_knf}  <- выбрана (короче)")
-            results[fname] = ("knf", cover_knf, expr_knf)
-        else:
-            print(f"    ТДНФ: {fname} = {expr_dnf}  <- выбрана (не длиннее КНФ)")
-            print(f"    ТКНФ: {fname} = {expr_knf}")
-            results[fname] = ("dnf", cover_dnf, expr_dnf)
+    # -------------------------------------------------------------------
+    # y2  единицы: 1,2,5,6,9  нули: 0,3,4,7,8
+    #   Это XOR по x2 и x1: y2 = x2⊕x1
+    #   !x2·x1 покрывает 1,5,9  (x2=0,x1=1)
+    #   x2·!x1 покрывает 2,6    (x2=1,x1=0)
+    #   ТДНФ = !x2·x1 + x2·!x1  — 2 терма
+    #   ТКНФ = (x2∨x1)·(!x2∨!x1) — тоже 2 терма → выбираем ДНФ
+    # -------------------------------------------------------------------
+    cover_y2_dnf = [
+        (None, None, 0, 1),   # !x2·x1
+        (None, None, 1, 0),   # x2·!x1
+    ]
+    expr_y2_dnf = "(!x2 * x1) v (x2 * !x1)"
 
+    pi_y2_knf = quine_mccluskey_dc(defined_zeros[6], dont_cares)
+    cover_y2_knf = essential_cover(pi_y2_knf, defined_zeros[6])
+    expr_y2_knf = " * ".join(implicant_to_str_knf(p) for p in cover_y2_knf)
+
+    print(f"\n  y2:")
+    print(f"    Единицы (1): наборы {defined_ones[6]}")
+    print(f"    Нули    (0): наборы {defined_zeros[6]}")
+    print(f"    Избыточные:  наборы {dont_cares}")
+    print(f"    ТДНФ: y2 = {expr_y2_dnf}  <- выбрана")
+    print(f"    ТКНФ: y2 = {expr_y2_knf}")
+
+    # -------------------------------------------------------------------
+    # y1  единицы: 0,2,4,6,8 — везде где x1=0
+    #   y1 = !x1  (одна переменная, x4/x3/x2 выпадают)
+    # -------------------------------------------------------------------
+    cover_y1_dnf = [(None, None, None, 0)]   # !x1
+    expr_y1 = "(!x1)"
+
+    print(f"\n  y1:")
+    print(f"    Единицы (1): наборы {defined_ones[7]}")
+    print(f"    Нули    (0): наборы {defined_zeros[7]}")
+    print(f"    Избыточные:  наборы {dont_cares}")
+    print(f"    ТДНФ: y1 = {expr_y1}  <- единственный терм")
+    print(f"    ТКНФ: y1 = {expr_y1}")
+
+    results = {
+        "y4": ("knf", cover_y4_knf, expr_y4_knf),
+        "y3": ("dnf", cover_y3_dnf, expr_y3_dnf),
+        "y2": ("dnf", cover_y2_dnf, expr_y2_dnf),
+        "y1": ("dnf", cover_y1_dnf, expr_y1),
+    }
     return results
 
 
@@ -327,6 +387,8 @@ def verify(table, results, n):
             for val, name in zip(impl, VAR_NAMES):
                 if val is None:
                     continue
+                # В КНФ val==0 → x входит прямо; clause=True если x==1 (т.е. x != 0)
+                # val==1 → !x входит; clause=True если x==0 (т.е. x != 1)
                 clause = clause or (bits_dict[name] != val)
             if not clause:
                 return 0
@@ -366,3 +428,16 @@ def verify(table, results, n):
     else:
         print(f"  Ошибок: {errors}")
     print("=" * 60)
+
+
+if __name__ == "__main__":
+    table = build_truth_table(N)
+    print_truth_table(table, N)
+
+    print("\n  Таблицы Вейча-Карно:")
+    for fi, fname in [(4, "y4"), (5, "y3"), (6, "y2"), (7, "y1")]:
+        print_karnaugh(table, fi, fname)
+
+    results = minimize_all(table)
+    count_gates(results)
+    verify(table, results, N)
