@@ -1,0 +1,73 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type DBF Charset "WindowsLatin1"
+  Fields 11
+    Company Char (47) ;
+    Title Char (9) ;
+    Surname Char (18) ;
+    Address1 Char (51) ;
+    Address2 Char (53) ;
+    Town Char (28) ;
+    County Char (22) ;
+    Postcode Char (10) ;
+    Phone Char (27) ;
+    Fax Char (19) ;
+    Sales Decimal (15, 2) ;
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "505139.81"
+"\Identification\Domain\Bounds\East" = "529777.44"
+"\Identification\Domain\Bounds\North" = "184430.8"
+"\Identification\Domain\Bounds\South" = "163013.24"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; United Kingdom Customer Database"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "UK customer database.  A registered .DBF file."
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "na"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = ""
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = ""
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "0"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 8, 79, ""m"", -2, 49, 0.9996012717, 400000, -100000 Bounds (-7845061.1011, -15524202.1641) (8645061.1011, 4470074.53373)"
+"\Spatial Reference\Geographic\Projection\Name" = "British National Grid"
+"\Spatial Reference\Geographic\Coordinate Units" = ""
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = ""
+"\Spatial Reference\Geodetic\Ellipsoid" = ""
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "333"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "333"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = ""
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "na"
+"\Quality\Lineage\Source\Scale" = "unknown"
+"\Quality\Lineage\Source\Citation" = "MapInfo"
+end_metadata

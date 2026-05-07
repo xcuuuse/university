@@ -1,0 +1,98 @@
+!table
+!version 410
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 31
+    ID_TOWER Char (10) Index 1 ;
+    LATITUDE Float ;
+    LONGITUDE Float ;
+    CITY Char (30) ;
+    DATE_ACT Char (20) ;
+    DATE_CONST Char (10) ;
+    DATE_FAA Char (20) ;
+    DATE_FCC Char (20) ;
+    HGT_ANT Float ;
+    HGT_ANT_M Float ;
+    HGT_ELEV Float ;
+    HGT_ELEVM Float ;
+    HGT_STRU Float ;
+    HGT_STRUM Float ;
+    HGT_SUPP Float ;
+    HGT_SUPPM Float ;
+    HGT_TOWER Float ;
+    HGT_TOWERM Float ;
+    FAA_ID Char (20) ;
+    FILE_NUM Char (20) ;
+    NAME_OWNER Char (40) ;
+    STATE Char (2) ;
+    ADDRESS Char (25) ;
+    ACTION Char (3) ;
+    TYPR_STRU Char (6) ;
+    TYPE_TOWER Char (1) ;
+    KEY_SITE Char (10) ;
+    ID_EXAM Char (4) ;
+    TYPE_PL Char (254) ;
+    REMARKS Char (1) ;
+    SPEC_CONDS Char (1) ;
+begin_metadata
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "-77.1353"
+"\Identification\Domain\Bounds\East" = "-76.9528"
+"\Identification\Domain\Bounds\North" = "38.9628"
+"\Identification\Domain\Bounds\South" = "38.8033"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; DC FCC Tower Heights"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Shows the locations and information of FCC regulated towers"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1998"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Tutorial Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "3"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "District of Columbia"
+"\IsReadOnly" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 0"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude"
+"\Spatial Reference\Geographic\Coordinate Units" = "Decimal Degree"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "NA"
+"\Spatial Reference\Geodetic\Ellipsoid" = "NA"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "114"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "114"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Points"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1998"
+"\Quality\Lineage\Source\Scale" = "unknown"
+"\Quality\Lineage\Source\Citation" = "StopWatch Maps"
+end_metadata

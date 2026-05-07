@@ -1,0 +1,68 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  File "sydmanly.tif"
+  Type "RASTER"
+  (151.236687,-33.783237) (103,106) Label "North-West",
+  (151.279706,-33.788298) (505,157) Label "North-East",
+  (151.297049,-33.821283) (671,523) Label "South-East",
+  (151.245188,-33.803079) (188,329) Label "South-West"
+  CoordSys Earth Projection 1, 0
+  Units "degree"
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; Raster of Manly"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Registered .TIF file of Manly"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "na"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Tutorial Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "4"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "Australia"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "Australia"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "New South Wales"
+"\Identification\Keywords\Place\Layers\Layer4Name" = "City"
+"\Identification\Keywords\Place\Layers\Layer4" = "Sydney"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 0"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "Not Applicable"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "0"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Raster"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "na"
+"\Quality\Lineage\Source\Scale" = "na"
+"\Quality\Lineage\Source\Citation" =
+"Copyright and Intellectual Property in the attached data sets rests with one of the following. The Australian Government represented by the Australian Bureau of Statistics; The Government of New South Wales represented by The Land Inform"
+"\Quality\Lineage\Source\Citation\+1" = "ation Centre;MapI"
+end_metadata

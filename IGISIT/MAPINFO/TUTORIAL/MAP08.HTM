@@ -1,0 +1,354 @@
+<html><!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=windows-1251">
+<meta name="Template" content="F:\Office 97\Office\html.dot">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>{Product Features} [watermark]</title>
+</head>
+
+<body background="BBRD1-1.jpg" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/BBRD1.jpg" link="#0000FF" vlink="#800080"
+bgproperties="fixed">
+
+<p align="center"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif" width="44" height="41"><font
+size="6"><b> Интеграция с другими
+приложениями</b></font></p>
+
+<p><font size="4">Высококачественные
+Карты, подготовленные в MapInfo, можно
+легко и просто поместить в
+документы других программ,
+например, ориентированных на
+издательство. Как уже говорилось в
+Главе 11<i> Руководства Пользователя,
+</i>Вы можете копировать и вставлять
+Карты MapInfo в другие программы, или
+даже создавать Карты MapInfo, не
+покидая текстового редактора или
+процессора электронных таблиц. Вы
+также можете легко открывать
+таблицы баз данных Microsoft Access
+непосредственно в MapInfo,
+редактировать их и использовать
+снова Microsoft Access. </font></p>
+
+<p><font size="4">В этом уроке: </font></p>
+
+<ul>
+    <li><font size="4">копирование фрагмента
+        (или 'области врезки') Карты
+        улиц в OLE-программы, такие, как
+        Microsoft Word или Corel Draw;</font></li>
+    <li><font size="4">внедрение Карт<i> </i>MapInfo
+        в OLE-программы, такие, как Microsoft
+        Word или Corel Draw;</font></li>
+    <li><font size="4">открыти</font><font size="4"
+        face="Times New Roman">е</font><font size="4">
+        таблицы баз данных Microsoft Access;</font>
+    </li>
+    <li><font size="4">редактирование
+        таблицы в MapInfo и отображение ее
+        снова в Microsoft Access. </font></li>
+</ul>
+
+<p><font size="5"><b>Копирование Карты</b></font></p>
+
+<p><font size="4">Вначале мы создадим
+фрагмент Карты улиц города Москвы и
+скопируем его в другую OLE-программу,
+например, в Microsoft Word. Сначала
+откроем файл M_STREET.TAB как Карту и
+добавим на нее немного символов.</font></p>
+
+<p><font size="4">Для того, чтобы открыть
+Карту улиц в окне:</font></p>
+
+<ol>
+    <li><font size="4">Выполните команду Файл
+        &gt;</font><font size="5"> </font><font size="4">Открыть
+        таблицу.</font></li>
+    <li><font size="4">Убедитесь, что в окошке
+        'Папка' показывается каталог
+        \MAPINFO\DATA\TUT_DATA\RUSSIA. Пролистайте
+        список 'Имя файла' и укажите
+        на файл M_STREET.TAB.</font></li>
+    <li><font size="4">Нажмите 'Открыть'.</font></li>
+</ol>
+
+<p><font size="4">Появится карта улиц M_STREET.
+С помощью инструмента
+Увеличивающая Лупа увеличим
+фрагмент Карты.</font></p>
+
+<p><font size="4">Давайте добавим
+какие-нибудь надписи и несколько
+символов. Сначала сделаем
+Косметический слой редактируемым.</font></p>
+
+<ol>
+    <li><font size="4">В панели Операции
+        нажмите кнопку Управление
+        слоями . Появится диалог
+        'Управление слоями'.</font></li>
+    <li><font size="4">Чтобы добавить
+        символы, необходимо сделать
+        Косметический слой
+        редактируемым, для этого
+        установите флажок
+        'Изменямый'.</font></li>
+    <li><font size="4">Нажмите OK.</font></li>
+</ol>
+
+<p><font size="4">Теперь мы добавим
+какие-нибудь символы:</font></p>
+
+<ol>
+    <li><font size="4">В панели Пенал нажмите
+        кнопку 'Стиль Символа' .</font></li>
+    <li><font size="4">Выберите тип символов,
+        которые Вы хотите показать на
+        Вашей Карте. Выберите новый
+        цвет и размер символ</font><font
+        size="4" face="Times New Roman">ов</font><font size="4">.
+        Нажмите OK.</font></li>
+    <li><font size="4">В панели Пенал
+        выберите кнопку &quot;Символ&quot; и
+        добавьте какие-нибудь символы
+        на определенной области Карты.</font></li>
+</ol>
+
+<p><font size="4">Теперь мы воспользуемся
+инструментом из 'Пенала' для
+задания прямоугольного фрагмента
+нашей Карты или 'области врезки'.</font></p>
+
+<ol>
+    <li><font size="4">Мы не будем штриховать
+        наш объект, т.к. мы хотим видеть
+        Карту под ним. В панели Пенал
+        нажмите кнопку &quot;Стиль
+        области&quot; и в окошке
+        'Рисунок' установите 'Нет'.
+        Нажмите OK.</font></li>
+    <li><font size="4">В панели Пенал выберем
+        инструмент Прямоугольник .</font></li>
+    <li><font size="4">Нарисуйте
+        прямоугольник на Карте.</font></li>
+</ol>
+
+<p><font size="4">Теперь нам нужно сделать
+этот прямоугольник областью
+врезки:</font></p>
+
+<ol>
+    <li><font size="4">Выберите инструмент
+        Стрелка из панели Операции. </font></li>
+    <li><font size="4">Нажмите на
+        прямоугольник для того, чтобы
+        его выбрать.</font></li>
+    <li><font size="4">Выполните команду
+        Карта &gt; Выбрать область
+        врезки.</font></li>
+    <li><font size="4">Появится диалог,
+        запрашивающий, хотим ли мы
+        сохранить прямоугольник как
+        область врезки. Нажмите OK.</font></li>
+</ol>
+
+<p><font size="4">От Карты на экране
+останется ее фрагмент. Теперь можно
+скопировать его в другую программу,
+поддерживающую OLE, например, Microsoft
+Word.</font></p>
+
+<ul>
+    <li><font size="4">Выполните команду
+        Запрос &gt; Отменить выбор и
+        Правка &gt; Копировать Карту.</font></li>
+    <li><font size="4">Запустите Вашу другую
+        OLE-программу и в этой программе
+        выполните команду Правка &gt;
+        Вставить (Edit &gt; Paste).</font></li>
+</ul>
+
+<p><font size="4">Фрагмент Карты появится в
+Microsoft Word.</font></p>
+
+<p align="center"><img src="Int1RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Int1RT.gif" width="556" height="473"></p>
+
+<p><font size="5"><b>Внедрение карт MapInfo </b></font></p>
+
+<p><font size="4">Вы можете создать Карту
+MapInfo непосредственно в документе
+программы, поддерживающей OLE, такой,
+как Microsoft Word и Corel Draw. Механизм
+внедрения открывает для Вас
+'мини-MapInfo', то есть Вы можете
+создать и редактировать Карту для
+презентации, доклада или издания,
+не переходя в MapInfo.</font></p>
+
+<p><font size="4">Вначале закройте MapInfo.
+Затем, открыв Вашу программу,
+поддерживающую OLE:</font></p>
+
+<ol>
+    <li><font size="4">Выполните команду
+        Вставить &gt; Объект (Insert &gt;
+        Object).</font></li>
+    <li><font size="4">Выберите 'MapInfo 5.0.1 Map'.</font></li>
+</ol>
+
+<p><font size="4">В документе появится
+OLE-объект следующего вида.</font></p>
+
+<p align="center"><font size="4"><img src="Int3RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Int3RT.gif"
+width="462" height="404"></font></p>
+
+<ol>
+    <li><font size="4">Теперь Вы можете
+        использовать 'мини-MapInfo' для
+        того, чтобы созда</font><font size="4"
+        face="Times New Roman">ва</font><font size="4">ть
+        или открывать Карты MapInfo внутри
+        Microsoft Word или любой другой
+        OLE-программы. Поместите на
+        изображение земного шара
+        указатель мышки и дважды
+        нажмите на кнопку. Объект MapInfo
+        Map станет активным.</font></li>
+    <li><font size="4">Выполните команду
+        Таблица &gt; Открыть.</font><font size="5">
+        </font></li>
+    <li><font size="4">Из каталога
+        MAPINFO\DATA\TUT_DATA\RUSSIA выберите
+        RUS_OBL.TAB. Карта России появится в
+        Вашей программе.</font></li>
+</ol>
+
+<p><font size="4">Создадим на ее основе
+тематическую Карту, отразив
+плотность населения.</font></p>
+
+<ol>
+    <li><font size="4">Выполните команду
+        Карта &gt; Создать тематическую
+        Карту.</font></li>
+    <li><font size="4">Появится диалог
+        'Создание тематической Карты -
+        Шаг 1 из 3', как если бы Вы
+        находились в программе MapInfo.
+        Выберите 'Диапазоны' и
+        нажмите кнопку 'Далее'.</font></li>
+    <li><font size="4">Во втором диалоге
+        'Создание тематической Карты -
+        Шаг 2 из 3' в окошке &quot;Поле&quot;
+        введите выражение
+        &quot;Sum_1995/Area(obj, &quot;sq km&quot;)&quot;.
+        Нажмите кнопку 'Далее'.</font></li>
+    <li><font size="4">В третьем диалоге
+        'Создание тематической Карты -
+        Шаг 3 из 3' настройте диапазоны
+        по плотности населения России
+        и поправьте, если нужно,
+        Легенду. Нажмите OK.</font></li>
+</ol>
+
+<p><font size="4">Появится тематическая
+Карта России.</font></p>
+
+<p align="center"><img src="Int2RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Int2RT.gif" width="463" height="411"></p>
+
+<p align="left"><font size="4">Укажите в любое
+место за рамкой Карты для того,
+чтобы завершить процесс создания
+внедренной Карты и вернуться в
+Microsoft Word.</font></p>
+
+<p><font size="4">Щелкните по картинке,
+чтобы посмотреть пример
+демонстрации </font><a href="int-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/int.gif"><img
+src="biker-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/biker.gif" alt="{short description of image}" border="0"
+width="55" height="59"></a></p>
+
+<p><font size="5"><b>Использование Microsoft Access</b></font></p>
+
+<p><font size="4">MapInfo позволяет открывать
+и сохранять таблицы Microsoft Access
+непосредственно без операций
+экспорта/импорта. Давайте
+посмотрим как это происходит. </font></p>
+
+<p><font size="4">Сначала зароем
+OLE-приложение. Затем в MapInfo выполним
+команду Файл &gt; Закрыть все.</font></p>
+
+<p><font size="5"><b>Открытие таблицы Microsoft
+Access в MapInfo </b></font></p>
+
+<p><font size="4">Давайте откроем таблицу
+Access в MapInfo: </font></p>
+
+<ol>
+    <li><font size="4">Выполните команду Файл
+        &gt; Открыть таблицу.</font> </li>
+    <li><font size="4">Выберите тип файлов БД
+        Microsoft Access из списка Тип файлов.
+        Выберите каталог
+        \MAPINFO\DATA\TUT_DATA\RUSSIA и найдите файл
+        RU_CUST.MDB</font></li>
+    <li><font size="4">Нажмите кнопку
+        &quot;Открыть&quot;. Появится диалог
+        &quot;Открыть таблицу Access&quot;.
+        Выберите таблицу RU_CUST и нажмите
+        OK. Таблица Access откроется в MapInfo.
+        Таблица RU_CUST уже геокодирована,
+        поэтому в MapInfo отобразится
+        Карта клиентов.</font></li>
+</ol>
+
+<p><font size="4">Давайте теперь изменим
+какую-либо запись в таблице и
+откроем отредактированную в MapInfo
+таблицу снова в Microsoft Access. Для
+сохранения этой таблицы не
+требуется операций импорта и
+специальных фильтров. Для этого:</font></p>
+
+<p><font size="4">1. Выполните команду Окно
+&gt; Новый Список.</font></p>
+
+<p><font size="4">2. Отредактируйте
+какую-либо запись в Списке RU_CUST.</font></p>
+
+<p><font size="4">3. Выполните команду Файл
+&gt; Закрыть все. В диалоге
+&quot;Сохранить измененную
+таблицу&quot; нажмите кнопку
+&quot;Да&quot;.</font></p>
+
+<p><font size="4">4. Запустите программу
+Microsoft Access и откройте измененный
+файл RU_CUST.MDB. Файл откроется с учетом
+всех изменений, сделанных в MapInfo.</font></p>
+
+<p><font size="4">Итак, Вы готовы к изучению
+следующего урока. Если же
+какие-нибудь места этой главы
+остались неясными, просмотрите ее
+еще раз вместе с соответствующими
+главами <i>Руководства пользователя
+MapInfo</i>. </font></p>
+
+<p><font size="4">Чтобы закончить урок
+закройте приложения.</font></p>
+
+<p align="center"><a href="map01-1.htm" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/map01.htm"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif"
+border="0" width="44" height="41"></a><font size="4">Возврат
+к содержанию Учебника MapInfo Professional.</font></p>
+
+<p><a href="../../../../../www.esti-map.ru/index.htm" tppabs="http://www.esti-map.ru/"><font color="#0000FF"><u>http://www.esti-map.ru</u></font></a></p>
+</body>
+</html>

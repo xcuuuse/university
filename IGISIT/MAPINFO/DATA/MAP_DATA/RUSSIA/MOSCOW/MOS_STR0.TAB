@@ -1,0 +1,13 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 6
+    FromLeft Smallint ;
+    ToLeft Smallint ;
+    FromRight Smallint ;
+    ToRight Smallint ;
+    Primary Logical ;
+    MI_refnum Integer Index 1 ;

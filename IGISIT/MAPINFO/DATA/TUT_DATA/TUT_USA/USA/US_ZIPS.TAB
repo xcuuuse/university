@@ -1,0 +1,40 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 1
+    ZIP Char (5) Index 1 ;
+ReadOnly
+begin_metadata
+"\Identification" = ""
+"\Identification\Citation" = "ZIPInfo"
+"\Identification\Released Date" = "January 2000"
+"\Identification\Domain" = ""
+"\Identification\Domain\Name" = "United States"
+"\Identification\Domain\Layer" = "ZIP Code Points"
+"\IsReadOnly" = "FALSE"
+"\Quality" = ""
+"\Quality\Source" = ""
+"\Quality\Source\Name" = "Dynamap/ZIP Boundary & ZIP Files 7.3"
+"\Quality\Source\Scale" = "1:100,000"
+"\Quality\Source\Date" = "Nov 1999"
+"\Quality\Source\Projection" = "None"
+"\Quality\Source\Coordinate System" = "NAD 83"
+"\Quality\Source\Copyright" = "(c) 1999 Geographic Data Technology, Inc."
+"\Quality\Accuracy" = "+-167 Feet"
+"\Spatial Reference" = ""
+"\Spatial Reference\Coordinates" = "Decimal Degrees"
+"\Spatial Reference\Projection" = ""
+"\Spatial Reference\Projection\Clause" = "CoordSys Earth Projection 1, 33"
+"\Spatial Reference\Projection\Name" = "Longitude / Latitude (NAD 83)"
+"\Spatial Reference\Scale" = "1:100,000"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Region" = ""
+"\Spatial Organization\Object\Region\Count" = "0"
+"\Spatial Organization\Object\Point" = ""
+"\Spatial Organization\Object\Point\Count" = "41725"
+"\Spatial Organization\Object\TotalCount" = "41725"
+end_metadata

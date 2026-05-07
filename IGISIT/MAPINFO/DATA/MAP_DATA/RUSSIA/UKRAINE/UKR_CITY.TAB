@@ -1,0 +1,6 @@
+!table
+!version 100
+FIELDS: 3
+    Rus_Name Char (20) Index 1
+    E_Name Char (20)
+    Max_pop Integer

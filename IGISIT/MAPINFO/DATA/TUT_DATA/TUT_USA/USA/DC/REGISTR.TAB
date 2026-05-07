@@ -1,0 +1,16 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type DBF Charset "WindowsCyrillic"
+  Fields 9
+    Lastname Char (16) ;
+    Firstname Char (16) ;
+    Address Char (55) ;
+    City Char (24) ;
+    State Char (2) ;
+    Zipcode Char (5) ;
+    Phone Char (12) ;
+    Pledges Decimal (6, 2) Index 7 ;
+    Riderrep Char (20) ;

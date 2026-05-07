@@ -1,0 +1,62 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\mx_caps" As Capitals Interactive
+Open Table "..\mx_hiway" As Highways Interactive
+Open Table "..\mexico" As States Interactive
+Open Table "..\Mxcty364" As Major_Cities Interactive
+Open Table "..\Mxcty_2k" As Cities Interactive
+Map From Capitals,Major_Cities,Cities,Highways,States 
+  Position (0,0.0416667) Units "in"
+  Width 5.875 Units "in" Height 3.21875 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 9, 0, "m", -96, 23, 20, 60, 0, 0
+  Center (-498002.4126,198792.6743)
+  Zoom 2775.160948 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Global   Symbol (58,16711680,10,"MapInfo Cartographic",256,0)   
+    Zoom (0, 2500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (300, 750) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,8,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 1000) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Label Line None Position Center Font ("Arial",1,9,8388608) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1001, 2900) Units "mi"
+   Object 1 Anchor (-655311.50533618114,-61420.346285900101) 
+   Object 6 Anchor (-981334.85389119934,603174.67345531285) 
+   Object 27 Anchor (296368.17786115024,-514512.19070999883) 
+   Object 12 Anchor (-434679.85447748413,-556450.55249639228) 
+   Object 20 Anchor (-66807.274094353023,-725381.30468496494) 
+   Object 26 Anchor (-1323472.5055900866,884702.28394762985) 
+Set Window FrontWindow() Title "Mexico"
+Set Window Frontwindow() Max

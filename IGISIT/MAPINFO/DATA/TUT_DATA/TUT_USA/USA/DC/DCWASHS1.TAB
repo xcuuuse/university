@@ -1,0 +1,73 @@
+!table
+!version 100
+FIELDS: 7
+    FromLeft Smallint Index 2
+    ToLeft Smallint
+    FromRight Smallint
+    ToRight Smallint
+    Class Char (3)
+    Tiger_Refnum Integer
+    MI_Refnum Integer Index 1
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "-77.1172"
+"\Identification\Domain\Bounds\East" = "-76.9097"
+"\Identification\Domain\Bounds\North" = "38.9947"
+"\Identification\Domain\Bounds\South" = "38.8046"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; District of Columbia StreetInfo Component Table"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "StreetInfo V3 for DC - component table"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1994"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = "Reference Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "4"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "District of Columbia"
+"\Identification\Keywords\Place\Layers\Layer4Name" = "County"
+"\Identification\Keywords\Place\Layers\Layer4" = "District of Columbia"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 62"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude (NAD 27 for Continental US)"
+"\Spatial Reference\Geographic\Coordinate Units" = "Decimal Degree"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "NAD 27"
+"\Spatial Reference\Geodetic\Ellipsoid" = "Clarke 1866"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "0"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "1191"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "15057"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "16248"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Vectors"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1994"
+"\Quality\Lineage\Source\Scale" = "1:1,000,000"
+"\Quality\Lineage\Source\Citation" = "MapInfo from the US Census Bureau"
+end_metadata

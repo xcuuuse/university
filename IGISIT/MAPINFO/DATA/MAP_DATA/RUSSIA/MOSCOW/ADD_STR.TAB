@@ -1,0 +1,9 @@
+!Table
+!Version 100
+Open Table "mos_name" Hide
+Open Table "add_Str1" Hide
+
+Create View add_Str As
+Select R_Name,E_Name,FromLeft,ToLeft,FromRight,ToRight,Primary
+From mos_name,add_Str1
+Where mos_name.MI_refnum=add_Str1.MI_refnum

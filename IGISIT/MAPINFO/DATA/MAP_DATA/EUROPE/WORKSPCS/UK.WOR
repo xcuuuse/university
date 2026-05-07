@@ -1,0 +1,72 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\UK\Uk_regns" As Regions Interactive
+Open Table "..\UK\UK_a_rds" As A_Roads Interactive
+Open Table "..\UK\UKmtrway" As Motorways Interactive
+Open Table "..\Europe" As Europe Interactive
+Open Table "..\UK\Ircty_12" As Irish_Cities Interactive
+Open Table "..\UK\Ukcty203" As UK_Cities
+Open Table "..\Eurwater" As Water Interactive
+Map From UK_Cities,Irish_Cities,Water,Motorways,A_Roads,Regions,Europe 
+  Position (0.0666667,0.0666667) Units "in"
+  Width 5.28333 Units "in" Height 2.94167 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 79
+  Center (-5.445547615,54.56057037)
+  Zoom 1236.8228 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,7,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,7,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Status
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 100) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Type
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,9,8388608) Pen (1,2,0) 
+      With Stand_Region
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (0, 1500) Units "mi"
+  Layer 7
+    Display Graphic
+    Zoom (1000, 100000) Units "mi" Off 
+    Label Line None Position Center Font ("Arial",513,10,8388608) Pen (1,2,0) 
+      With COUNTRY
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1500, 100000) Units "mi"
+Set Map Layer 2 Editable
+Set Window FrontWindow() Title "United Kingdom"
+Set Window Frontwindow() Max

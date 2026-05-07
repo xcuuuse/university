@@ -1,0 +1,11 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Open Table "SYDSTRT1" Hide
+Open Table "SYDSTRT2" Hide
+
+Create View SYDSTRTS As
+Select Street,FromLeft,ToLeft,FromRight,ToRight,Type
+From SYDSTRT2,SYDSTRT1
+Where SYDSTRT2.MI_Refnum=SYDSTRT1.MI_Refnum

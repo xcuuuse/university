@@ -1,0 +1,76 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\landmrks" As Landmarks Interactive
+Open Table "..\Usa" As States Interactive
+Open Table "..\USA_Caps" As Capitals Interactive
+Open Table "..\US_cnty" As Counties Interactive
+Open Table "..\Us_hiway" As Highways Interactive
+Open Table "..\Uscty153" As Major_Cities
+Open Table "..\Uscty_8k" As Cities Interactive
+Map From Capitals,Major_Cities,Cities,Landmarks,Highways,Counties,States 
+  Position (0.0833333,0.0666667) Units "in"
+  Width 5.88333 Units "in" Height 3.19167 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 104
+  Center (-96.8838156,37.83039372)
+  Zoom 4004.624329 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (750, 2000) Units "mi" 
+    Label Line Arrow Position Right Font ("Univers",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (250, 750) Units "mi" 
+    Label Line Arrow Position Right Font ("Univers Condensed",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 250) Units "mi" 
+    Label Line Arrow Position Right Font ("Univers",0,8,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 15) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Zoom (0, 100) Units "mi" 
+    Label Line None Position Center Font ("MS Sans Serif",1,8,8421504) Pen (1,2,0) 
+      With County
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (0, 75) Units "mi"
+  Layer 7
+    Display Global
+    Global Pen (2,2,0)  Brush (16,65280,16777215)    
+    Zoom (0, 100000) Units "mi" 
+    Label Line None Position Center Font ("MS Sans Serif",0,10,8388608) Pen (1,2,0) 
+      With State
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1000, 100000) Units "mi"
+Set Window FrontWindow() Title "United States"
+Dim WorkspaceMaximizedWindow As Integer
+WorkspaceMaximizedWindow = Frontwindow()
+Set Window WorkspaceMaximizedWindow Max
+Undim WorkspaceMaximizedWindow

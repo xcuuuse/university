@@ -1,0 +1,70 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 4
+    Place_Name Char (40) Index 1 ;
+    Country Char (40) ;
+    Latitude Char (20) ;
+    Longitude Char (20) ;
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "74.3289"
+"\Identification\Domain\Bounds\East" = "134.298"
+"\Identification\Domain\Bounds\North" = "53.5523"
+"\Identification\Domain\Bounds\South" = "18.2247"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; China Cities"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "City locations for over 5,000 major and minor cities in China including province capitals."
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1992"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "Country"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = "Reference Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "2"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "Asia"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "China"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 0"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude"
+"\Spatial Reference\Geographic\Coordinate Units" = "Decimal Degree"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "NA"
+"\Spatial Reference\Geodetic\Ellipsoid" = "NA"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "5030"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "5030"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Points"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1992"
+"\Quality\Lineage\Source\Scale" = "1:1,000,000"
+"\Quality\Lineage\Source\Citation" = "MapInfo from Digital Chart of the World"
+end_metadata

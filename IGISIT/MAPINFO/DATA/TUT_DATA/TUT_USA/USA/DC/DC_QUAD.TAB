@@ -1,0 +1,64 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  File "dc_quad.tif"
+  Type "RASTER"
+  (-77.0489,38.9112) (64,51) Label "Pt 1",
+  (-77.0048,38.9086) (827,108) Label "Pt 2",
+  (-77.003782,38.88729) (848,580) Label "Pt 3",
+  (-77.0501,38.888) (37,565) Label "Pt 4"
+  CoordSys Earth Projection 1, 0
+  Units "degree"
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; DC Raster Map"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Raster image of the Mall area in DC."
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1995"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Tutorial Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "3"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "District of Columbia"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 0"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "Not Applicable"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "0"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Raster"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1995"
+"\Quality\Lineage\Source\Scale" = "1:24,000"
+"\Quality\Lineage\Source\Citation" = "Sure!MAPS ® RASTER © HTI 1995"
+end_metadata

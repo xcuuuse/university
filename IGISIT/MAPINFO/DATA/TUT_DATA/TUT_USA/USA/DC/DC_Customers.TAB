@@ -1,0 +1,18 @@
+!table
+!version 410
+!charset WindowsCyrillic
+
+Definition Table
+  File "dc_cust.mdb"
+  Type ACCESS TABLE "DC_Customers" Charset "WindowsCyrillic"
+  Fields 10
+    Lname Char (25) ;
+    Fname Char (25) ;
+    Company Char (25) ;
+    Address Char (40) ;
+    City Char (28) ;
+    Zip_code Char (5) ;
+    Telephone Char (15) ;
+    Sales Float ;
+    No_employ Float ;
+    Sales_rep Char (15) ;

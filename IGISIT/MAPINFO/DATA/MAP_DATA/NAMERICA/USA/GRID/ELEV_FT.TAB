@@ -1,0 +1,14 @@
+!table
+!version 500
+!charset WindowsCyrillic
+
+Definition Table
+  File "elev_ft.mig"
+  Type "RASTER"
+  (-125.492164,49.742601) (0,0) Label "",
+  (-66.688836,49.742601) (403,0) Label "",
+  (-66.688836,25.215621) (403,212) Label "",
+  (-125.492164,25.215621) (0,212) Label ""
+  CoordSys Earth Projection 1, 104
+  Units "degree"
+  RasterStyle 6 1

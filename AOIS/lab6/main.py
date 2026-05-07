@@ -14,7 +14,7 @@ def key_to_V(key: str) -> int:
 
     key = key.strip()
     b1 = char_value(key[0]) if len(key) >= 1 else 0
-    b2 = char_value(key[1]) if len(key) >= 2 else 0
+    b2 = char_value(key[1]) if len(key) >= 2 else 1
     return b1 * 33 + b2
 
 

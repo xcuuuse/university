@@ -1,0 +1,100 @@
+!Workspace
+!Version 400
+!Charset WindowsCyrillic
+Open Table "..\WORLD\Grid15" As Graticule Interactive
+Open Table "..\WORLD\Ocean" As Ocean Interactive
+Open Table "..\WORLD\World" As Countries Interactive
+Open Table "..\WORLD\Worldcap" As Capitals Interactive
+Set Window Legend
+  Position (6.01042,0.760417) Units "in"
+  Width 2.23958 Units "in" Height 2.8125 Units "in" 
+Open Window Legend
+Map From Capitals,Countries,Graticule,Ocean 
+  Position (0.0416667,0.0833333) Units "in"
+  Width 4.22917 Units "in" Height 2.3125 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 12, 62, "m", 0
+  Center (-1.862645149e-009,-9.313225746e-010)
+  Zoom 28014.44833 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "m" Distance Units "mi" Area Units "sq mi"
+shade 2 with Население/Area(Object, "sq km") ranges apply all use color Brush (2,16711680,16777215) 
+  0: 40 Brush (2,12632256,16777215) ,
+  40: 110 Brush (2,13668496,16777215) ,
+  110: 230 Brush (2,14704736,16777215) ,
+  230: 580 Brush (2,15740976,16777215) ,
+  580: 298950 Brush (2,16711680,16777215) 
+  default Brush (2,16711680,16777215) 
+  # use 1 round 10 inflect off Brush (2,16777215,16777215) at 2 by 0 color 1 # 
+shade 3 with Pop_Grw_Rt graduated 0.0:0 6.3:36 Symbol (58,128,36,"MapInfo Miscellaneous",0,0) vary size by "SQRT"   # color 0 # 
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 4500) Units "mi" 
+    Label Line Arrow Position Right Font ("MS Sans Serif",0,9,0) Pen (1,2,0) 
+      With Столица
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Value
+    Selectable Off
+    Zoom (4500, 15000) Units "mi" 
+  Layer 3
+    Display Value
+    Selectable Off
+    Zoom (4500, 15000) Units "mi" 
+  Layer 4
+    Display Graphic
+    Label Line None Position Center Font ("MS Sans Serif",0,8,0) Pen (1,2,0) 
+      With Страна
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (0, 7000) Units "mi"
+  Layer 5
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+set legend 
+  layer 2 
+    display on 
+    shades off 
+    symbols on 
+    lines off 
+    count off 
+    title "Страны мира" Font ("MS Sans Serif",1,10,0)
+    subtitle "Прирост населения" Font ("MS Sans Serif",0,8,0)
+    ascending off 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "" display off ,
+      "-6.3" display off ,
+      "-3.15" display off ,
+      "-0.63" display off ,
+      "0.63" display on ,
+      "3.15" display on ,
+      "6.3" display on  
+set legend 
+  layer 3 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title "Плотность населения" Font ("Arial Cyr",1,10,0)
+    subtitle "на 1994 год (на кв. км.)" Font ("Arial Cyr",0,8,0)
+    ascending off 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "all others" display off ,
+      "0 - 40" display on ,
+      "40 - 110" display on ,
+      "110 - 230" display on ,
+      "230 - 580" display on ,
+      "580 - 299" display on  
+Set Window Frontwindow() Max

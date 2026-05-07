@@ -1,0 +1,159 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "sydn_rd.TAB" As Sydn_rd
+Open Table "sydn_ccd" As Sydn_ccd Interactive
+Open Table "sydn_lga" As Sydn_lga Interactive
+Open Table "sydn_pc" As Sydn_pc Interactive
+Open Table "sydn_sub" As Sydn_sub Interactive
+Open Table "sydn_rvr" As Sydn_rvr
+Open Table "sydn_grd" As Sydn_grd
+Open Table "sydn_fea" As Sydn_fea Interactive
+Open Table "sydn_twn" As Sydn_twn Interactive
+Open Table "sydn_cus" As Sydn_cus Interactive
+Open Table "sydn_ras.TAB" As Sydn_ras Interactive
+Open Table "sydn_nsw" As Sydn_nsw
+Browse * From Sydn_sub
+  Position (0.0520833,0.0104167) Units "in"
+  Width 1.57292 Units "in" Height 1.33333 Units "in" 
+Browse * From Sydn_fea
+  Position (0.0520833,1.64583) Units "in"
+  Width 1.57292 Units "in" Height 2.42708 Units "in" 
+Map From Sydn_fea,Sydn_twn,Sydn_cus,Sydn_rvr,Sydn_ccd,Sydn_rd,
+  Sydn_sub,Sydn_ccd,Sydn_rd,Sydn_sub,Sydn_pc,Sydn_lga,
+  Sydn_lga,Sydn_grd,Sydn_ras,Sydn_nsw 
+  Position (1.72917,0.0104167) Units "in"
+  Width 4.84375 Units "in" Height 4.0625 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (146.9406885,-32.71715819)
+  Zoom 1300 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (8.01, 15) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",257,8,16711680,16777215) Pen (1,2,0) 
+      With NAME
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (8.01, 15) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",257,9,0,16777215) Pen (1,2,0) 
+      With NAME
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 8) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",1,9,0,16777215) Pen (1,2,16777215) 
+      With "Sample customer file"+Chr$(13)+"and raster image"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility On
+   Object 1 Anchor (151.266604,-33.774079) Callout (151.271286,-33.791708) 
+  Layer 4
+    Display Graphic
+    Zoom (8.01, 30) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",1,9,0) Pen (1,2,0) 
+      With "Towns and Features"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility Zoom (8.01, 15) Units "km"
+   Object 3 Anchor (151.294008,-33.776645) Callout (151.274729,-33.779582) 
+  Layer 5
+    Display Global
+    Global Pen (1,2,16711680)  Brush (1,16777215,16777215)    
+    Zoom (0, 8) Units "km" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Cd_id
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 6
+    Display Global
+    Global    Line (1,2,16776960)  
+    Zoom (0, 8) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 7
+    Display Global
+    Global Pen (2,2,16711680)  Brush (1,16777215,16777215)    
+    Zoom (0, 8) Units "km" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 8
+    Display Global
+    Global Pen (1,2,16711680)  Brush (44,16776960)    
+    Zoom (8.01, 30) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",1,9,0) Pen (1,2,0) 
+      With "CD boundaries, detailed"+Chr$(13)+"roads and detailed rivers"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility On
+   Object 1 Anchor (151.192699,-33.820717) Callout (151.246311,-33.806509) 
+  Layer 9
+    Display Graphic
+    Zoom (8.01, 30) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 10
+    Display Global
+    Global Pen (2,2,16711680)  Brush (30,16776960)    
+    Zoom (8.01, 50) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",1,9,0) Pen (1,2,0) 
+      With "Suburb boundaries"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility On
+   Object 2 Anchor (151.281202,-33.842455) Callout (151.287797,-33.822406) 
+  Layer 11
+    Display Global
+    Global Pen (2,2,8388736)  Brush (1,255,16777215)    
+    Zoom (0, 50) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",1,9,0) Pen (1,2,0) 
+      With "Postcode boundaries"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility Zoom (8.01, 50) Units "km"
+   Object 1 Anchor (151.255064,-33.762329) Callout (151.257866,-33.77959) 
+  Layer 12
+    Display Global
+    Global Pen (2,2,65280)  Brush (1,16777215,16777215)    
+    Zoom (0, 8) Units "km" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With LGA_id
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 13
+    Display Global
+    Global Pen (2,2,65280)  Brush (15,65280,16777215)    
+    Zoom (8.01, 100) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",1,9,0) Pen (1,2,0) 
+      With "LGA boundary"
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (30.01, 100) Units "km"
+   Object 1 Anchor (151.152361,-33.80375) Callout (151.232237,-33.795707) 
+  Layer 14
+    Display Graphic
+    Selectable Off
+    Zoom (100.1, 700) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With ID
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 15
+    Display Graphic
+    Selectable Off
+    Zoom (0.25, 8) Units "km" 
+  Layer 16
+    Display Graphic
+    Zoom (50.01, 100000) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",545,12,0) Pen (1,2,0) 
+      With "Use Zoom-in tool to view"+Chr$(13)+"sample data for Sydney"
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (700, 100000) Units "km"
+   Object 1 Anchor (144.122337,-36.740653) Callout (150.879928,-34.101126) 

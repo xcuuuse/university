@@ -1,0 +1,12 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 5
+    CARRIER Char (50) ;
+    MARKET Char (50) Index 1 ;
+    TECHNOLOGY Char (25) Index 2 ;
+    SERVICE Char (25) ;
+    LAUNCHDATE Char (15) ;

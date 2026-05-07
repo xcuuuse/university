@@ -1,0 +1,14 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type DBF Charset "CodePage437"
+  Fields 7
+    City Char (19) ;
+    Company Char (31) ;
+    Name Char (29) ;
+    Tel Char (14) ;
+    Fax Char (14) ;
+    Index Decimal (8, 0) ;
+    Addres Char (29) ;

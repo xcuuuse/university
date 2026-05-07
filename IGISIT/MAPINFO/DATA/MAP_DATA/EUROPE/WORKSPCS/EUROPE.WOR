@@ -1,0 +1,98 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\Eucty_6k" As Major_Cities Interactive
+Open Table "..\Eucty11k" As Cities Interactive
+Open Table "..\Eur_caps" As Capitals Interactive
+Open Table "..\eurnuts1" As NUTS_1 Interactive
+Open Table "..\Eurnuts2" As NUTS_2 Interactive
+Open Table "..\Eurhiway" As Highways Interactive
+Open Table "..\Europe" As Europe Interactive
+Open Table "..\AUST_SWZ\Switzlnd" As Switzlnd Interactive
+Open Table "..\SCAND\Norway" As Norway Interactive
+Open Table "..\Eurwater" As Water Interactive
+Map From Capitals,Major_Cities,Cities,Water,Highways,Norway,
+  Switzlnd,NUTS_2,NUTS_1,Europe 
+  Position (0.0166667,0.0583333) Units "in"
+  Width 5.81667 Units "in" Height 3.20833 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (24.95586869,52.45274537)
+  Zoom 5604.928757 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (250, 2500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",1,7,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (75, 250) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,6,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 100) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,6,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 1750) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 350) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Zoom (0, 800) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,8,8421504) Pen (1,2,0) 
+      With Fylker
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 7
+    Display Graphic
+    Zoom (0, 800) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,8,8421504) Pen (1,2,0) 
+      With KANT_NAME
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 8
+    Display Global
+    Global  Brush (1,16777215,16777215)    
+    Zoom (0, 400) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,8,8421504) Pen (1,2,0) 
+      With Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 9
+    Display Global
+    Global  Brush (1,13696976,16777215)    
+    Zoom (400, 800) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,8,8421504) Pen (1,2,0) 
+      With Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 10
+    Display Graphic
+    Label Line None Position Center Font ("Arial",1,8,8388608) Pen (1,2,0) 
+      With COUNTRY
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (750, 5750) Units "mi"
+Set Window FrontWindow() Title "Europe"
+Set Window Frontwindow() Max

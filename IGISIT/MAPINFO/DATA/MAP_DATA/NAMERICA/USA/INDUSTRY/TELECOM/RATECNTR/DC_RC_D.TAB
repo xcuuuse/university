@@ -1,0 +1,52 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 6
+    RATE_CNTR Char (10) ;
+    LOCALITY Char (10) ;
+    NPA Char (5) ;
+    NXX Char (5) ;
+    RC_ID Char (14) ;
+    ALT_NAME Char (80) ;
+ReadOnly
+begin_metadata
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "-77.1199"
+"\Identification\Domain\Bounds\East" = "-76.9094"
+"\Identification\Domain\Bounds\North" = "38.9951"
+"\Identification\Domain\Bounds\South" = "38.7915"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; DC RateCenterInfo"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Rate Center Information; DC area"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "March 2000"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Industry - Telecom"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "3"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "District of Columbia"
+"\IsReadOnly" = "FALSE"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "March 2000"
+"\Quality\Lineage\Source\Scale" = "1:24,000"
+"\Quality\Lineage\Source\Citation" = "MapInfo Corp"
+end_metadata
+

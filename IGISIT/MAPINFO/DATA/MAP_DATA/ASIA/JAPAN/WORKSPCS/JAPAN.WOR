@@ -1,0 +1,95 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\jpnsea" As SEA Interactive
+Open Table "..\jpn1bord" As Coastline Interactive
+Open Table "..\jpn1wate" As Rivers Interactive
+Open Table "..\jpn1case" As RoadCase Interactive
+Open Table "..\jpn1road" As Highways Interactive
+Open Table "..\jpn1rail" As Railroads Interactive
+Open Table "..\jpn1back" As Country
+Open Table "..\Jpcty_55" As Jpcty_55 Interactive
+Open Table "..\Jpcty142" As Jpcty142 Interactive
+Map From Jpcty_55,Jpcty142,Highways,RoadCase,Railroads,Rivers,
+  Coastline,Country,SEA 
+  Position (1.60417,0.03125) Units "in"
+  Width 4.19792 Units "in" Height 3.97917 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 97
+  Center (137.4789852,38.22472798)
+  Zoom 1747.197893 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (300, 1000) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",1,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",1,8,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Zoom (0, 1000) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Zoom (0, 1000) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Zoom (0, 500) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Zoom (0, 600) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 7
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Zoom (300, 10000) Units "km" Off 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 8
+    Display Graphic
+    Label Line None Position Center Font ("Arial",0,10,8388608) Pen (1,2,0) 
+      With CAT
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1000, 100000) Units "mi"
+   Object 2 Anchor (129.084428,32.210165) 
+   Object 3 Anchor (134.325482,32.82291) 
+  Layer 9
+    Display Graphic
+    Global  Brush (1,0,16777215)  Symbol (49,0,12)   Font ("MS Sans Serif",0,8,0)
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With ID
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window FrontWindow() Title "Japan"
+Set Window Frontwindow() Max

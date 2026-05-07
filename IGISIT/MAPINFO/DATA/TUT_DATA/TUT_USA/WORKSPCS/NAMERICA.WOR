@@ -1,0 +1,159 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\CANADA\Can_caps" As Can_caps Interactive
+Open Table "..\CANADA\Canada" As Canada Interactive
+Open Table "..\CANADA\Canhiway" As Canhiway Interactive
+Open Table "..\MEXICO\Mexico" As Mexico Interactive
+Open Table "..\MEXICO\Mx_caps" As Mx_caps Interactive
+Open Table "..\MEXICO\Mx_hiway" As Mx_hiway Interactive
+Open Table "..\USA\Us_hiway" As Us_hiway Interactive
+Open Table "..\USA\Statecap" As Statecap Interactive
+Open Table "..\USA\States" As States Interactive
+Open Table "..\USA\City_125" As US_Cities Interactive
+Set Window Legend
+  Position (0.65625,2.88542) Units "in"
+  Width 2.08333 Units "in" Height 2.75 Units "in" 
+Open Window Legend
+Map From US_Cities,Statecap,Mx_caps,Can_caps,Us_hiway,Mx_hiway,
+  Canhiway,States,Mexico,Canada 
+  Position (0.0416667,0.0625) Units "in"
+  Width 4.22917 Units "in" Height 2.33333 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 3, 62, "m", -96, 23, 20, 60, 0, 0
+  Center (-516487.1312,2539435.005)
+  Zoom 7361.154034 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+shade 8 with Sales_1990 ranges apply all use color Brush (2,8388608,16777215) 
+  2000000: 9000000 Brush (2,12632256,16777215) ,
+  9000000: 22000000 Brush (2,11571344,16777215) ,
+  22000000: 63000000 Brush (2,10510432,16777215) ,
+  63000000: 225000000 Brush (2,9449520,16777215) ,
+  225000000: 226000000 Brush (2,8388608,16777215) 
+  default Brush (100,16777215) 
+  # use 3 round 1000000 inflect off Brush (2,16777215,16777215) at 2 by 0 color 1 # 
+shade 9 with BPI_1990 graduated 0.0:0 5:36 Symbol (49,128,36,"MapInfo Real Estate",0,0) vary size by "SQRT"   # color 0 # 
+Set Map
+  Layer 1
+    Display Global
+    Global   Symbol (45,0,9,"MapInfo Cartographic",0,0)   
+    Zoom (0, 750) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Global
+    Global   Symbol (60,255,9,"MapInfo Cartographic",0,0)   
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Global
+    Global   Symbol (60,255,9,"MapInfo Cartographic",0,0)   
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Global
+    Global   Symbol (60,255,9,"MapInfo Cartographic",0,0)   
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 7
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 8
+    Display Value
+    Global  Brush (16,16776960,16777215)    
+    Selectable Off
+    Zoom (500, 4000) Units "mi" 
+  Layer 9
+    Display Value
+    Global  Brush (16,16776960,16777215)    
+    Selectable Off
+    Zoom (500, 4000) Units "mi" 
+  Layer 10
+    Display Global
+    Global  Brush (16,16776960,16777215)    
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 11
+    Display Graphic
+    Global  Brush (16,65535,16777215)    
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 12
+    Display Graphic
+    Global  Brush (16,65535,16777215)    
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Province
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+set legend 
+  layer 8 
+    display on 
+    shades off 
+    symbols on 
+    lines off 
+    count off 
+    title "United States" Font ("Arial",1,10,0)
+    subtitle "Buying Power Index 1990" Font ("Arial",0,8,0)
+    ascending off 
+    ranges Font ("Arial",0,8,0)
+      "" display off ,
+      "-5" display off ,
+      "-2.5" display off ,
+      "-0.5" display off ,
+      "0.5" display on ,
+      "2.5" display on ,
+      "5" display on  
+set legend 
+  layer 9 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count on 
+    title "United States" Font ("Arial",1,10,0)
+    subtitle "Total Sales for 1990" Font ("Arial",0,8,0)
+    ascending off 
+    ranges Font ("Arial",0,8,0)
+      "all others" display off ,
+      "2,000,000 to 9,000,000" display on ,
+      "9,000,000 to 22,000,000" display on ,
+      "22,000,000 to 63,000,000" display on ,
+      "63,000,000 to 225,000,000" display on ,
+      "225,000,000 to 226,000,000" display on  
+Set Window FrontWindow() Title "North America"
+Set Window Frontwindow() Max

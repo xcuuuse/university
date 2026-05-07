@@ -1,0 +1,12 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type ASCII Delimiter 09 Charset "WindowsCyrillic"
+  Fields 5
+    Название Char (81) ;
+    Примечание Char (145) ;
+    Индекс Integer ;
+    Адрес Char (69) ;
+    Тип_организации Char (44) ;

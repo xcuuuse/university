@@ -1,0 +1,35 @@
+!Workspace
+!Version 600
+!Charset WindowsCyrillic
+Open Table "lab 1" As lab_1 Interactive
+Open Table "USA" As USA Interactive
+Map From USA 
+  Position (8.3125,0.708333) Units "in"
+  Width 9.91667 Units "in" Height 4.71875 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-95.613287,37.6574085)
+  Zoom 6802.994869 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+    Activate Using URL On Objects Relative Path Off
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From USA
+  Position (3.48958,3.29167) Units "in"
+  Width 10.8333 Units "in" Height 4.96875 Units "in" 
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9

@@ -1,0 +1,56 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\can_caps" As Capitals Interactive
+Open Table "..\canada" As Provinces Interactive
+Open Table "..\canhiway" As Highways Interactive
+Open Table "..\Cncty223" As Major_Cities Interactive
+Open Table "..\Cncty_3k" As Cities Interactive
+Map From Capitals,Major_Cities,Cities,Highways,Provinces 
+  Position (0,0.03125) Units "in"
+  Width 5.89583 Units "in" Height 3.20833 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 9, 62, "m", -96, 23, 20, 60, 0, 0
+  Center (307490.7913,4324173.976)
+  Zoom 4500 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Global   Symbol (58,16711680,12,"MapInfo Cartographic",256,0)   
+    Zoom (750, 4500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (300, 750) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,8,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 1500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Label Line None Position Center Font ("Arial",1,9,8388608) Pen (1,2,0) 
+      With Province_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1501, 5000) Units "mi"
+Set Window FrontWindow() Title "Canada"
+Set Window Frontwindow() Max

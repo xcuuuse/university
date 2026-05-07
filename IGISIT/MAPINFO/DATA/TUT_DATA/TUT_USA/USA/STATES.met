@@ -1,0 +1,105 @@
+Metadata summary For file STATES
+
+
+Identification
+
+Use Constraints:     For use with MapInfo Professional
+
+Access Constraints:     Licensed Users
+
+Domain:
+     Bounds:
+          West:     -179.626
+          East:     -66.9521
+          North:     71.4289
+          South:     18.9249
+
+Citation:     MapInfo Professional Bundled Maps; US State Boundaries
+
+Description:
+     Abstract:     State boundaries for the United States, geographically correct for Alaska and Hawaii.   Highly generalized boundaries.
+
+Time Period:
+     Currentness:     1992
+
+Keywords:
+     Theme:
+          Geography:     Country
+          Content:     Tutorial Data
+     Place:
+          Layers:
+               Count:     2
+               Layer1Name:     Continent
+               Layer1:     North America
+               Layer2Name:     Country
+               Layer2:     United States
+
+
+Spatial Reference
+
+Geographic:
+     Projection:
+          Clause:     CoordSys Earth Projection 1, 0
+          Name:     Longitude / Latitude
+     Coordinate Units:     Decimal Degree
+
+Geodetic:
+     Datum:     NA
+     Ellipsoid:     NA
+
+
+Spatial Organization
+
+Object:
+     Type1:     Regions
+          Count:     51
+     Type2:     Points
+          Count:     0
+     Type3:     Polylines
+          Count:     0
+     Type4:     Lines
+          Count:     0
+     All:
+          TotalCount:     51
+
+Method:
+     Type:     Polygons
+
+
+Quality
+
+Lineage:
+     Source:
+          Vintage:     1992
+          Scale:     ~ 1:10,000,000
+          Citation:     MapInfo from the US Census Bureau
+
+
+                    Entity and Attribute Information
+Entity Type Definition: Mapinfo Native
+Entity Type Definition Source:
+
+Field     Field                             Field               Field
+Number    Name                              Type                Length
+ 1        State_Name                        C                   20
+ 2        State                             C                   2
+ 3        FIPS_Code                         C                   2
+ 4        Pop_1980                          D                   10, 0
+ 5        Pop_1990                          D                   10, 0
+ 6        Num_Hh_80                         D                   10, 0
+ 7        Num_Hh_90                         D                   10, 0
+ 8        Med_Inc_80                        D                   10, 0
+ 9        Med_Inc_90                        D                   10, 0
+10        BPI_1990                          D                   10, 4
+11        Pop_Urban                         D                   10, 0
+12        Pop_Rural                         D                   10, 0
+13        Pop_Male                          D                   10, 0
+14        Pop_Female                        D                   10, 0
+15        Pop_Cauc                          D                   10, 0
+16        Pop_Black                         D                   10, 0
+17        Pop_Native                        D                   10, 0
+18        Pop_Asian                         D                   10, 0
+19        Pop_Other                         D                   10, 0
+20        Sales_1990                        D                   10, 0
+21        Total_Area                        D                   8, 1
+22        URL                               C                   35

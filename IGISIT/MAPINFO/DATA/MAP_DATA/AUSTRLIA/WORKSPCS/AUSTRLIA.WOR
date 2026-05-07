@@ -1,0 +1,64 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\Aushiway" As Highways Interactive
+Open Table "..\AuCty_4k" As Cities Interactive
+Open Table "..\AuCty417" As Major_Cities Interactive
+Open Table "..\Austcaps" As Capitals Interactive
+Open Table "..\Austrlia" As Australia
+Map From Capitals,Major_Cities,Cities,Highways,Australia 
+  Position (0.0416667,0.0833333) Units "in"
+  Width 4.22917 Units "in" Height 2.3125 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (134.9855909,-26.854255)
+  Zoom 4499.61484 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (750, 4500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",5,8,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (300, 750) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 4
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 300) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,8,0) Pen (1,2,0) 
+      With Place_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 5
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 2500) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With HIGHWAY
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 100000) Units "mi" 
+    Label Line None Position Center Font ("Arial",1,8,8388608) Pen (1,2,0) 
+      With St_Abbr
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (750, 100000) Units "mi"
+   Object 1 Anchor (149.213932,-34.828528) 
+   Object 2 Anchor (145.626084,-31.209986) 
+   Object 8 Anchor (122.118126,-25.527057) 
+   Object 7 Anchor (143.77327,-36.922015) 
+   Object 5 Anchor (134.995407,-29.597456) 
+   Object 6 Anchor (146.742607,-42.029011) 
+   Object 4 Anchor (144.34203,-22.140763) 
+   Object 3 Anchor (133.368112,-21.110263) 
+Set Window FrontWindow() Title "Australia"
+Set Window Frontwindow() Max

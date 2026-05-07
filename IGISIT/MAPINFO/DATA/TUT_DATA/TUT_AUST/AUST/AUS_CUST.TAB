@@ -1,0 +1,15 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type DBF Charset "WindowsLatin1"
+  Fields 8
+    Lname Char (20) ;
+    Fname Char (15) ;
+    Terr Char (1) ;
+    Company Char (40) ;
+    City Char (20) ;
+    State Char (3) ;
+    Postcode Char (4) ;
+    Order_amt Decimal (7, 0) ;

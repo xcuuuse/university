@@ -1,0 +1,7 @@
+Fields {*Max(Area(obj, "sq mi"))}
+Tables {Query1, State, Pop_1990}
+Where {> }
+Group {}
+Order {}
+Into {Query1}
+Browse

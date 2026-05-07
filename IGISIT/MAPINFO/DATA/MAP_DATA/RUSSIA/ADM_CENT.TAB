@@ -1,0 +1,13 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 6
+    Rus_Name Char (30) Index 1 ;
+    Eng_Name Char (30) ;
+    Год_основания Smallint ;
+    Население_1979_г Integer Index 2 ;
+    Население_1989_г Integer ;
+    АББ Char (3) Index 3 ;

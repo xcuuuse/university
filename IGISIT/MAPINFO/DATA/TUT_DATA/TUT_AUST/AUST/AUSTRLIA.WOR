@@ -1,0 +1,62 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "ausstate" As Ausstate Interactive
+Open Table "aus_100" As Aus_100 Interactive
+Open Table "aus_caps" As Aus_caps Interactive
+Open Table "aushiway" As Aushiway Interactive
+Map From Aus_100,Aus_100,Aus_caps,Aushiway,Ausstate,Ausstate 
+  Position (0.0520833,0.0520833) Units "in"
+  Width 4.125 Units "in" Height 2.52083 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (136.01022,-26.443185)
+  Zoom 6270 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 250) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",3,12,128) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (251, 500) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",3,9,128) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (501, 2000) Units "km" 
+    Label Line Arrow Position Above Right Font ("Arial",257,9,0,16777215) Pen (1,2,0) 
+      With City
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (201, 2000) Units "km"
+  Layer 4
+    Display Graphic
+    Zoom (0, 1000) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 6000) Units "km" 
+    Label Line None Position Below Font ("Arial",513,8,8388608) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (1001, 6000) Units "km"
+  Layer 6
+    Display Graphic
+    Zoom (6000, 100000) Units "km" 
+    Label Line None Position Center Font ("Arial",545,12,0) Pen (1,2,0) 
+      With "Use Zoom-in tool to view sample data"
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility On
+   Object 1 Anchor (123.337371,-38.057836) 
+Set Window Frontwindow() Max

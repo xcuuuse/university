@@ -1,0 +1,33 @@
+!Workspace
+!Version 600
+!Charset WindowsCyrillic
+Open Table "STATES" As STATES Interactive
+Map From STATES 
+  Position (10,0) Units "in"
+  Width 9.83333 Units "in" Height 9.4375 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-95.613287,37.464292)
+  Zoom 6820.651008 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From STATES
+  Position (0,0) Units "in"
+  Width 9.83333 Units "in" Height 9.4375 Units "in" 
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9

@@ -1,0 +1,17 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type DBF Charset "WindowsCyrillic"
+  Fields 10
+    Lname Char (25) ;
+    Fname Char (25) ;
+    Company Char (25) ;
+    Address Char (40) ;
+    City Char (28) ;
+    Zip_code Char (5) ;
+    Telephone Char (15) ;
+    Sales Decimal (6, 0) ;
+    No_employ Decimal (4, 0) ;
+    Sales_rep Char (15) ;

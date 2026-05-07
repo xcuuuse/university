@@ -1,0 +1,117 @@
+!Workspace
+!Version 550
+!Charset WindowsLatin1
+Open Table "..\usa\states" As States Interactive
+Open Table "..\usa\dc\dc_areas" As Landmark Interactive
+Open Table "..\usa\dc\dc_bdys" As Borders Interactive
+Open Table "..\usa\dc\dc_strts" As Streets Interactive
+Open Table "..\usa\dc\dc_water" As Water Interactive
+Open Table "..\usa\dc\dc_pts" As Pt_Landmark Interactive
+Open Table "..\usa\dc\Dc_quad.TAB" As DC_Map Interactive
+Map From Pt_Landmark,Streets,DC_Map,Landmark,Water,Borders,States 
+  Position (0,0) Units "in"
+  Width 7.54167 Units "in" Height 5.04167 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (-76.9865335,38.87778452)
+  Zoom 25.5047437 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "mi" Area Units "sq mi"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 3.5) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates Off PartialSegments On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (0, 15) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto On Overlap Off Duplicates Off Offset 2
+      Visibility Zoom (0, 1) Units "mi"
+  Layer 3
+    Display Graphic
+    Selectable Off
+    Zoom (0, 5) Units "mi" 
+  Layer 4
+    Display Graphic
+    Zoom (0, 25) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Zoom (0, 50) Units "mi" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Zoom (0, 50) Units "mi" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 1 Table Dcwashb Anchor (-77.023345,38.954147) Visibility Off
+  Layer 7
+    Display Graphic
+    Label Line None Position Center Font ("MS Sans Serif",1,12,8388608) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 47 Anchor (-77.230966,38.926248) Visibility Off
+   Object 21 Anchor (-76.886417,38.943827) Visibility Off
+   Object 9 Anchor (-77.040228,38.957189) Visibility Off
+Set Window FrontWindow() Title "District of Columbia Metro"
+Create Cartographic Legend
+  Position (5.5,0.0166667) Units "in"
+  Width 2.75833 Units "in" Height 4.26667 Units "in" 
+  Window Title "Legend of District of Columbia Metro"
+  Portrait
+  Default Frame Title "# Legend" Font ("Arial",0,10,0)
+  Default Frame Style "%" Font ("Arial",0,8,0)
+  Frame From Layer 1
+    Border Pen (0,1,0) 
+    Title "DC Point Landmarks" Font ("Arial",0,10,0)
+    Using Column object Label Landmark 
+    Style Font ("Arial",0,8,0)
+      Text "School" Symbol (40,12582912,12,"MapInfo Real Estate",0,0) 
+      Text "Hospital" Symbol (46,255,12,"MapInfo Real Estate",0,0) 
+      Text "Building" Symbol (48,8421504,12,"MapInfo Real Estate",16,0) 
+      Text "Church" Symbol (67,12583104,12,"MapInfo Real Estate",17,0) 
+  Frame From Layer 2
+    Border Pen (0,1,0) 
+    Title "DC Streets" Font ("Arial",0,10,0)
+    Using Column Class Label Class 
+    Style Font ("Arial",0,8,0)
+      Text "Primary Highways" Line Pen (2,2,16711680) 
+      Text "Railroads" Line Pen (1,26,0) 
+      Text "Streets" Line Pen (1,2,0) 
+  Frame From Layer 4
+    Border Pen (0,1,0) 
+    Title "DC Area Landmarks" Font ("Arial",0,10,0)
+    Using Column object Label class 
+    Style Font ("Arial",0,8,0)
+      Text "Park" Region Pen (0,1,0)  Brush (2,49152,16777215) 
+      Text "Religious Institution" Region Pen (1,1,0)  Brush (2,16744703,16777215) 
+      Text "Educational Facility" Region Pen (0,1,0)  Brush (2,16744576,16777215) 
+      Text "Military Institution" Region Pen (1,1,0)  Brush (2,8421376,16777215) 
+  Frame From Layer 5
+    Border Pen (0,1,0) 
+    Title "DC Water" Font ("Arial",0,10,0)
+    Using Column object Label class 
+    Style Font ("Arial",0,8,0)
+      Text "River" Line Pen (1,2,255) 
+      Text "Water Body" Region Pen (1,2,255)  Brush (2,255,16777215) 
+  Frame From Layer 6
+    Border Pen (0,1,0) 
+    Title "DC City Boundaries" Font ("Arial",0,10,0)
+    Using Column object Label " " 
+    Style Font ("Arial",0,8,0)
+      Text "" Region Pen (1,12,0)  Brush (2,16777088,16777215) 

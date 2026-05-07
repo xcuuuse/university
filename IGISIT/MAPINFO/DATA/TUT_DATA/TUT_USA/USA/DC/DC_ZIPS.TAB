@@ -1,0 +1,75 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 7
+    ZIP_Code Char (5) Index 1 ;
+    Name Char (24) ;
+    USPS_Name Char (24) ;
+    State Char (2) ;
+    Area Decimal (7, 3) ;
+    Population Decimal (11, 0) ;
+    Hhld_Units Decimal (11, 0) ;
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "-77.1197"
+"\Identification\Domain\Bounds\East" = "-76.9097"
+"\Identification\Domain\Bounds\North" = "38.995"
+"\Identification\Domain\Bounds\South" = "38.8097"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; DC 5 digit Zipcodes"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Zipcode boundaries and demographic data for the District of Columbia."
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1994"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "Metro"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = "Tutorial Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "3"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "District of Columbia"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 1, 0"
+"\Spatial Reference\Geographic\Projection\Name" = "Longitude / Latitude"
+"\Spatial Reference\Geographic\Coordinate Units" = "Decimal Degree"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "NA"
+"\Spatial Reference\Geodetic\Ellipsoid" = "NA"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "64"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "0"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "64"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Polygons"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1994"
+"\Quality\Lineage\Source\Scale" = "1:1,000,000"
+"\Quality\Lineage\Source\Citation" = "© 1997 Geographic Data Technology, Inc."
+end_metadata

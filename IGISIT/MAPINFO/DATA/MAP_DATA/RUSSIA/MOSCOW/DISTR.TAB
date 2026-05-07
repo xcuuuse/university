@@ -1,0 +1,10 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 3
+    R_name Char (35) Index 1 ;
+    E_name Char (33) ;
+    Number Integer ;

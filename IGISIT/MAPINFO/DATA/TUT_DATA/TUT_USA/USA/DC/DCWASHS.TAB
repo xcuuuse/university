@@ -1,0 +1,9 @@
+!Table
+!Version 100
+Open Table "dcwashs1" Hide
+Open Table "dcwashs2" Hide
+
+Create View dcwashs As
+Select Street,FromLeft,ToLeft,FromRight,ToRight,Class,Tiger_Refnum
+From dcwashs2, dcwashs1
+Where dcwashs2.MI_Refnum=dcwashs1.MI_Refnum

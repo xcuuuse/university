@@ -1,0 +1,68 @@
+!table
+!version 500
+!charset WindowsLatin1
+
+Definition Table
+  File "helens1.mig"
+  Type "RASTER"
+  (557813.81395423203,5121978.7384692701) (0,0) Label "",
+  (567602.48747359903,5121978.7384692701) (327,0) Label "",
+  (567602.48747359903,5107991.3390172999) (327,467) Label "",
+  (557813.81395423203,5107991.3390172999) (0,467) Label ""
+  CoordSys Earth Projection 8, 62, "m", -123, 0, 0.9996, 500000, 0
+  Units "m"
+  RasterStyle 6 1
+begin_metadata
+"\Relief Shading" = ""
+"\Relief Shading\Horizontal Angle" = "135"
+"\Relief Shading\Vertical Angle" = "45"
+"\Relief Shading\Vertical Scale Factor" = "50"
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; Mt St Helens, WA DEM (pre-eurption)"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "MapInfo grid file of Mt. St. Helens before eruption"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "na"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Reference Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "3"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\Identification\Keywords\Place\Layers\Layer3Name" = "State"
+"\Identification\Keywords\Place\Layers\Layer3" = "Washington"
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "na"
+"\Quality\Lineage\Source\Scale" = "na"
+"\Quality\Lineage\Source\Citation" = "Public Domain - OSU"
+"\Spatial Organization" = ""
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Raster"
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "0"
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "Not Applicable"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "Not Applicable"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 8, 62, ""m"", -123, 0, 0.9996, 500000, 0 Bounds (-29934223597, -29946482898.3) (29935339224.6, 29956726855.8)"
+"\Spatial Reference\Geographic\Projection\Name" = "UTM Zone 10 (NAD 27 for US)"
+end_metadata

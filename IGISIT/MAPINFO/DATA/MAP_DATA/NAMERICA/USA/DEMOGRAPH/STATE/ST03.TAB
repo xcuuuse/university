@@ -1,0 +1,95 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 39
+    St_FIPS Char (2) Index 1 ;
+    State Char (2) Index 2 ;
+    Name Char (25) ;
+    M0to4by Decimal (11, 0) ;
+    M5to9by Decimal (11, 0) ;
+    M10to14by Decimal (11, 0) ;
+    M15to19by Decimal (11, 0) ;
+    M20to24by Decimal (11, 0) ;
+    M25to29by Decimal (11, 0) ;
+    M30to34by Decimal (11, 0) ;
+    M35to39by Decimal (11, 0) ;
+    M40to44by Decimal (11, 0) ;
+    M45to49by Decimal (11, 0) ;
+    M50to54by Decimal (11, 0) ;
+    M55to59by Decimal (11, 0) ;
+    M60to64by Decimal (11, 0) ;
+    M65to69by Decimal (11, 0) ;
+    M70to74by Decimal (11, 0) ;
+    M75to79by Decimal (11, 0) ;
+    M80to84by Decimal (11, 0) ;
+    M85ovrby Decimal (11, 0) ;
+    F0to4by Decimal (11, 0) ;
+    F5to9by Decimal (11, 0) ;
+    F10to14by Decimal (11, 0) ;
+    F15to19by Decimal (11, 0) ;
+    F20to24by Decimal (11, 0) ;
+    F25to29by Decimal (11, 0) ;
+    F30to34by Decimal (11, 0) ;
+    F35to39by Decimal (11, 0) ;
+    F40to44by Decimal (11, 0) ;
+    F45to49by Decimal (11, 0) ;
+    F50to54by Decimal (11, 0) ;
+    F55to59by Decimal (11, 0) ;
+    F60to64by Decimal (11, 0) ;
+    F65to69by Decimal (11, 0) ;
+    F70to74by Decimal (11, 0) ;
+    F75to79by Decimal (11, 0) ;
+    F80to84by Decimal (11, 0) ;
+    F85ovrby Decimal (11, 0) ;
+ReadOnly
+begin_metadata
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; MapInfo Demographics by State"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Demographic data by state"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1990"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Demographic Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "2"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\IsReadOnly" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "0"
+"\Spatial Reference\Geographic\Projection\Name" = "0"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "0"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "0"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "NA"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1990"
+"\Quality\Lineage\Source\Scale" = "NA"
+"\Quality\Lineage\Source\Citation" = "copyright 1998, The Polk Company, All Rights Reserved"
+end_metadata

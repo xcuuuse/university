@@ -1,0 +1,230 @@
+<html><!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=windows-1251">
+<meta name="Template" content="F:\Office 97\Office\html.dot">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>{Product Features} [watermark]</title>
+</head>
+
+<body background="BBRD1-1.jpg" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/BBRD1.jpg" link="#0000FF" vlink="#800080"
+bgproperties="fixed">
+
+<p align="center"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif" width="44" height="41"><font
+size="6"><b>Использование тематических
+Карт для анализа данных</b></font> </p>
+
+<p><font size="4">Тематические Карты
+позволяют увидеть зависимости и
+закономерности данных. Как Вы
+узнали из Главы 10 <i>Руководства
+пользователя</i>, MapInfo позволяет
+создавать различные виды
+тематических Карт. В данном
+упражнении Вы создадите следующие
+тематические Карты на основе Карты
+России и таблицы CITY_200: </font></p>
+
+<ul>
+    <li><font size="4">Карту плотности
+        населения методом диапазонов; </font></li>
+    <li><font size="4">Карту городов методом
+        размерных символов в
+        зависимости от числа жителей. </font></li>
+</ul>
+
+<p><font size="5"><b>Создание карты
+диапазонов</b></font></p>
+
+<p><font size="4">Сначала откроем карту
+России:</font></p>
+
+<ol>
+    <li><font size="4">Выполниет команду Файл
+        &gt; Открыть таблицу. Появится
+        диалог 'Открыть таблицу'.</font></li>
+    <li><font size="4">Убедитесь, что в окошке
+        'Папка' показывается каталог
+        \MAPINFO\DATA\TUT_DATA\RUSSIA. Пролистайте
+        список 'Имя файла' и дважды
+        укажите на файл RUS_OBL.TAB</font><font
+        size="4" face="Arial">.</font></li>
+    <li><font size="4">Максимизируйте окно
+        Карты. Карта России будет
+        показана во все окно MapInfo.</font></li>
+</ol>
+
+<p><font size="4">Теперь можно
+раскрашивать области в зависимости
+от плотности населения
+трудоспособного возраста. Для
+этого все области надо разделить на
+группы или диапазоны в зависимости
+от числа жителей трудоспособного
+возраста и площади
+административной единицы.</font></p>
+
+<p><font size="4">1.Выполните команду Карта
+&gt; Создать тематическую карту.
+Появится первый диалог 'Создание
+тематической карты Шаг 1 из 3'. </font></p>
+
+<p align="center"><font size="4"><img src="Them1RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Them1RT.gif"
+width="528" height="400"></font></p>
+
+<p><font size="4">2. Нажмите первую кнопку с
+надписью 'Диапазоны'. Нажмите
+кнопку 'Далее'. Появится второй
+диалог 'Создание тематической
+карты Шаг 2 из 3'.</font></p>
+
+<p><font size="4">3. В окошке 'Таблица'
+выберите RUS_OBL. В окошке 'Поле'
+выберите 'Выражение'. Откроется
+одноименный диалог. Пользуясь
+списками 'Колонки&quot;,
+'Операторы', 'Функции' наберите
+'Summa_2/Area(obj, 'sq km')'. Нажмите кнопку
+'Далее'. Появится третий диалог
+'Создание тематической карты Шаг 3
+из 3'. </font></p>
+
+<p><font size="4">4. В этом диалоге будет
+показано предлагаемое стандартное
+разделение по диапазонам. Чтобы
+использовать такие диапазоны,
+нажмите OK.</font></p>
+
+<p><font size="4">Появится тематический
+слой и легенда, объясняющая
+значения условных цветов. </font></p>
+
+<p align="center"><img src="Them3RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Them3RT.gif" width="564" height="366"></p>
+
+<p><font size="5"><b>Размерные символы
+(значки)</b></font></p>
+
+<p><font size="4">Мы рассмотрели
+тематическую Карту, на которой
+данные сопоставлялись площадным
+объектам. Однако, в MapInfo также можно
+анализировать данные, выделяя
+условными обозначениями линейные и
+точечные объекты. Мы покажем, как
+использовать размерные символы для
+обозначения городов с различной
+численностью жителей. Но сначала
+надо очистить Карту России и
+добавить к ней Карту крупнейших
+городов: </font></p>
+
+<ol>
+    <li><font size="4">В панели 'Операции'
+        нажмите кнопку 'Управление
+        слоями' <img src="Laycntrl-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Laycntrl.gif"
+        alt="Управление слоями" width="33"
+        height="31">. Появится диалог
+        'Управление слоями'.</font></li>
+    <li><font size="4">Удалите созданный
+        тематический слой диапазонов. </font></li>
+    <li><font size="4">Дважды укажите на
+        кнопку системного меню окна
+        Легенды, чтобы закрыть его. </font></li>
+    <li><font size="4">Выполните команду Файл
+        &gt; Открыть таблицу. Появится
+        диалог 'Открыть таблицу'.</font></li>
+    <li><font size="4">Убедитесь, что в окошке
+        'Папка' показывается каталог
+        \MAPINFO\DATA\TUT_DATA\RUSSIA. Пролистайте
+        список 'Имя файла' и дважды
+        укажите на CITY_200.TAB.</font></li>
+</ol>
+
+<p><font size="4">На карте появятся
+крупнейшие города России.</font></p>
+
+<p><font size="4">Теперь сопоставим
+каждому городу символ, размер
+которого будет пропорционален </font><font
+size="4" face="Times New Roman">численности </font><font
+size="4">населения города.</font></p>
+
+<p><font size="4">1.Выполните команду Карта
+&gt; Создать тематическую карту.</font></p>
+
+<p><font size="4">2.В первом диалоге
+'Создание тематической карты Шаг 1
+из 3' выберите 'Значки' и нажмите
+'Далее'. </font></p>
+
+<p align="center"><img src="Them4RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Them4RT.gif" width="528" height="400"></p>
+
+<p><font size="4">3. Во втором диалоге
+'Создание тематической карты Шаг 2
+из 3' в окошке 'Таблица' выберите
+CITY_200. В окошке 'Поле' выберите
+'Pop_1995' и нажмите 'Далее'.</font></p>
+
+<p><font size="4">4. В третьем диалоге
+'Создание тематической карты Шаг 3
+из 3' будет показан предлагаемый
+размер символов. Нажмите OK.</font></p>
+
+<p><font size="4">5. Каждый город будет
+обозначен символом, размер
+которого зависит от значения в поле
+'Pop_1995'. </font></p>
+
+<p align="center"><img src="Them5RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Them5RT.gif" width="564" height="366"></p>
+
+<p><font size="4">И,</font><font size="4" face="Times New Roman">
+</font><font size="4">наконец, давайте
+создадим легенду для всех слоев
+карты. </font></p>
+
+<ol>
+    <li><font size="4">Выполните команду
+        Карта &gt; Создать легенду.</font></li>
+    <li><font size="4">Нажмите кнопку
+        &quot;Далее&quot; в диалоге
+        &quot;Создание легенды&quot; для
+        включения в легенду всех слоев.</font></li>
+    <li><font size="4">Нажмите кнопку
+        &quot;Завершить&quot;, для
+        построения легенды будут
+        использованы стандартные
+        установки.</font></li>
+</ol>
+
+<p><font size="4">Появится новое окно
+легенды с разделами,</font><font size="4"
+face="Times New Roman"> </font><font size="4">соответствующими
+слоям карты.</font></p>
+
+<p><font size="4">Щелкните по картинке,
+чтобы посмотреть пример
+демонстрации </font><a href="them-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/them.gif"><img
+src="biker-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/biker.gif" alt="{short description of image}" border="0"
+width="55" height="59"></a><font size="4">.</font></p>
+
+<p><font size="4">Итак, Вы готовы к изучению
+следующей главы. Если же
+какие-нибудь места этой главы
+остались неясными, просмотрите ее
+еще раз вместе с соответствующими
+главами <i>Руководства пользователя
+MapInfo</i>.</font></p>
+
+<p><font size="4">Чтобы закончить урок,
+выполните команду Файл &gt; Закрыть
+все.</font></p>
+
+<p align="center"><a href="map01-1.htm" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/map01.htm"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif"
+border="0" width="44" height="41"></a><font size="4">Возврат
+к содержанию Учебника MapInfo Professional.</font></p>
+
+<p><a href="../../../../../www.esti-map.ru/index.htm" tppabs="http://www.esti-map.ru/"><font color="#0000FF"><u>http://www.esti-map.ru</u></font></a></p>
+</body>
+</html>

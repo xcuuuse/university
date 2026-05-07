@@ -1,0 +1,9 @@
+!Table
+!Version 100
+Open Table "mos_name" Hide
+Open Table "MOS_Str0" Hide
+
+Create View M_Street As
+Select R_Name,E_Name,FromLeft,ToLeft,FromRight,ToRight,Primary
+From MOS_NAME, MOS_STR0
+Where MOS_NAME.MI_refnum= MOS_STR0.MI_refnum

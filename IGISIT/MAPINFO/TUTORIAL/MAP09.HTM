@@ -1,0 +1,295 @@
+<html><!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=windows-1251">
+<meta name="Template" content="F:\Office 97\Office\html.dot">
+<meta name="GENERATOR" content="Microsoft FrontPage 2.0">
+<title>{Product Features} [watermark]</title>
+</head>
+
+<body background="BBRD1-1.jpg" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/BBRD1.jpg" link="#0000FF" vlink="#800080"
+bgproperties="fixed">
+
+<p align="center"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif" width="44" height="41"><font
+size="6"><b>Размещение подписей на Карте</b></font></p>
+
+<p><font size="4">Подписи - это очень
+важный компонент всех Карт. Как Вы
+узнали из Главы 12 <i>Руководства
+пользователя</i>, MapInfo предлагает Вам
+множество путей для нанесения
+Ваших подписей на Карту. В этом
+упражнении мы будем использовать
+Карту России и Карту пользователей
+MapInfo и поэкспериментируем со
+следующими функциями: </font></p>
+
+<ul>
+    <li><font size="4">автоматическое
+        подписывание объектов Карты;</font></li>
+    <li><font size="4">подписывание
+        индивидуальных объектов карты;</font></li>
+    <li><font size="4">добавление свободных
+        текстов.</font></li>
+</ul>
+
+<p><font size="4">Мы предлагаем Вам
+поработать со слоем наших клиентов
+в России. Для начала откройте Карту
+России (RUS_OBL.TAB) и Карту
+пользователей (RUS_CUST.TAB).</font></p>
+
+<ol>
+    <li><font size="4">Выполниет команду Файл
+        &gt; Открыть таблицу. Появится
+        диалог 'Открыть таблицу'.</font></li>
+    <li><font size="4">Откройте каталог
+        \MAPINFO\DATA\TUT_DATA\RUSSIA, который
+        появится в окошке 'Папка'.
+        Укажите на файл RUS_OBL.TAB и, держа
+        нажатой клавишу CTRL, нажмите на
+        RUS_CUST.TAB и HIGHWAY.TAB.</font></li>
+    <li><font size="4">Нажмите кнопку
+        'Открыть'.</font></li>
+</ol>
+
+<p><font size="4">Карта будет показана на
+экране.</font></p>
+
+<p align="center"><img src="Lab1RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Lab1RT.gif" width="487" height="270"></p>
+
+<p><font size="4">Вы можете автоматически
+подписать различные слои Карты,
+используя диалог 'Управление
+слоями'. Для запуска режима
+автоматического подписывания
+определенного слоя установите для
+него флажок 'Подписывание' в
+диалоге'Управление слоями'.</font></p>
+
+<p><font size="4">В панели Операции нажмите
+кнопку Управление слоями <img
+src="Laycntrl-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Laycntrl.gif" alt="Управление слоями"
+width="33" height="31">. Появится диалог
+'Управление слоями'. В нем Вы
+можете контролировать доступность,
+изменяемость и видимость слоев.
+Подписи создаются из данных,
+соотнесенных с географическими
+объектами.</font></p>
+
+<ol>
+    <li><font size="4">Для слоя RUS_CUST
+        установите флажок
+        'Подписывание' и нажмите
+        кнопку 'Подписи'. Появится
+        диалог 'Подписывание'.</font></li>
+    <li><font size="4">В диалоге
+        'Подписывание' можно
+        контролировать положение
+        подписи относительно объекта
+        на Карте, поля из таблицы, из
+        которых будут формироваться
+        подписи, атрибуты шрифта и
+        прочие режимы. В окошке &quot;Из
+        колонки&quot; выберите поле
+        &quot;Компания&quot;.</font></li>
+    <li><font size="4">Нажмите кнопку подбора
+        стиля текста и установите
+        флажок 'Жирный' в группе
+        'Эффекты', а в окошке 'Цвет
+        текста' выберите голубой цвет.
+        Нажмите OK.</font></li>
+    <li><font size="4">Нажмите OK и еще раз OK в
+        диалоге 'Управление слоями'.</font></li>
+</ol>
+
+<p align="center"><img src="Lab2RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Lab2RT.gif" width="540" height="316"></p>
+
+<p><font size="4">Вы также можете нанести
+подписи вручную. Сначала выполним
+следующее:</font></p>
+
+<ol>
+    <li><font size="4">Нажмите кнопку
+        Управление слоями. Появится
+        диалог 'Управление слоями'.</font></li>
+    <li><font size="4">Выберите слой RUS_CUST и
+        сбросьте флажок
+        'Подписывание'. Нажмите ОК.</font></li>
+</ol>
+
+<p><font size="4">Теперь нанесем на Карту
+некоторые подписи вручную. </font></p>
+
+<ol>
+    <li><font size="4">В панели Операции
+        выберем инструмент
+        &quot;Подпись&quot;. </font></li>
+    <li><font size="4">Укажите на клиентов в
+        Центральном районе
+        Европейской части РФ. Во время
+        указания около звездочки
+        появятся подписи организаций,
+        стиль оформления которых был
+        выбран Вами в диалоге 'Стиль
+        текста'.</font></li>
+</ol>
+
+<p><font size="4">Вы также можете создать
+подписи с указками, чтобы не
+заслонять объекты текстом. Для
+этого нужно предварительно выбрать
+'Линию' или 'Стрелку' в диалоге
+'Подписывание'. Укажите на
+подпись инструментом Стрелка и
+переместите ее. Вы увидите, что
+указка соединила подпись клиента и
+символ.</font></p>
+
+<p><font size="4">Таким же способом можно
+подписать другие слои.</font></p>
+
+<ol>
+    <li><font size="4">Нажмите на кнопку
+        &quot;Управление слоями</font><font
+        size="4" face="Arial">&quot;</font><font size="4">. </font></li>
+    <li><font size="4">Выберите слой HIGHWAY. </font></li>
+    <li><font size="4">Нажмите на кнопку </font><font
+        size="4" face="Arial">&quot;</font><font size="4">Подписи</font><font
+        size="4" face="Arial">&quot;</font><font size="4">.
+        Нажмите кнопку подбора стиля
+        текста для того, чтобы изменить
+        Цвет текста на красный и
+        установить флажок </font><font size="4"
+        face="Arial">&quot;</font><font size="4">Жирный</font><font
+        size="4" face="Arial">&quot;</font><font size="4"> в
+        группе </font><font size="4" face="Arial">&quot;</font><font
+        size="4">Эффекты</font><font size="4" face="Arial">&quot;.</font></li>
+    <li><font size="4">Нажмите OK в диалоге </font><font
+        size="4" face="Arial">&quot;</font><font size="4">Управление
+        слоями</font><font size="4" face="Arial">&quot;</font><font
+        size="4">. </font></li>
+    <li><font size="4">Выберите инструмент </font><font
+        size="4" face="Arial">&quot;</font><font size="4">Подпись</font><font
+        size="4" face="Arial">&quot;</font><font size="4"> и
+        укажите на шоссе в Московской
+        области. </font></li>
+</ol>
+
+<p><font size="4">Шоссе будет подписано в
+соответствии с установками,
+которые Вы сделали. Для того, чтобы
+удалить подписи с Карты, выведенные
+Вами с использованием инструмента
+&quot;Подписи&quot;, и вернуться к
+автоматическому подписыванию: </font></p>
+
+<ul>
+    <li><font size="4">Выполните команду
+        Карта &gt; Восстановить подписи. </font></li>
+</ul>
+
+<p><font size="4">Вы также можете нанести
+на карту Ваши символы. Разместим их
+на Косметическом слое. </font></p>
+
+<p><font size="4">Для начала необходимо
+сделать возможным редактирование
+Косметического слоя. </font></p>
+
+<ol>
+    <li><font size="4">Сделайте активным окно
+        Карты и нажмите кнопку
+        &quot;Управление слоями&quot;. </font></li>
+    <li><font size="4">Установите флажок
+        &quot;Изменяемый&quot; для
+        Косметического слоя и нажмите
+        OK. </font></li>
+</ol>
+
+<p><font size="4">Теперь мы добавим
+какой-нибудь символ.</font></p>
+
+<ol>
+    <li><font size="4">Нажмите на кнопку
+        &quot;Стиль Символа&quot;. </font></li>
+    <li><font size="4">Вы можете выбрать
+        символ из уже готовых наборов.
+        Выберите 'MapInfo Transportation' в
+        окошке 'Наборы' и выберите
+        символ велосипеда.</font></li>
+</ol>
+
+<p><font size="4">Затем поместите эти
+символы на нашу Карту, используя
+кнопку &quot;Символ&quot;<img src="Pushpin-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Pushpin.gif"
+alt="Символ" width="33" height="31">. </font></p>
+
+<ul>
+    <li><font size="4">Нажмите кнопку
+        &quot;Символ&quot; и затем укажите
+        на юг </font><font size="4" face="Times New Roman">Владимирской
+        области </font><font size="4">для того,
+        чтобы добавить символ.
+        Обозначьте символами всю
+        предполагаемую трассу
+        велопробега. </font></li>
+</ul>
+
+<p><font size="4">Эти символы появятся на
+Косметическом слое Вашей Карты.</font></p>
+
+<p><font size="4">Вы также можете добавить
+произвольный текст на Вашу Карту.
+Например, Вы хотите подписать
+велосипедный маршрут на Карте.
+Также, как и символы, текст
+наносится на Косметический слой.</font></p>
+
+<p><font size="4">1. Атрибуты текста
+устанавливаются в диалоге 'Стиль
+текста'. Нажмите кнопку &quot;Стиль
+текста&quot; <img src="Textstyl-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Textstyl.gif"
+alt="Стиль текста" width="33" height="31"> и
+выберите жирный тип шрифта. Нажмите
+OK.</font></p>
+
+<p><font size="4">2. Нажмите кнопку
+'Текст', укажите мышкой на Карту
+под символами велосипедов и
+наберите с клавиатуры 'Ударим
+велопробегом по...'. Текст появится
+на Косметическом слое.</font></p>
+
+<p align="center"><font size="4"><img src="Lab3RT-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/Lab3RT.gif"
+width="442" height="331"></font></p>
+
+<p><font size="4">Щелкните по картинке,
+чтобы посмотреть пример
+демонстрации </font><a href="lab-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/lab.gif"><img
+src="biker-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/biker.gif" alt="{short description of image}" border="0"
+width="55" height="59"></a><font size="4">.</font></p>
+
+<p><font size="4">Итак, Вы готовы к изучению
+следующей главы. Если же
+какие-нибудь места этой главы
+остались неясными, просмотрите ее
+еще раз вместе с соответствующими
+главами <i>Руководства пользователя
+MapInfo</i>. </font></p>
+
+<p><font size="4">Чтобы закончить урок: </font></p>
+
+<p><font size="4">Выполните команду Файл &gt;
+Закрыть все.</font></p>
+
+<p align="center"><a href="map01-1.htm" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/map01.htm"><img src="tutico-1.gif" tppabs="http://giscenter.icc.ru/library/mi550scpru/MAPINFO/TUTORIAL/tutico.gif"
+border="0" width="44" height="41"></a><font size="4">Возврат
+к содержанию Учебника MapInfo Professional.</font></p>
+
+<p><a href="../../../../../www.esti-map.ru/index.htm" tppabs="http://www.esti-map.ru/"><font color="#0000FF"><u>http://www.esti-map.ru</u></font></a></p>
+</body>
+</html>

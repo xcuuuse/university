@@ -1,0 +1,40 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 33
+    Name_r Char (70) Index 1 ;
+    Name_e Char (70) ;
+    terr Char (4) Index 2 ;
+    sum_1995 Decimal (10, 1) Index 3 ;
+    городское_1995 Decimal (10, 1) ;
+    сельское_1995 Decimal (10, 1) ;
+    Summa Decimal (10, 0) ;
+    Men Decimal (10, 0) ;
+    Women Decimal (10, 0) ;
+    Summa_1 Decimal (10, 0) ;
+    Men_1 Decimal (10, 0) ;
+    Women_1 Decimal (10, 0) ;
+    Summa_2 Decimal (10, 0) ;
+    Men_2 Decimal (10, 0) ;
+    Women_2 Decimal (10, 0) ;
+    Summa_3 Decimal (10, 0) ;
+    Men_3 Decimal (10, 0) ;
+    Women_3 Decimal (10, 0) ;
+    Men_1v Decimal (10, 0) ;
+    Women_1v Decimal (10, 0) ;
+    Men_2v Decimal (10, 0) ;
+    Women_2v Decimal (10, 0) ;
+    Men_3v Decimal (10, 0) ;
+    Women_3v Decimal (10, 0) ;
+    Men_1t Decimal (10, 0) ;
+    Women_1t Decimal (10, 0) ;
+    Men_2t Decimal (10, 0) ;
+    Women_2t Decimal (10, 0) ;
+    Men_3t Decimal (10, 0) ;
+    Women_3t Decimal (10, 0) ;
+    АББ Char (3) Index 4 ;
+    Инд Smallint ;
+    Авто_Код Smallint ;

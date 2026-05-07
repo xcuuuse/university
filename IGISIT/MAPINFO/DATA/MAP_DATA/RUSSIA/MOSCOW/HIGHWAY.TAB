@@ -1,0 +1,14 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 2
+    Table Char (100) ;
+    Description Char (25) Index 1 ;
+ReadOnly
+begin_metadata
+"\IsSeamless" = "TRUE"
+"\IsReadOnly" = "FALSE"
+end_metadata

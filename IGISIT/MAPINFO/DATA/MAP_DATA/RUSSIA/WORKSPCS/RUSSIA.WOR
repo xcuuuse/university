@@ -1,0 +1,127 @@
+!Workspace
+!Version 400
+!Charset WindowsCyrillic
+Open Table "..\..\RUSSIA\Rus_obl" As Rus_obl Interactive
+Open Table "..\..\RUSSIA\City_200" As City_200 Interactive
+Open Table "..\..\RUSSIA\Railway" As Railway Interactive
+Open Table "..\..\RUSSIA\Adm_cent" As Adm_cent Interactive
+Open Table "..\UKRAINE\Ukrain" As Ukrain Interactive
+Open Table "..\UKRAINE\Ukr_city" As Ukr_city Interactive
+Set Window Legend
+  Position (6.05208,1.32292) Units "in"
+  Width 2.08333 Units "in" Height 3.97917 Units "in" 
+Open Window Legend
+Map From Ukr_city,Adm_cent,City_200,Railway,Ukrain,Rus_obl 
+  Position (0.0520833,0.0520833) Units "in"
+  Width 6.44792 Units "in" Height 3.52083 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 2
+  Center (104.8319263,60.34779871)
+  Zoom 9330.603751 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+shade 6 with sum_1995/Area(Object, "sq km") ranges apply all use color Brush (2,10496000,16777215) 
+  0: 0.003 Brush (2,16771280,16777215) ,
+  0.003: 0.007 Brush (2,15777952,16777215) ,
+  0.007: 0.019 Brush (2,14721152,16777215) ,
+  0.019: 0.038 Brush (2,12611664,16777215) ,
+  0.038: 0.053 Brush (2,11554864,16777215) ,
+  0.053: 0.33 Brush (2,10496000,16777215) 
+  default Brush (2,16711680,16777215) 
+  # use 1 round 0.001 inflect off Brush (2,16777215,16777215) at 2 by 0 color 1 # 
+shade 7 with городское_1995,сельское_1995 pie Angle 180 
+  Max Size 0.2 Units "cm" At Value 16000 vary size by "LOG" 
+  border Pen (1,2,0)  position center center 
+  style 
+    Brush (2,128,16777215) ,
+    Brush (2,53456,16777215) 
+  # max 16000 color 0 # 
+Set Map
+  Layer 1
+    Display Global
+    Global   Symbol (34,8421504,6)   
+    Zoom (0, 1000) Units "km" 
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Rus_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (0, 3000) Units "km" 
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Rus_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 1000) Units "km" 
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Rus_Name
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Zoom (0, 2000) Units "km" 
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With railway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Global
+    Global  Brush (2,12632256,16777215)    
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With R_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 6
+    Display Value
+    Global  Brush (2,16765088,16777215)    
+    Selectable Off
+    Zoom (1000, 4000) Units "km" 
+  Layer 7
+    Display Value
+    Global  Brush (2,16765088,16777215)    
+    Selectable Off
+    Zoom (0, 8000) Units "km" 
+  Layer 8
+    Display Global
+    Global  Brush (2,16765088,16777215)    
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Name_r
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+set legend 
+  layer 6 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title "Соотношение" Font ("MS Sans Serif",0,10,0)
+    subtitle "городского и сельского населения" Font ("MS Sans Serif",0,8,0)
+    ascending on 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "" display off ,
+      "городское на 1995" display on ,
+      "сельское на 1995" display on  
+set legend 
+  layer 7 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title "Плотность населения" Font ("MS Sans Serif",0,10,0)
+    subtitle "на 1995 год (в тыс. жит. на кв км)" Font ("MS Sans Serif",0,8,0)
+    ascending off 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "остальные" display off ,
+      "0 -- 0,003" display on ,
+      "0,003 -- 0,007" display on ,
+      "0,007 -- 0,019" display on ,
+      "0,019 -- 0,038" display on ,
+      "0,038 -- 0,053" display on ,
+      "0,053 -- 0,33" display on  
+Set Window Frontwindow() Max
+Set Map Window Frontwindow() Preserve Scale

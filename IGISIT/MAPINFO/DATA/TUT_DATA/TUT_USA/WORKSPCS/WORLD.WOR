@@ -1,0 +1,101 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "..\world\grid15" As Graticule Interactive
+Open Table "..\world\ocean" As Ocean Interactive
+Open Table "..\world\world" As Countries Interactive
+Open Table "..\world\worldcap" As Capitals Interactive
+Set Window Legend
+  Position (6.3125,2.90625) Units "in"
+  Width 2.08333 Units "in" Height 2.8125 Units "in" 
+Open Window Legend
+Map From Capitals,Countries,Graticule,Ocean 
+  Position (0.0416667,0.0833333) Units "in"
+  Width 4.22917 Units "in" Height 2.3125 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 12, 62, "m", 0
+  Center (12504.73254,-10420.61045)
+  Zoom 25000.64589 Units "mi"
+  Preserve Zoom Display Zoom
+  XY Units "m" Distance Units "mi" Area Units "sq mi"
+shade 2 with Pop_1994/Area(Object, "sq mi") ranges apply all use color Brush (2,16711680,16777215) 
+  0: 40 Brush (2,12632256,16777215) ,
+  40: 110 Brush (2,13668496,16777215) ,
+  110: 230 Brush (2,14704736,16777215) ,
+  230: 580 Brush (2,15740976,16777215) ,
+  580: 298950 Brush (2,16711680,16777215) 
+  default Brush (2,16711680,16777215) 
+  # use 1 round 10 inflect off Brush (2,16777215,16777215) at 2 by 0 color 1 # 
+shade 3 with Pop_Grw_Rt graduated 0.0:0 6.3:36 Symbol (58,128,36,"MapInfo Miscellaneous",0,0) vary size by "SQRT"   # color 0 # 
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 4500) Units "mi" 
+    Label Line Arrow Position Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Capital
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Value
+    Selectable Off
+    Zoom (4500, 15000) Units "mi" 
+  Layer 3
+    Display Value
+    Selectable Off
+    Zoom (4500, 15000) Units "mi" 
+  Layer 4
+    Display Graphic
+    Label Line None Position Center Font ("Arial",0,8,0) Pen (1,2,0) 
+      With Country
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (0, 7000) Units "mi"
+  Layer 5
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+set legend 
+  layer 2 
+    display on 
+    shades off 
+    symbols on 
+    lines off 
+    count off 
+    title "Countries" Font ("MS Sans Serif",0,10,0)
+    subtitle "Growth Rate" Font ("MS Sans Serif",0,8,0)
+    ascending off 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "" display off ,
+      "-6.3" display off ,
+      "-3.15" display off ,
+      "-0.63" display off ,
+      "0.63" display on ,
+      "3.15" display on ,
+      "6.3" display on  
+set legend 
+  layer 3 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title "World Countries" Font ("Arial",1,10,0)
+    subtitle "1994 Population Density (per sq. mi.)" Font ("Arial",0,8,0)
+    ascending off 
+    ranges Font ("MS Sans Serif",0,8,0)
+      "all others" display off ,
+      "0 to 40" display on ,
+      "40 to 110" display on ,
+      "110 to 230" display on ,
+      "230 to 580" display on ,
+      "580 to 298,950" display on  
+Set Window FrontWindow() Title "World"
+Set Window Frontwindow() Max

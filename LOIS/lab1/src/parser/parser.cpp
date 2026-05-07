@@ -1,128 +1,159 @@
-﻿//
-// Created by Алексей on 04.04.2026.
-//
+﻿/*
+ * Лабораторная работа №1 по дисциплине "Логические основы интеллектуальных систем"
+ * Выполнена студентом группы 421702 БГУИР Евик Алексей Николаевич
+*/
+
+/*
+ * Содержит алгоритм рекурсивного спуска для разбора формул сокращённого языка логики высказываний и построения
+ * абстрактного дерева.
+ * Использованные материалы - Логические основы интеллектуальных систем. Практикум: учеб.-метод. пособие /
+ *     В. В. Голенков [и др.]. — Минск: БГУИР, 2011. — 70 с.
+ *     Алгоритм - Метод рекурсивного спуска - URL: https://ru.wikibooks.org/Реализации_алгоритмов/Метод рекурсивного спуска
+ * (дата обращения: 03.04.2026)
+ */
 #include "parser.h"
 #include <memory>
 
+
+//пробелы фикс, язык сокращенный, в отчет добавлять время
+
+/*Реализует обработку формулы сокращенного языка логики высказываний*/
 std::shared_ptr<Node> Parser::parse(const std::string &input) {
     src = input;
     pos = 0;
     variables.clear();
-    skip_spaces();
+    var_indices.clear();
     auto root = parse_formula();
-    skip_spaces();
     if (pos != (int)src.size()) {
         throw std::invalid_argument(
-            "Лишние символы после формулы на позиции "
-            + std::to_string(pos + 1)
-            + ": '" + src.substr(pos) + "'");
+            "Некорректная формула сокращенного языка логики высказываний");
     }
     return root;
 }
 
-void Parser::skip_spaces() {
-    while (pos < (int)src.size() && src[pos] == ' ') {++pos;}
-}
-
-
-char Parser::peek() {
+/*Позволяет обратиться к текущему символу выражения*/
+char Parser::current() {
     return (pos < (int)src.size()) ? src[pos] : '\0';
 }
 
-char Parser::consume() {
+/*Позволяет перейти на символ вперед*/
+char Parser::move_symbol() {
     if (pos >= (int)src.size()) {
         throw std::invalid_argument("Неожиданный конец строки");
     }
     return src[pos++];
 }
-
+/*Ожидает на выходе определенный символ, если он не совпадает с ожидаемым - выбрасывается ошибка*/
 void Parser::expect(char c) {
-    skip_spaces();
-    if (peek() != c) {
-        throw std::invalid_argument(
-                std::string("Ожидался '") + c + "', получен '"
-                + (peek() ? std::string(1, peek()) : "конец строки"));
+    if (current() != c) {
+        throw std::invalid_argument("Некорректная формула сокращенного языка логики высказываний");
     }
-    consume();
+    move_symbol();
 }
 
+/*Позволяет построить дерево по формуле для корректной обработки*/
 std::shared_ptr<Node> Parser::parse_formula() {
-    skip_spaces();
-    char c = peek();
+    char c = current();
+    /*Ожидание открывающей скобки*/
     if (c == '(') {
         int start_pos = pos;
-        consume();
-        skip_spaces();
+        move_symbol();
         std::shared_ptr<Node> node;
-        if (peek() == '!') {
-            consume();
+        /*Отрицание*/
+        if (current() == '!') {
+            move_symbol();
             auto child = parse_formula();
             node = std::make_shared<Node>();
             node->kind = NodeKind::Neg;
             node->left = child;
         }
         else {
+
             auto left = parse_formula();
-            skip_spaces();
             node = std::make_shared<Node>();
             node->left = left;
-            switch (peek()) {
-                case '^':
-                    consume();
-                    node->kind = NodeKind::And;
-                    node->right = parse_formula();
+            switch (current()) {
+                /*Конъюнкция*/
+                case '/':
+                    if (pos + 1 < (int)src.size() && src[pos + 1] == '\\') {
+                        pos += 2;
+                        node->kind  = NodeKind::And;
+                        node->right = parse_formula();
+                    } else {
+                        throw std::invalid_argument(
+                            "Некорректная формула сокращенного языка логики высказываний");
+                    }
                     break;
-                case 'v':
-                    consume();
-                    node->kind = NodeKind::Or;
-                    node->right = parse_formula();
+                    /*Дизъюнкция*/
+                case '\\':
+                    if (pos + 1 < (int)src.size() && src[pos + 1] == '/') {
+                        pos += 2;
+                        node->kind  = NodeKind::Or;
+                        node->right = parse_formula();
+                    } else {
+                        throw std::invalid_argument(
+                            "Некорректная формула сокращенного языка логики высказываний");
+                    }
                     break;
                 case '~':
-                    consume();
+                    /*Эквиваленция*/
+                    move_symbol();
                     node->kind = NodeKind::Equiv;
                     node->right = parse_formula();
                     break;
+                    /*Импликация*/
                 case '-':
-                    consume();
-                    if (peek() != '>') {
-                        throw std::invalid_argument("Ожидался '>' после '-' на позиции "
-                            +std::to_string(pos + 1));
+                    move_symbol();
+                    if (current() != '>') {
+                        throw std::invalid_argument("Некорректная формула сокращенного языка логики высказываний");
                     }
-                    consume();
+                    move_symbol();
                     node->kind = NodeKind::Impl;
                     node->right = parse_formula();
                     break;
                 default:
                     throw std::invalid_argument(
-                "Ожидался оператор (^, v, ->, ~) на позиции "
-                + std::to_string(pos + 1) + ", получен '"
-                + (peek() ? std::string(1, peek()) : "конец строки") + "'");
+                "Некорректная формула сокращенного языка логики высказываний");
             }
         }
-        skip_spaces();
         expect(')');
         node->text = src.substr(start_pos, pos - start_pos);
         return node;
-    } else if (std::isupper((unsigned char)c) && c != '\0') {
+    }
+    /*Логические константы*/
+    if (c == '0' || c == '1') {
+        int start_pos = pos;
+        move_symbol();
+        auto node   = std::make_shared<Node>();
+        node->kind  = NodeKind::Const;
+        node->value = (c == '1');
+        node->text  = src.substr(start_pos, pos - start_pos);
+        return node;
+    }
+
+    if (std::isupper((unsigned char)c) && c != '\0') {
         int start_pos = pos;
         std::string name;
-        name += consume();
-        while (std::isdigit((unsigned char)peek())) {
-            name += consume();
-        }
+        name += move_symbol();
         variables.insert(name);
+        auto it = var_indices.find(name);
+        int idx;
+        if (it == var_indices.end()) {
+            idx = (int)var_indices.size();
+            var_indices[name] = idx;
+        } else {
+            idx = it->second;
+        }
+
         auto node = std::make_shared<Node>();
         node->kind = NodeKind::Var;
         node->name = name;
+        node->var_index = idx;
         node->text = src.substr(start_pos, pos - start_pos);
         return node;
     }
-    else {
-        throw std::invalid_argument(
-                "Ожидалась формула (буква или '('), получен '"
-                + (c ? std::string(1, c) : "конец строки")
-                + "' на позиции " + std::to_string(pos + 1));
-    }
+    throw std::invalid_argument(
+        "Некорректная формула сокращенного языка логики высказываний");
 }
 
 

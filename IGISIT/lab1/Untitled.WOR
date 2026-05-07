@@ -1,0 +1,36 @@
+!Workspace
+!Version  950
+!Charset WindowsCyrillic
+Open Table "E:\LABS_FOURTH_SEM\IGISIT\MAPINFO\DATA\TUT_DATA\TUT_USA\USA\STATES" As STATES Interactive
+Open Table "E:\LABS_FOURTH_SEM\IGISIT\MAPINFO\DATA\TUT_DATA\TUT_USA\USA\US_HIWAY" As US_HIWAY Interactive
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where STATES . obj intersects US_HIWAY . obj and STATES . State_Name = "Oregon"  into Query3 order by US_HIWAY . Highway  
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where STATES . obj intersects US_HIWAY . obj and STATES . State_Name = "Oregon"  into Query4 order by US_HIWAY . Highway  
+Select *  from STATES  where Total_Area > 50000  into Query5 
+Map From US_HIWAY,STATES
+  Position (0.0666667,1.75) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On Enhanced On Smooth Text Antialias Image High
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-95.18847246,38.05814511)
+  Zoom 7328.395902 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line Arrow Position Above Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line None Position Center Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9

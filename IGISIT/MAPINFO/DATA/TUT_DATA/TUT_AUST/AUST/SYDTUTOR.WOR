@@ -1,0 +1,64 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "ausstate" As Ausstate Interactive
+Open Table "sydney\syd_subs" As Syd_subs Interactive
+Open Table "sydney\sydstrts.TAB" As Sydstrts
+Open Table "sydney\syd_rast.TAB" As Sydmanly Interactive
+Open Table "sydney\syd_area" As Syd_area
+Map From Sydstrts,Sydstrts,Syd_subs,Syd_area,Sydmanly,Ausstate 
+  Position (0.0520833,0.0520833) Units "in"
+  Width 4.125 Units "in" Height 2.52083 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (151.2578871,-33.7977982)
+  Zoom 127 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 32) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 2
+    Display Global
+    Global    Line (1,67,16776960)  
+    Zoom (0, 8) Units "km" 
+    Label Line Arrow Position Above Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 3
+    Display Global
+    Global Pen (2,2,255)  Brush (1,0,16777215)    
+    Zoom (0, 64) Units "km" 
+    Label Line None Position Center Font ("Arial",257,9,255,16777215) Pen (1,2,0) 
+      With Suburb
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility Zoom (0, 16) Units "km"
+  Layer 4
+    Display Graphic
+    Selectable Off
+    Zoom (64.01, 100000) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",545,12,0) Pen (1,2,0) 
+      With "Use Zoom-in tool"+Chr$(13)+" to view sample data"
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 1 Anchor (151.588639,-33.938725) Callout (151.310353,-33.825502) 
+  Layer 5
+    Display Graphic
+    Selectable Off
+    Zoom (0.25, 8) Units "km" 
+  Layer 6
+    Display Graphic
+    Selectable Off
+    Zoom (8.001, 100000) Units "km" Off 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With State
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window Frontwindow() Max

@@ -1,0 +1,16 @@
+!table
+!version 410
+!charset WindowsCyrillic
+
+Definition Table
+  File "us_cust.mdb"
+  Type ACCESS TABLE "Us_Customer" Charset "WindowsCyrillic"
+  Fields 8
+    Lname Char (20) ;
+    Fname Char (15) ;
+    Terr Char (1) ;
+    Company Char (40) ;
+    City Char (20) ;
+    State Char (2) ;
+    Zip Char (5) ;
+    Order_amt Float ;

@@ -1,0 +1,11 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Open Table "SYDN_RD1" Hide
+Open Table "SYDN_RD2" Hide
+
+Create View SYDN_RD As
+Select Street,FromLeft,ToLeft,FromRight,ToRight,Type
+From SYDN_RD2, SYDN_RD1
+Where SYDN_RD2.MI_refnum=SYDN_RD1.MI_refnum

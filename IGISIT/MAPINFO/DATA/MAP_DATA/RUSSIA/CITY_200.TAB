@@ -1,0 +1,9 @@
+!table
+!version 100
+FIELDS: 6
+    Rus_Name Char (30) Index 1
+    Eng_Name Char (30)
+    Год_основания Smallint
+    _1979_г Integer
+    _1989_г Integer
+    АББ Char (3) Index 2

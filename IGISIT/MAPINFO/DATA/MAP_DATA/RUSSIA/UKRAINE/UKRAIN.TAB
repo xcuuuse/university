@@ -1,0 +1,6 @@
+!table
+!version 100
+FIELDS: 3
+    E_Name Char (33)
+    R_Name Char (33)
+    abb Char (3)

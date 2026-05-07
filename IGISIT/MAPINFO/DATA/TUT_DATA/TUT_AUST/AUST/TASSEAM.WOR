@@ -1,0 +1,57 @@
+!Workspace
+!Version 400
+!Charset WindowsLatin1
+Open Table "ausstate" As Ausstate Interactive
+Open Table "seamless\tasarea" As Tasarea Interactive
+Open Table "seamless\tasareas" As Tasareas Interactive
+Open Table "seamless\taswater" As Taswater Interactive
+Open Table "seamless\tasfeat" As Tasfeat Interactive
+Map From Tasfeat,Taswater,Tasareas,Tasarea,Ausstate 
+  Position (0.0520833,0.0520833) Units "in"
+  Width 4.125 Units "in" Height 2.52083 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 12
+  Center (146.499492,-42.07979773)
+  Zoom 600 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+Set Map
+  Layer 1
+    Display Graphic
+    Zoom (0, 75) Units "km" 
+    Label Line Arrow Position Right Font ("Arial",289,10,16711680,16777215) Pen (1,2,0) 
+      With NAME
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Zoom (0, 150) Units "km" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Zoom (0, 300) Units "km" 
+    Label Line None Position Center Font ("Arial",0,9,0) Pen (1,2,0) 
+      With ID
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Selectable Off
+    Zoom (301, 100000) Units "km" 
+    Label Line Arrow Position Center Font ("Arial",545,12,0) Pen (1,2,0) 
+      With "Use Zoom-in tool"+Chr$(13)+" to view sample data"
+      Parallel On Auto On Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 1 Anchor (144.166144,-43.108725) Callout (145.754311,-42.818366) 
+  Layer 5
+    Display Graphic
+    Selectable Off
+    Label Line None Position Below Right Font ("Arial",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 25
+      Visibility On
+Set Window Frontwindow() Max

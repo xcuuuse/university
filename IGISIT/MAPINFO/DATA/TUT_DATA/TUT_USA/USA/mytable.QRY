@@ -1,0 +1,5 @@
+Tables {STATES}
+Where {Total_Area > 50000}
+Order {}
+Into {Selection}
+Browse

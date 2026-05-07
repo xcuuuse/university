@@ -1,0 +1,99 @@
+!Workspace
+!Version 600
+!Charset WindowsCyrillic
+Open Table "STATES" As STATES Interactive
+Open Table "DC\новая трасса" As новая_трасса Interactive
+Open Table "DC\BIKETOUR" As BIKETOUR Interactive
+Open Table "DC\REGISTR" As REGISTR Interactive
+Open Table "DC\DCWASHS2" As DCWASHS2 Interactive
+Open Table "DC\dcwashs1" As dcwashs1
+Open Table "DC\DCWASHS.TAB" As DCWASHS
+Open Table "DC\SEAMLESS\REGISTR_Pledges.TAB" As REGISTR_Pledges Interactive
+Open Table "CITY_125" As CITY_125 Interactive
+Map From CITY_125,REGISTR,REGISTR,dcwashs1,DCWASHS,DCWASHS,REGISTR_Pledges 
+  Position (6.625,1.4375) Units "in"
+  Width 9.91667 Units "in" Height 4.71875 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-76.9905405,38.88092679)
+  Zoom 17.106497 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With City
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Lastname
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Lastname
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Class
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Street
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 7
+    Display Value
+    Zoom (1.1, 420) Units "km" Off 
+    inflect 5 by percent at 
+      RGB(0, 0, 255) : 0 
+      RGB(0, 255, 255) : 25 
+      RGB(0, 255, 0) : 50 
+      RGB(255, 255, 0) : 75 
+      RGB(255, 0, 0) : 100 
+      round 1 # use 2 # 
+    contrast 50 
+    brightness 50 
+    grayscale off 
+
+    relief off 
+set legend 
+  layer 7 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title auto Font ("Arial Cyr",0,9,0)
+    subtitle auto Font ("Arial Cyr",0,8,0)
+    ascending off 
+    ranges Font ("Arial Cyr",0,8,0)
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on  
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From DCWASHS2
+  Position (2.73958,2) Units "in"
+  Width 3.02083 Units "in" Height 4.96875 Units "in" 
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9

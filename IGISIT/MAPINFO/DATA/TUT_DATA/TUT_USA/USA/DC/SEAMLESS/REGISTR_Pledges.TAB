@@ -1,0 +1,38 @@
+!table
+!version 500
+!charset WindowsCyrillic
+
+Definition Table
+  File "registr_pledges.mig"
+  Type "RASTER"
+  (-77.077064,38.941858) (0,0) Label "",
+  (-76.97865641,38.941858) (201,0) Label "",
+  (-76.97865641,38.84345041) (201,201) Label "",
+  (-77.077064,38.84345041) (0,201) Label ""
+  CoordSys Earth Projection 1, 62
+  Units "degree"
+  RasterStyle 6 1
+begin_metadata
+"\Interpolator" = "IDW"
+"\Interpolator\Version" = "100"
+"\Interpolator\Parameter" = ""
+"\Interpolator\Parameter\EXPONENT" = "2"
+"\Interpolator\Parameter\MAX POINTS" = "25"
+"\Interpolator\Parameter\MIN POINTS" = "1"
+"\Interpolator\Parameter\SEARCH RADIUS" = "100"
+"\Interpolator\Source Data" = ""
+"\Interpolator\Source Data\Table" = "Y:\Методические материалы\~Учебные курсы\3 курс\ГИС\MAPINFO\DATA\TUT_DATA\TUT_USA\USA\DC\REGISTR.TAB"
+"\Interpolator\Source Data\Table\Is Permanent" = "TRUE"
+"\Interpolator\Source Data\Expression" = "Pledges"
+"\Interpolator\Source Data\Expression Type" = "2"
+"\Interpolator\Source Data\Expression Width" = "6"
+"\Interpolator\Source Data\Expression Decimal Width" = "2"
+"\Interpolator\Source Data\Grid Type" = "mig.ghl"
+"\Interpolator\Source Data\Grid Coordsys" = "CoordSys Earth Projection 1, 62"
+"\IsReadOnly" = "FALSE"
+"\Legend" = ""
+"\Legend\Title" = "REGISTR - Pledges"
+"\Inflections" = ""
+"\Inflections\Spread Method" = "2"
+"\Inflections\Round By" = "1"
+end_metadata

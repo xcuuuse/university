@@ -1,0 +1,122 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 66
+    St_FIPS Char (2) Index 1 ;
+    State Char (2) Index 2 ;
+    Name Char (25) ;
+    A45i0kby Decimal (11, 0) ;
+    A55i0kby Decimal (11, 0) ;
+    A65i0kby Decimal (11, 0) ;
+    A75i0kby Decimal (11, 0) ;
+    A15i5kby Decimal (11, 0) ;
+    A25i5kby Decimal (11, 0) ;
+    A35i5kby Decimal (11, 0) ;
+    A45i5kby Decimal (11, 0) ;
+    A55i5kby Decimal (11, 0) ;
+    A65i5kby Decimal (11, 0) ;
+    A75i5kby Decimal (11, 0) ;
+    A15i10kby Decimal (11, 0) ;
+    A25i10kby Decimal (11, 0) ;
+    A35i10kby Decimal (11, 0) ;
+    A45i10kby Decimal (11, 0) ;
+    A55i10kby Decimal (11, 0) ;
+    A65i10kby Decimal (11, 0) ;
+    A75i10kby Decimal (11, 0) ;
+    A15i15kby Decimal (11, 0) ;
+    A25i15kby Decimal (11, 0) ;
+    A35i15kby Decimal (11, 0) ;
+    A45i15kby Decimal (11, 0) ;
+    A55i15kby Decimal (11, 0) ;
+    A65i15kby Decimal (11, 0) ;
+    A75i15kby Decimal (11, 0) ;
+    A15i25kby Decimal (11, 0) ;
+    A25i25kby Decimal (11, 0) ;
+    A35i25kby Decimal (11, 0) ;
+    A45i25kby Decimal (11, 0) ;
+    A55i25kby Decimal (11, 0) ;
+    A65i25kby Decimal (11, 0) ;
+    A75i25kby Decimal (11, 0) ;
+    A15i35kby Decimal (11, 0) ;
+    A25i35kby Decimal (11, 0) ;
+    A35i35kby Decimal (11, 0) ;
+    A45i35kby Decimal (11, 0) ;
+    A55i35kby Decimal (11, 0) ;
+    A65i35kby Decimal (11, 0) ;
+    A75i35kby Decimal (11, 0) ;
+    A15i50kby Decimal (11, 0) ;
+    A25i50kby Decimal (11, 0) ;
+    A35i50kby Decimal (11, 0) ;
+    A45i50kby Decimal (11, 0) ;
+    A55i50kby Decimal (11, 0) ;
+    A65i50kby Decimal (11, 0) ;
+    A75i50kby Decimal (11, 0) ;
+    A15i75kby Decimal (11, 0) ;
+    A25i75kby Decimal (11, 0) ;
+    A35i75kby Decimal (11, 0) ;
+    A45i75kby Decimal (11, 0) ;
+    A55i75kby Decimal (11, 0) ;
+    A65i75kby Decimal (11, 0) ;
+    A75i75kby Decimal (11, 0) ;
+    A15i100kby Decimal (11, 0) ;
+    A25i100kby Decimal (11, 0) ;
+    A35i100kby Decimal (11, 0) ;
+    A45i100kby Decimal (11, 0) ;
+    A55i100kby Decimal (11, 0) ;
+    A65i100kby Decimal (11, 0) ;
+    A75i100kby Decimal (11, 0) ;
+    A15i0kby Decimal (11, 0) ;
+    A25i0kby Decimal (11, 0) ;
+    A35i0kby Decimal (11, 0) ;
+ReadOnly
+begin_metadata
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; MapInfo Demographics by State"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Demographic data by state"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1990"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "State"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = "St"
+"\Identification\Keywords\Theme\Content" = "Demographic Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "2"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "North America"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "United States"
+"\IsReadOnly" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "0"
+"\Spatial Reference\Geographic\Projection\Name" = "0"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "0"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "0"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "NA"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1990"
+"\Quality\Lineage\Source\Scale" = "NA"
+"\Quality\Lineage\Source\Citation" = "copyright 1998, The Polk Company, All Rights Reserved"
+end_metadata

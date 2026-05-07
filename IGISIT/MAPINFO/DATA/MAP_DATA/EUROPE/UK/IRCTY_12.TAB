@@ -1,0 +1,70 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 4
+    Place_Name Char (40) Index 1 ;
+    Country Char (40) ;
+    Latitude Char (20) ;
+    Longitude Char (20) ;
+ReadOnly
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "-150574.02"
+"\Identification\Domain\Bounds\East" = "129724.65"
+"\Identification\Domain\Bounds\North" = "486864.53"
+"\Identification\Domain\Bounds\South" = "222418.85"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; Ireland Cities"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "Locations of 12 major and minor cities in Ireland."
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1992"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "Country"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = "Reference Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "2"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "Europe"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "Ireland"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 8, 79, ""m"", -2, 49, 0.9996012717, 400000, -100000 Bounds (-7845061.1011, -15524202.1641) (8645061.1011, 4470074.53373)"
+"\Spatial Reference\Geographic\Projection\Name" = "British National Grid"
+"\Spatial Reference\Geographic\Coordinate Units" = "Meters"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "Ordinance Survey of Great Britain 1936"
+"\Spatial Reference\Geodetic\Ellipsoid" = "Airy"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "0"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "12"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "12"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Points"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1992"
+"\Quality\Lineage\Source\Scale" = "unknown"
+"\Quality\Lineage\Source\Citation" = "MapInfo from Digital Chart of the World"
+end_metadata

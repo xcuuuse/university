@@ -1,0 +1,107 @@
+!Workspace
+!Version 600
+!Charset WindowsCyrillic
+Open Table "STATECAP" As STATECAP Interactive
+Open Table "STATES" As STATES Interactive
+Open Table "US_HIWAY" As US_HIWAY Interactive
+Open Table "US_CUSTG" As US_CUSTG Interactive
+Open Table "US_INSET" As US_INSET Interactive
+Map From US_CUSTG,US_HIWAY,STATES 
+  Position (0.3125,0.375) Units "in"
+  Width 9.91667 Units "in" Height 4.71875 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll Off
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-109.1592906,47.40592033)
+  Zoom 11631.66557 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Lname
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 86 Line Arrow Anchor (-81.30181,28.552555) 
+   Object 70 Line Arrow Anchor (-81.37397,28.541627) 
+  Layer 2
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With Highway
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+   Object 190 Anchor (-80.823511,38.610714) Callout (-80.823511,38.610714) Angle 0.4 
+   Object 86 Anchor (-85.084454,36.024225) Callout (-85.084454,36.024225) Angle 323 
+   Object 221 Anchor (-101.371002,46.861183) Callout (-101.371002,46.861183) Angle 359.8 
+   Object 100 Anchor (-96.805223,35.733306) Callout (-96.805223,35.733306) Angle 12.9 
+   Object 193 Anchor (-94.03951,41.533374) Callout (-94.03951,41.533374) Angle 25.6 
+   Object 120 Anchor (-71.48508,42.146469) Callout (-71.48508,42.146469) Angle 290 
+   Object 216 Anchor (-75.365495,43.125609) Callout (-75.365495,43.125609) Angle 10.9 
+   Object 208 Anchor (-73.789221,43.806718) Callout (-73.789221,43.806718) Angle 72.1 
+   Object 199 Anchor (-76.026534,43.837694) Callout (-76.026534,43.837694) Angle 68 
+   Object 219 Anchor (-72.467756,43.069752) Callout (-72.467756,43.069752) Angle 75.3 
+   Object 226 Anchor (-69.374427,44.804866) Callout (-69.374427,44.804866) Angle 16.2 
+   Object 212 Anchor (-71.699478,43.189281) Callout (-71.699478,43.189281) Angle 296.7 
+   Object 39 Anchor (-81.093421,33.952855) Callout (-81.093421,33.952855) Angle 294.6 
+   Object 148 Anchor (-86.870265,34.14767) Callout (-86.870265,34.14767) Angle 279.9 
+   Object 125 Anchor (-90.058266,32.746685) Callout (-90.058266,32.746685) Angle 293.7 
+   Object 24 Anchor (-100.2016,32.487404) Callout (-100.2016,32.487404) Angle 1.9 
+   Object 171 Anchor (-106.254753,39.59486) Callout (-106.254753,39.59486) Angle 338.2 
+   Object 37 Anchor (-104.689184,36.074224) Callout (-104.689184,36.074224) Angle 85.3 
+   Object 233 Anchor (-111.890533,40.5) Callout (-111.890533,40.5) Angle 270.1 
+   Object 1 Anchor (-101.616498,30.733189) Callout (-101.616498,30.733189) Angle 352.3 
+   Object 181 Anchor (-82.184844,29.189409) Callout (-82.184844,29.189409) Angle 89.8 
+  Layer 3
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 56 Anchor (-119.302286,37.047438) 
+   Object 78 Anchor (-109.964302,47.823238) 
+   Object 97 Anchor (-78.891278,37.01823) 
+   Object 49 Anchor (-80.621966,38.24475) 
+   Object 69 Anchor (-85.61307,37.39787) 
+   Object 74 Anchor (-87.565182,46.109399) 
+   Object 99 Anchor (-91.469406,45.402679) 
+   Object 24 Anchor (-95.011422,47.381527) 
+   Object 80 Anchor (-101.047007,47.448623) 
+   Object 94 Anchor (-86.870863,35.882679) 
+   Object 79 Anchor (-79.65605,35.310321) 
+   Object 3 Anchor (-92.11149,35.40124) 
+   Object 68 Anchor (-98.873538,38.538784) 
+   Object 76 Anchor (-92.996959,39.180047) 
+   Object 90 Anchor (-78.04416,40.755363) 
+   Object 13 Anchor (-93.862407,42.176467) 
+   Object 71 Anchor (-72.248172,42.488647) 
+   Object 86 Anchor (-74.88454,43.703911) 
+   Object 81 Anchor (-100.805471,41.672351) 
+   Object 93 Anchor (-101.087199,44.516511) 
+   Object 82 Anchor (-71.880895,43.616017) 
+   Object 98 Anchor (-72.404143,44.067126) 
+   Object 73 Anchor (-69.375327,45.504509) 
+   Object 92 Anchor (-80.783055,34.256199) 
+   Object 62 Anchor (-82.733314,33.259264) 
+   Object 53 Anchor (-87.080322,32.776568) 
+   Object 77 Anchor (-89.374466,33.832472) 
+   Object 88 Anchor (-96.015746,34.55652) 
+   Object 95 Anchor (-101.328685,33.657542) 
+   Object 57 Anchor (-106.360031,38.241759) 
+   Object 101 Anchor (-108.412756,43.878847) 
+   Object 96 Anchor (-111.109471,39.004111) 
+   Object 84 Anchor (-105.957471,33.814255) 
+   Object 55 Anchor (-111.270495,34.195431) 
+   Object 65 Anchor (-115.456479,44.340575) 
+   Object 85 Anchor (-117.750751,40.118319) 
+   Object 89 Anchor (-118.435039,45.014959) 
+   Object 102 Anchor (-119.763295,47.595231) 
+   Object 61 Anchor (-81.598127,27.140303) 
+   Object 52 Anchor (-153.251245,64.711254) 
+Set Window FrontWindow() Printer
+ Name "Microsoft Print to PDF" Orientation Portrait Copies 1
+ Papersize 9
+Dim WorkspaceMaximizedWindow As Integer
+WorkspaceMaximizedWindow = Frontwindow()
+Set Window WorkspaceMaximizedWindow Max
+Undim WorkspaceMaximizedWindow

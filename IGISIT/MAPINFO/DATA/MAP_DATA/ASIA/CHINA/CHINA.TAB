@@ -1,0 +1,93 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type NATIVE Charset "WindowsLatin1"
+  Fields 27
+    Country Char (30) Index 1 ;
+    Capital Char (30) Index 2 ;
+    Pop_1994 Decimal (11, 0) ;
+    Pop_Grw_Rt Decimal (6, 1) ;
+    Pop_Male Decimal (12, 0) ;
+    Pop_Fem Decimal (12, 0) ;
+    Pop_0_14 Decimal (10, 0) ;
+    Pop_15_64 Decimal (11, 0) ;
+    Pop_65Plus Decimal (12, 0) ;
+    Male_0_14 Decimal (11, 0) ;
+    Male_15_64 Decimal (12, 0) ;
+    Male_65Plus Decimal (12, 0) ;
+    Fem_0_14 Decimal (12, 0) ;
+    Fem_15_64 Decimal (12, 0) ;
+    Fem_65Plus Decimal (12, 0) ;
+    Pop_Urban Decimal (11, 0) ;
+    Pop_Rural Decimal (11, 0) ;
+    Pop_Urb_Male Decimal (14, 0) ;
+    Pop_Urb_Fem Decimal (12, 0) ;
+    Pop_Rur_Male Decimal (13, 0) ;
+    Pop_Rur_Fem Decimal (14, 0) ;
+    Arable_Pct Decimal (4, 1) ;
+    Literacy Decimal (6, 1) ;
+    Inflat_Rate Decimal (7, 1) ;
+    Unempl_Rate Decimal (6, 1) ;
+    Indust_Growth Decimal (6, 1) ;
+    Continent Char (20) Index 3 ;
+ReadOnly
+begin_metadata
+"\Identification" = ""
+"\Identification\Use Constraints" = "For use with MapInfo Professional"
+"\Identification\Access Constraints" = "Licensed Users"
+"\Identification\Domain" = ""
+"\Identification\Domain\Bounds" = ""
+"\Identification\Domain\Bounds\West" = "6433203.32"
+"\Identification\Domain\Bounds\East" = "11243573.09"
+"\Identification\Domain\Bounds\North" = "5674972.12"
+"\Identification\Domain\Bounds\South" = "1943424.94"
+"\Identification\Citation" = "MapInfo Professional Bundled Maps; China Country Bdy"
+"\Identification\Description" = ""
+"\Identification\Description\Abstract" = "People's Rebublic of China boundary"
+"\Identification\Time Period" = ""
+"\Identification\Time Period\Currentness" = "1992"
+"\Identification\Keywords" = ""
+"\Identification\Keywords\Theme" = ""
+"\Identification\Keywords\Theme\Geography" = "Country"
+"\Identification\Keywords\Theme\Geography\Abbreviation" = ""
+"\Identification\Keywords\Theme\Content" = "Reference Data"
+"\Identification\Keywords\Place" = ""
+"\Identification\Keywords\Place\Layers" = ""
+"\Identification\Keywords\Place\Layers\Count" = "2"
+"\Identification\Keywords\Place\Layers\Layer1Name" = "Continent"
+"\Identification\Keywords\Place\Layers\Layer1" = "Asia"
+"\Identification\Keywords\Place\Layers\Layer2Name" = "Country"
+"\Identification\Keywords\Place\Layers\Layer2" = "China"
+"\IsReadOnly" = "FALSE"
+"\Spatial Reference" = ""
+"\Spatial Reference\Geographic" = ""
+"\Spatial Reference\Geographic\Projection" = ""
+"\Spatial Reference\Geographic\Projection\Clause" = "CoordSys Earth Projection 12, 62, ""m"", 0 Bounds (-34012036.7393, -8625248.51472) (34012036.7393, 8625248.51472)"
+"\Spatial Reference\Geographic\Projection\Name" = "Robinson"
+"\Spatial Reference\Geographic\Coordinate Units" = "Decimal Degree"
+"\Spatial Reference\Geodetic" = ""
+"\Spatial Reference\Geodetic\Datum" = "NA"
+"\Spatial Reference\Geodetic\Ellipsoid" = "NA"
+"\Spatial Organization" = ""
+"\Spatial Organization\Object" = ""
+"\Spatial Organization\Object\Type1" = "Regions"
+"\Spatial Organization\Object\Type1\Count" = "2"
+"\Spatial Organization\Object\Type2" = "Points"
+"\Spatial Organization\Object\Type2\Count" = "0"
+"\Spatial Organization\Object\Type3" = "Polylines"
+"\Spatial Organization\Object\Type3\Count" = "0"
+"\Spatial Organization\Object\Type4" = "Lines"
+"\Spatial Organization\Object\Type4\Count" = "0"
+"\Spatial Organization\Object\All" = ""
+"\Spatial Organization\Object\All\TotalCount" = "2"
+"\Spatial Organization\Method" = ""
+"\Spatial Organization\Method\Type" = "Polygons"
+"\Quality" = ""
+"\Quality\Lineage" = ""
+"\Quality\Lineage\Source" = ""
+"\Quality\Lineage\Source\Vintage" = "1992"
+"\Quality\Lineage\Source\Scale" = "1:1,000,000"
+"\Quality\Lineage\Source\Citation" = "MapInfo from Digital Chart of the World"
+end_metadata

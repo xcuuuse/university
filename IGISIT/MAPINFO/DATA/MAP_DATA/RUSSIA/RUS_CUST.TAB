@@ -1,0 +1,14 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type XLS Titles Range "оНКЭГНБЮРЕКХ!A2:G203"
+  Fields 7
+    цнпнд Char (20) ;
+    йнлоюмхъ Char (34) ;
+    тхн Char (31) ;
+    рек Char (15) ;
+    тюйя Char (15) ;
+    хмдейя Char (10) Index 1 ;
+    юдпея Char (35) ;

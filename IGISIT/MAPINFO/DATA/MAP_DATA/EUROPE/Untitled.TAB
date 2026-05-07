@@ -1,0 +1,10 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 3
+    Поле1 Char (10) ;
+    Поле2 Char (10) ;
+    Поле3 Char (10) ;

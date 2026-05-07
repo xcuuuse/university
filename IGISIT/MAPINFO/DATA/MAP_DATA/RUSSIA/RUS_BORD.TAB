@@ -1,0 +1,10 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 3
+    Сумма_1995 Float ;
+    Суммагородское_1995 Float ;
+    Суммасельское_1995 Float ;

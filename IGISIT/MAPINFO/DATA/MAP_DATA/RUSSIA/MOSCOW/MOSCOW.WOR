@@ -1,0 +1,54 @@
+!Workspace
+!Version 300
+!Charset WindowsCyrillic
+Open Table "undegr" As UNDEGR Interactive
+Open Table "way" As WAY Interactive
+Open Table "mos_park" As MOS_PARK Interactive
+Open Table "distr" As DISTR Interactive
+Open Table "water" As WATER Interactive
+Open Table "M_STREET.TAB" As M_STREET Interactive
+Map From UNDEGR,M_STREET,WAY,WATER,MOS_PARK,DISTR 
+  Position (0.1875,-0.125) Units "in"
+  Width 4.125 Units "in" Height 5.32292 Units "in" 
+Set Window FrontWindow() ScrollBars On
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (37.61788119,55.75243483)
+  Zoom 8.648150432 Units "km"
+  Preserve Zoom Display Zoom
+  XY Units "degree" Distance Units "km" Area Units "sq km"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line None Position Center
+      With R_name
+      Parallel On
+  Layer 2
+    Display Global
+    Global    Line (1,2,16777215)  
+    Label Line None Position Center
+      With R_name
+      Parallel On
+  Layer 3
+    Display Graphic
+    Label Line None Position Center
+      With R_name
+      Parallel On
+  Layer 4
+    Display Graphic
+    Label Line None Position Center
+      With R_name
+      Parallel On
+  Layer 5
+    Display Graphic
+    Label Line None Position Center
+      With R_name
+      Parallel On
+  Layer 6
+    Display Global
+    Global Pen (1,1,0)  Brush (2,8421504,16777215)    
+    Label Line None Position Center
+      With R_name
+      Parallel On
+Set Window Frontwindow() Max
+Set Map Window Frontwindow() Preserve Scale
