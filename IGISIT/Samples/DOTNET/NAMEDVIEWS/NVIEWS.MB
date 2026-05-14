@@ -1,0 +1,169 @@
+'****************************************************************************
+' Include files and Define statements
+'****************************************************************************
+Include "..\..\MAPBASIC\Inc\mapbasic.def" 
+Include "..\..\MAPBASIC\Inc\icons.def" 
+Include "..\..\MAPBASIC\Inc\auto_lib.def" 
+'****************************************************************************
+
+
+'****************************************************************************
+' .NET Functions
+'****************************************************************************
+Declare Method GetResItemStr Class "MISamples.Controller" Lib "NamedViews.dll" (ByVal itemName As String) As String
+Declare Method ShowNViewDlg Class "MISamples.Controller" Lib "NamedViews.dll" (ByVal hwnd as Integer) As Logical
+Declare Method CloseNViewDlg Class "MISamples.Controller" Lib "NamedViews.dll" () As Logical
+Declare Method ShowAboutDlg Class "MISamples.Controller" Lib "NamedViews.dll" (ByVal hwnd As Integer) As Logical
+
+
+'****************************************************************************
+'
+' Program: NVIEWS.MB  (Named Views) 
+'
+'   Allow the user to define and switch among various named views. 
+'   A named view is simply: a description, a zoom distance, and a 
+'   center x,y location.  One named view might be: 
+'   "Albany-Schenectady-Troy Area", 50 mi, x, y
+'   while another named view might be: 
+'   "Downtown Albany", 3.5 mi, x, y 
+' 
+'   All the named views appear in a list.  The user can switch to a 
+'   named view by double-clicking the item in the list. 
+' 
+'   
+'****************************************************************************
+
+
+'****************************************************************************
+' Declare sub procedures
+'****************************************************************************
+Declare Sub Main
+Declare Sub EndHandler 
+Declare Sub named_views_dialog
+
+' Handlers for dialog controls: 
+Declare Sub bye 
+Declare Sub about 
+
+'****************************************************************************
+' Declare global variables. 
+'****************************************************************************
+Global window_id As Integer   ' Window ID of current (map) window 
+
+'****************************************************************************
+' Sub procedure: Main
+'
+' The Main procedure adds an item to the Map menu.
+' After that, the application doesn't do anything until the user
+' picks the menu item.
+'****************************************************************************
+Sub Main
+  OnError Goto HandleError
+  ' Assign some global variables, so that the Auto-Load button 
+  ' (in the About dialog) can use the library routines 
+  ' stored in AUTO_LIB.MBO.  
+  gsAppFilename =  GetResItemStr("STR_MB_APP_FILENAME")    ' name of MapBasic app file  
+  gsAppDescription = GetResItemStr("STR_MB_APP_DESC")      ' short description of MB application 
+
+  Create Menu GetResItemStr("STR_MB_MNU_SUBTITLE") as 
+	GetResItemStr("STR_MB_MNU_NAMEDVIEWS") Calling named_views_dialog, 
+	"(-", 
+	GetResItemStr("STR_MB_MNU_ABOUT") Calling about,
+	GetResItemStr("STR_MB_MNU_EXIT") Calling bye 
+
+ 
+  Call set_tools_menu(GetResItemStr("STR_MB_MNU_SUBTITLE"))
+
+ 
+  Alter ButtonPad GetResItemStr("STR_MB_BTN_PAD_TOOLS") 
+     Add Separator 
+     Add PushButton 
+        Icon   MI_ICON_MB_10
+        Calling named_views_dialog 
+        HelpMsg GetResItemStr("STR_MB_BTN_PAD_HLPMSG") & "\n" & GetResItemStr("STR_MB_APP_DESC")
+     Show 
+  Exit Sub
+  HandleError:
+    Note "Main: " + Error$()
+    Resume Next
+End Sub
+
+'****************************************************************************
+' Sub procedure: named_views_dialog 
+'
+' Put up a dialog which lets the user define a new named view or 
+' switch to an existing named view. 
+'****************************************************************************
+Sub named_views_dialog 
+  OnError Goto HandleError
+  If NumWindows() < 1 Then 
+    Note GetResItemStr("ERR_NO_WIN_OPEN") 
+    Exit Sub 
+  End If 
+
+  window_id = FrontWindow()
+    
+  If WindowInfo(window_id, WIN_INFO_TYPE ) <> WIN_MAPPER Then 
+    Note GetResItemStr("ERR_FRONT_WIN_NOT_MAPPER") 
+    Exit Sub 
+  End If  
+   
+  ' Display a dialog to let the user choose a view or add current view
+  ' to the list.  
+  Dim ret As Logical
+  Dim hwndPro as Integer
+  hwndPro = SystemInfo(SYS_INFO_MAPINFOWND)
+  ret = ShowNViewDlg(hwndPro)
+  If Not ret Then
+    Note GetResItemStr("ERR_MB_DLG_NOT_DISPLAYED")
+  End If
+  Exit Sub
+  HandleError:
+    Note "named_views_dialog: " + Error$()
+    Resume Next
+End Sub
+
+
+
+'*****************************************************************
+' If user chooses Close menu item, shut down. 
+Sub bye 
+  OnError Goto HandleError
+  End Program
+  HandleError:
+    Note "bye: " + Error$()
+    Resume Next 
+End Sub 
+
+Sub  EndHandler
+  OnError Goto HandleError
+  Dim ret as Logical
+  ret = CloseNViewDlg()
+  Exit Sub
+  HandleError:
+    Note "EndHandler: " + Error$()
+    Resume Next
+end sub
+
+'****************************************************************************
+' Sub procedure: About
+'
+' Displays a blurb explaining the purpose of this application.
+'****************************************************************************
+Sub about
+  OnError Goto HandleError
+  Dim ret As Logical
+  Dim hwndPro as Integer
+  hwndPro = SystemInfo(SYS_INFO_MAPINFOWND)
+  ret = ShowAboutDlg(hwndPro)
+  If Not ret Then
+    Note GetResItemStr("ERR_MB_DLG_NOT_DISPLAYED")
+  End If
+  Exit Sub
+  HandleError:
+    Note "about: " + Error$()
+    Resume Next 
+End Sub
+
+' ////////////////////// end of NVIEWS.MB /////////////////////////////
+

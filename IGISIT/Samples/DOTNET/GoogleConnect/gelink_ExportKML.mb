@@ -1,0 +1,998 @@
+'************* Copyright 2007 Pitney Bowes MapInfo Corp. *********************************
+
+include "GELink.def"
+Include "ConvertUTF8.def"
+include "Win32API.def"
+
+'-------------------------
+' Local routines
+'-------------------------
+Declare Sub printDiagnostic1(ByVal obj as Object)
+Declare Function processCommittedSelection(tmpNam as string, alias as string,
+			ByVal strOutputFile as string, ByVal strPlaceName as string, ByVal strDesc as string) as Integer
+Declare Sub disaggregateCommittedSelection(ByVal tmpNam as string,
+			ByVal alias as string)
+Declare Sub processDisaggTable(byval tablNam as string, byval alias as string,
+			ByVal outputFileNum as integer, ByVal strPlaceName as string)
+Declare Function bldDisaggregateCmd(ByVal alias as string, colList() as string) as string
+Declare Sub printPlacemarkBegin(ByVal outputFileNum as integer,
+			ByVal nPoly as integer, ByVal objTemp as Object, nColour as integer,
+			nSize as integer, nStyle as integer, nFill as integer, bMultiGeom as Logical)
+Declare Sub printHeaderAndCData(ByVal outputFileNum as integer,
+			ByVal objTemp as Object, ByVal nCount as integer, ByVal strPlaceName as string, ByVal nPoly as integer)
+Declare Sub printStyleElement(strExtrudeVal as string, objTemp as Object,
+				nColour as Integer, nFill as integer, strAltMode as string, strTesselate as string,
+				nStyle as integer, iObjType as smallint,
+				outputFileNum as integer, strWidth as string)
+Declare Sub progressBarProc()
+
+'---------------------------
+' Module variables
+'---------------------------
+Dim selName,
+	alias,
+	gstrPlaceName as String
+
+Dim gbGotObject,
+	gbCanceled as Logical
+
+'--------------------------------------
+Sub NewExportKML(BYVAL strOutputFile As String, BYVAL  strPlaceName As String, BYVAL  strDesc As String, strTblName as string, bSeamless as Logical)
+	dim iType,
+		cnt,
+		countCols,
+		typ,
+		nCntObjs	as smallint
+	Dim errNo 		As Integer
+	dim colName,
+		s,
+		dataStmt,
+		cmd,
+		strKMLFile,
+		strBaseTblName as string
+
+	Dim tmpNam,
+		alias2  	as string
+
+	dim obj 		as Object
+	Dim bRet		as Logical
+
+	OnError goto ErrorShow
+
+	tmpNam = String$(512, " ")
+	tmpNam = MakeTmpFileName("", "", TRUE, alias)
+	tmpNam = tmpNam + ".Tab"
+
+	gstrPlaceName = strPlaceName
+
+	' We shouldn't ever be in this routine w/o a selection.
+	If SelectionInfo(SEL_INFO_NROWS) < 1 Then
+		Note "You must select at least one object."
+		Exit sub
+	End If
+
+	'--------------------------------------------------------
+	' Commit selection to a new table
+	' This table will be opened in processCommittedSelection
+	'--------------------------------------------------------
+	commit table selection as tmpNam
+	strBaseTblName = SelectionInfo(SEL_INFO_TABLENAME)
+
+	strKMLFile = gstrOutputPath + strOutputFile + ".KML"
+
+	errNo = processCommittedSelection(tmpNam, alias, strKMLFile, strPlaceName, strDesc)
+
+	If gbCanceled = TRUE Then
+		bRet = DeleteFile(strKMLFile)
+	Else
+		' If file not found err, was handled in processCommittedSelection
+		If gbGotObject = FALSE And errNo <> 923 Then
+			Note GetResString(IDS_NO_OBJ_IN_SELECTION)
+			Goto close_alias1
+		End If
+
+		'Send it to Google Earth
+		If gbRunGENow Then
+			Dim i as integer
+			OnError GOTO ErrorHandlerGE
+			i = ShellEx(strKMLFile)
+		End If
+	End If
+
+	Goto close_alias1
+
+ErrorShow:
+	CALL ErrorMsg ("NewExportKML", Error$(), Err())
+	Resume close_alias1
+
+closeDelHndlr:
+	Resume Next
+
+ErrorHandlerGE:
+	Note GetResString(IDS_WARNING_BANG) + "  " + GetResString(IDS_PROB_COMM_W_GE)
+	bRet = DeleteFile(strKMLFile)
+	Resume next
+
+close_alias1:
+	Dim nPos as integer
+	Dim strCol as string
+	dim limt as integer
+
+	 OnError Goto closeDelHndlr
+
+	'-----------------------------------*
+	' Re-select the user's selection
+	'-----------------------------------*
+	open table tmpNam as alias
+
+	cmd = "select * from " + strBaseTblName + ", " + alias + " where " + strBaseTblName + ".col1 = " + alias + ".col1"
+
+	'--------------------------------------------------------------------------------------------*
+	'  Limit the number of columns we match on, otherwise the performance is unacceptable when
+	'  exporting a large number of objects.
+	'--------------------------------------------------------------------------------------------*
+	limt = Minimum(7, TableInfo(alias,TAB_INFO_NCOLS))
+	For nPos = 2 TO limt
+		strCol = "COL" + STR$(nPos)
+		cmd = cmd + " And " + strBaseTblName + "." + strCol + " = " + alias + "." + strCol
+	Next
+	Run command cmd
+
+	goto last_exit
+
+closeDelHndlr:
+	Resume Next
+
+ErrorHandlerGE:
+	Note GetResString(IDS_WARNING_BANG) + "  " + GetResString(IDS_PROB_COMM_W_GE)
+	Close File strKMLFile
+	bRet = DeleteFile(strKMLFile)
+	Resume close_alias1
+
+last_exit:
+	If bSeamless <> TRUE Then
+		drop table alias
+	End If
+	Set ProgressBars On
+	Exit Sub
+
+End Sub ' NewExportKML
+
+Dim cntr,
+	KmlOutputFileNum as integer
+
+Function processCommittedSelection(tmpNam as string, alias as string, 
+		ByVal strKMLFile as string, ByVal strPlaceName as string, 
+		ByVal strDesc as string) as Integer
+	Dim obj		as object
+
+	Dim typ		as smallint
+
+	Dim nCntObjs,
+		nRows,
+		errVal	as integer
+
+	Dim b 		as logical
+
+	Dim alias2,
+		sTemp,
+		sCurrentNumberFormat,
+		tmpOutFileName, tmpAlias	 as string
+
+	OnError goto ErrHndlr
+	errVal = 0
+	KmlOutputFileNum = 1
+	'------------------------------------
+	'	 Open the KML Text Output File
+	'------------------------------------
+	' We are writing out XML which requires a valid character set. 
+	' MapBasic does not support UTF-8 so the best we can do is write out the 
+	' current Windows character set. This takes two steps. 
+	' First we tell MapBasic that we are using this character set so it 
+	' basically writes out all the characters in the native character set
+	' Then we write out the same information in the XML file. 
+	' However, the names of MapInfo character sets and the XML standard are different. 
+	' The XML standard for Windows characters sets all have the prefix string "Windows-"
+	' followed by the active code page. 
+	' MapBasic does not give us this but a simple call to the Windows API (GetACP) will.
+
+	tmpOutFileName = MakeTmpFileName("", "", TRUE, tmpAlias)
+
+	'Open File strKMLFile For OUTPUT AS # KmlOutputFileNum charset SystemInfo(SYS_INFO_CHARSET)
+	Open File tmpOutFileName For OUTPUT AS # KmlOutputFileNum charset SystemInfo(SYS_INFO_CHARSET)
+
+	'Set CoordSys to WGS 84
+	SET COORDSYS EARTH PROJECTION 1, 104
+	' Ensure that numbers are written out in US/XML Standard form
+	' which is periods for decimal points
+	sCurrentNumberFormat = SystemInfo(SYS_INFO_NUMBER_FORMAT)
+	Set Format Number   "9,999.9"
+
+	'Create the Header for the file
+
+	sTemp = XMLHeader()
+
+	Print #KmlOutputFileNum, sTemp
+
+	Print #KmlOutputFileNum, "<kml xmlns=""http://earth.google.com/kml/2.1"">"
+
+	'Write Folder Tag
+	Print # KmlOutputFileNum, "<Folder>"
+	Print # KmlOutputFileNum, Indnt2 + "<description><![CDATA[" + strDesc + "]]></description>"
+
+	' Open the user's selection saved as a temp table
+	Open table tmpNam as alias
+
+	fetch first from alias
+
+	nRows = TableInfo(alias, TAB_INFO_NROWS)
+
+	gbGotObject = FALSE
+	cntr = 1
+
+	ProgressBar "Exporting " + nRows + " objects..."
+		calling progressBarProc
+		range nRows
+	'---------------------------------------------------------------*
+
+	If CommandInfo(CMD_INFO_STATUS) Then
+		gbCanceled = FALSE
+	Else
+		gbCanceled = TRUE
+	End If
+
+	'Create the Closing Lines
+	Print # 1, "</Folder>"
+	Print # 1, "</kml>"
+
+	'Close the KML File
+	CLOSE FILE KmlOutputFileNum
+
+	' Write the KML as UTF8
+	errVal = WriteUTF8(tmpOutFileName, strKMLFile)
+
+	if errVal <> ERROR_SUCCESS then
+		b = CopyFile(tmpOutFileName, strKMLFile, FALSE) 
+		goto ConvertUTF8_err
+	end if 
+
+
+	Goto Xit
+
+ErrHndlr:
+	Dim errMsg As String
+	Dim pos As Integer
+
+	errMsg = Error$()
+	errVal = Err()
+
+	' Call ErrorMsg ("processCommittedSelection", er, Error$())
+    ' Remove the filename and line number
+	pos = InStr(1, errMsg, ")")
+	If pos > 0 Then
+		errMsg = Mid$(errMsg, pos + 1, Len(errMsg))
+	End If
+	errMsg = errMsg + Chr$(13) + GetResString(IDS_MUST_ENTER_FILENAME)
+	Note errMsg
+	' 923 is bad filename error
+	If errVal = 923 Or errVal = 370 Then
+		Resume errXit
+		gbGotObject = FALSE
+		gbCanceled = TRUE
+		Resume errXit
+	Else
+	Call ErrorMsg ("processCommittedSelection", Err(), Error$())
+	End If
+	goto xit
+
+ConvertUTF8_err:
+	dim errmsg2 as string
+	dim len as integer
+
+	len = GetErrorMessage(errMsg2)
+	Note errMsg2
+
+Xit:
+	Drop table alias
+	if FileExists(tmpOutFileName) Then
+		dim bb as Logical
+		bb = DeleteFile(tmpOutFileName)
+	End If
+
+	Set Format Number sCurrentNumberFormat
+
+errXit:
+	processCommittedSelection = errVal
+
+End Function ' processCommittedSelection
+
+Sub disaggregateCommittedSelection(ByVal tmpNam as string, ByVal alias as string)
+
+	Dim cmd as string
+	Dim d() as string
+	Dim f as float
+	Dim i as integer
+
+	OnError goto ErrH
+
+	Open table tmpNam as Alias
+
+	'--------------------------------------------------
+	'  This table should have one and only one row
+	'--------------------------------------------------
+	selName = tmpSelName()
+	select * from alias into selName
+
+	If SelectionInfo(SEL_INFO_NROWS) > 1 Then
+		NOTE "ERROR!  More than one row passed to disaggregateCommittedSelection!"
+	End If
+
+	redim d(1)
+	d(1) = ""
+	cmd = bldDisaggregateCmd(alias, d)
+
+	Run command cmd
+
+	Commit table alias
+	pack table alias Graphic Data
+
+	Close table alias
+
+	Goto Xit
+
+ErrH:
+	Call ErrorMsg ("disaggregateCommittedSelection", Err(), Error$())
+
+Xit:
+
+End Sub 'disaggregateCommittedSelection
+
+'--------------------------------------------------------------------------------
+' The table passed to this function represents one object, in one or many rows.
+' Each row can have multiple polylines / polygons.
+'--------------------------------------------------------------------------------
+Sub processDisaggTable(byval tablNam as string, byval alias as string, ByVal outputFileNum as integer, ByVal strPlaceName as string)
+
+	Dim objTemp 	as Object
+	Dim strHt,
+		strExtrudeVal,
+		strAltMode,
+		strTesselate,
+		strAttributes,
+		strWidth 	as String
+
+	Dim nNdx,
+		nPos,
+		nPosNode,
+		nPoly,
+		nPolyCount,
+		nRowCount,
+		nCount,
+		nColour,
+		nSize,
+		nStyle,
+		nFill,
+		startNode,
+		endNode,
+		inc 			  as Integer
+
+	Dim iObjType	as Smallint
+	Dim bMultiGeom  as Logical
+
+	OnError Goto ErrHndlr
+
+	Open table tablNam as alias
+
+	' Need count of rows.  If rows > 1, need the <geographicCollection> element
+	nRowCount = 0
+	Fetch First from alias
+	Do While not EOT(alias)
+		nRowCount = nRowCount + 1
+		Fetch Next from alias
+	Loop
+
+	bMultiGeom = nRowCount > 1
+
+	If gbExtrude = TRUE Then
+		strExtrudeVal = 1
+	Else
+		strExtrudeVal = "0"
+	End If
+
+	'Get the Height
+	If gnHMode = HeightMode_ClampToGround THEN
+		strHt = "0"
+		strAltMode = "clampToGround"
+		strTesselate = "1"
+	ElseIf gnHMode = HeightMode_RelativeToGround THEN
+		strHt = STR$(gnHVal)
+		strAltMode = "relativeToGround"
+		strTesselate = "1"
+	Else
+		Select * from alias where RowID = 1
+		strHt = STR$(Selection.Col(gnHField))
+		strAltMode = "relativeToGround"
+		strTesselate = "1"
+	End If
+
+   ' Need to get the first obj to pass to printPlacemarkBegin()
+	nCount = 0
+	Fetch First from alias
+	Do while not EOT(alias)
+		nCount = nCount + 1
+		selName = tmpSelName()
+		Select * from alias where RowID = nCount into selName
+
+		' After disaggregating into the same table, it appears the original object is left as a deleted record...
+		If SelectionInfo(SEL_INFO_NROWS) > 0 Then
+			objTemp = selection.obj
+
+			objTemp = ConvertObjForKML(objTemp, iObjType)
+			Exit Do
+		End If
+
+		Fetch next from alias
+		drop table selName
+	Loop
+
+	'-------------------------------------------
+	' Handle the different Object Types Symbology
+	'-------------------------------------------
+	Call printPlacemarkBegin(outputFileNum, nPoly, objTemp, nColour, nSize, nStyle, nFill, bMultiGeom)
+
+	'Convert Width to KML format
+	strWidth = "  11.5  22.5  33.5  4"
+	strWidth = MID$(strWidth,((nSize -1) * 3) +1,3)
+
+	'--------------------
+	'Write Header for KML
+	'--------------------
+
+	Call printHeaderAndCData(outputFileNum, objTemp, nCount, strPlaceName, nPoly)
+
+	Call printStyleElement(strExtrudeVal, objTemp, nColour, nFill, strAltMode, strTesselate, nStyle, iObjType, outputFileNum, strWidth)
+
+	If bMultiGeom = true then
+		Print # outputFileNum, Indnt2 + "<MultiGeometry>"
+	End If
+
+	' Now process the objects...
+	nCount = 0
+	Fetch First from alias
+
+	Do While not EOT(alias)
+		nCount = nCount + 1
+
+		'Get the Map Object and Height Data
+		selName = tmpSelName()
+		Select * from alias where RowID = nCount into selName
+
+		' After disaggregating into the same table, it appears the original object is left as a deleted record...
+		If SelectionInfo(SEL_INFO_NROWS) < 1 Then
+			Goto cntnu
+		End If
+
+		objTemp = selection.obj
+
+		objTemp = ConvertObjForKML(objTemp, iObjType)
+
+		If iObjType = OBJ_TYPE_PLINE
+				OR iObjType = OBJ_TYPE_REGION
+				OR iObjType = OBJ_TYPE_MPOINT THEN
+			nPolyCount = OBJECTINFO(objTemp,OBJ_INFO_NPOLYGONS)
+		Else
+			nPolyCount = 1  'For points
+		End If
+
+       For nPoly = 1 TO nPolyCount
+
+			'----------------------------------------------------
+			'Handle the different Object Types OBJECT DESCRIPTION
+			'----------------------------------------------------
+			Do Case iObjType
+				Case 1
+					Print "Case 1"
+
+				Case  OBJ_TYPE_POINT
+					Print # outputFileNum, Indnt4 + "<Point>"
+					Print # outputFileNum, Indnt6 + "<extrude>" + strExtrudeVal + "</extrude>"
+					Print # outputFileNum, Indnt6 + "<altitudeMode>relativeToGround</altitudeMode>"
+					Print # outputFileNum, Indnt6 + "<coordinates>" + Format$(CENTROIDX(objTemp),"#.#######") + "," + Format$(CENTROIDY(objTemp),"#.#######") + "," + strHT + "</coordinates>"
+					Print # outputFileNum, Indnt4 + "</Point>"
+
+				Case  OBJ_TYPE_PLINE
+					Print # outputFileNum, Indnt6 + "<LineString>"
+					Print # outputFileNum, Indnt8 + "<extrude>" + strExtrudeVal + "</extrude>"
+					Print # outputFileNum, Indnt8 + "<altitudeMode>"+ strAltMode + "</altitudeMode>"
+					Print # outputFileNum, Indnt8 + "<tessellate>" + strTesselate + "</tessellate>"
+					Print # outputFileNum, Indnt8 + "<coordinates>"
+					' Get the number of objects
+                    For nPosNode = 1 to OBJECTINFO(objTemp,OBJ_INFO_NPOLYGONS + nPoly) ' - correction
+						Print # outputFileNum, Indnt6 + Format$(OBJECTNODEX(objTemp, nPoly, nPosNode),"#.#######") + "," + Format$(OBJECTNODEY(objTemp, nPoly, nPosNode),"#.#######") + "," + strHT
+                    Next
+
+					Print # outputFileNum, Indnt8 + "</coordinates>"
+					Print # outputFileNum, Indnt4 + "</LineString>"
+
+				Case OBJ_TYPE_REGION
+					Dim nCntInnerBdys as integer
+					Dim bIsClockwise  as Logical
+					'---------------------------------------------------------------------
+					'  if nPolyCount > 1, region has holes.
+					'  	First pass, write the outerBoundaryIs.
+					'  	After that, write innerBoundaryIs elements.
+					'  	We'll need to close this <Placemark> at the end of this loop.
+					'---------------------------------------------------------------------
+					If nPoly = 1 Then
+						Print # outputFileNum, Indnt6 + "<Polygon>"
+						Print # outputFileNum, Indnt8 + "<extrude>" + strExtrudeVal + "</extrude>"
+						Print # outputFileNum, Indnt8 + "<altitudeMode>"+ strAltMode + "</altitudeMode>"
+						Print # outputFileNum, Indnt8 + "<tessellate>" + strTesselate + "</tessellate>"
+					End If
+
+					If nPoly = 1 then
+						Print # outputFileNum, Indnt8 + "<outerBoundaryIs>"
+					Else
+						nCntInnerBdys = nCntInnerBdys + 1
+						Print # outputFileNum, Indnt8 + "<innerBoundaryIs>"
+					End If
+
+					Print # outputFileNum, Indnt10 + "<LinearRing>"
+					Print # outputFileNum, Indnt12 + "<coordinates>"
+
+					startNode = 1
+					endNode = OBJECTINFO(objTemp,OBJ_INFO_NPOLYGONS+nPoly) - 1
+					inc = 1
+
+					If SystemInfo(SYS_INFO_MIVERSION) >= 900 OR (SystemInfo(SYS_INFO_MIVERSION) = 850 and SystemInfo(SYS_INFO_MIBUILD_NUMBER) >= 40) Then
+						 ' Need separate err handler, since 'out of range' is okgg for SystemInfo,
+						 ' but not for RegionInfo
+						OnError Goto RegionInfoErrHndlr
+
+						bIsClockwise = RegionInfo(objTemp, REGION_INFO_IS_CLOCKWISE, 1)
+
+						If bIsClockwise Then
+							startNode = OBJECTINFO(objTemp,OBJ_INFO_NPOLYGONS+nPoly) -1
+							endNode = 1
+							inc = -1
+						End If
+					End If
+LESS_THAN_851:
+					OnError Goto ErrHndlr
+					nPos = startNode
+
+                     For nPos = startNode to endNode step inc
+						Print # outputFileNum, Indnt14 + Format$(OBJECTNODEX(objTemp,nPoly,nPos),"#.#######") + "," + Format$(OBJECTNODEY(objTemp,nPoly,nPos),"#.#######") + "," + strHT
+
+                    Next
+
+
+					Print # outputFileNum, Indnt14 + Format$(OBJECTNODEX(objTemp,nPoly,startNode),"#.#######") + "," + Format$(OBJECTNODEY(objTemp,nPoly,startNode),"#.#######") + "," + strHT
+					Print # outputFileNum, Indnt12 + "</coordinates>"
+					Print # outputFileNum, Indnt10 + "</LinearRing>"
+
+					If nPoly = 1 then
+						Print # outputFileNum, Indnt8 + "</outerBoundaryIs>"
+					Else
+						Print # outputFileNum, Indnt8 + "</innerBoundaryIs>"
+					End If
+
+					If nPoly = nPolyCount Then
+						Print # outputFileNum, Indnt4 + "</Polygon>"
+					End If
+
+				Case  OBJ_TYPE_LINE
+					Print # outputFileNum, Indnt4 + "<LineString>"
+					Print # outputFileNum, Indnt6 + "<extrude>" + strExtrudeVal + "</extrude>"
+					Print # outputFileNum, Indnt6 + "<altitudeMode>relativeToGround</altitudeMode>"
+					Print # outputFileNum, Indnt6 + "<tessellate>0</tessellate>"
+					Print # outputFileNum, Indnt6 + "<coordinates>"
+					Print # outputFileNum, Indnt10 + Format$(ObjectGeography(objTemp,OBJ_GEO_LINEBEGX),"#.#######") + "," + Format$(ObjectGeography(objTemp,OBJ_GEO_LINEBEGY),"#.#######") + "," + strHT
+					Print # outputFileNum, Indnt10 + Format$(ObjectGeography(objTemp,OBJ_GEO_LINEENDX),"#.#######") + "," + Format$(ObjectGeography(objTemp,OBJ_GEO_LINEENDY),"#.#######") + "," + strHT
+					Print # outputFileNum, Indnt6 + "</coordinates>"
+					Print # outputFileNum, Indnt4 + "</LineString>"
+
+				Case  OBJ_TYPE_POINT
+					Print # outputFileNum, Indnt4 + "<Point>"
+					Print # outputFileNum, Indnt6 + "<extrude>" + strExtrudeVal + "</extrude>"
+					Print # outputFileNum, Indnt6 + "<altitudeMode>relativeToGround</altitudeMode>"
+					Print # outputFileNum, Indnt6 + "<coordinates>" + Format$(CENTROIDX(objTemp),"#.#######") + "," + Format$(CENTROIDY(objTemp),"#.#######") + "," + strHT + "</coordinates>"
+					Print # outputFileNum, Indnt4 + "</Point>"
+
+				Case  OBJ_TYPE_TEXT
+					Print # outputFileNum, Indnt4 + "<Point>"
+					Print # outputFileNum, Indnt6 + "<extrude>" + strExtrudeVal + "</extrude>"
+					Print # outputFileNum, Indnt6 + "<altitudeMode>relativeToGround</altitudeMode>"
+					Print # outputFileNum, Indnt6 + "<coordinates>" + Format$(CENTROIDX(objTemp),"#.#######") + "," + Format$(CENTROIDY(objTemp),"#.#######") + "," + strHT + "</coordinates>"
+					Print # outputFileNum, Indnt4 + "</Point>"
+
+			End Case
+
+        Next
+
+cntnu:
+
+		Drop table selName
+
+		Fetch Next from alias
+	Loop
+
+	If bMultiGeom = true Then
+		Print # outputFileNum, Indnt2 + "</MultiGeometry>"
+	End If
+	Print # outputFileNum, Indnt2 + "</Placemark>"
+
+' Fall through into this to close stuff
+close_Alias:
+	OnError Goto closeDelHndlr
+
+	Close Table alias
+	goto last_exit
+
+ErrHndlr:
+	Dim errNo as integer
+	errNo = Err()
+
+   ' Trap 'argument out of range' error when this mbx runs on 8.5.
+	If errNo = 644 Then
+		Resume LESS_THAN_851
+	Else
+		CALL ErrorMsg ("processDisaggTable", Error$(), Err())
+		Resume close_alias
+	End If
+
+RegionInfoErrHndlr:
+	CALL ErrorMsg ("processDisaggTable", Error$(), Err())
+	Resume close_alias
+
+closeDelHndlr:
+	Resume Next
+
+last_exit:
+
+End Sub		' processDisaggTable
+
+' --------------------------------------------------------------------------------
+Function bldDisaggregateCmd(ByVal alias as string, colList() as string) as string
+
+	Dim cmd,
+		colName,
+		dataStmt,
+		s   		as string
+	Dim cntr,
+		countCols   as smallint
+
+	OnError goto ErrHndlr
+
+	cmd = "objects disaggregate into Table " + str$(alias) + "  Data "
+
+	If UBound(colList) = 1 and colList(1) = "" Then
+		colName = ColumnInfo(alias, "COL1", COL_INFO_NAME)
+		dataStmt = colName + "=" + colName
+
+		cmd = cmd + dataStmt
+
+		countCols = NumCols(alias)
+
+		For cntr = 2 to countCols
+			dataStmt = ","
+			s = "col" + Str$(cntr)
+			colName = ColumnInfo(alias, s, COL_INFO_NAME)
+			dataStmt = dataStmt + colName + "=" + colName
+			cmd = cmd + dataStmt
+		Next
+	Else
+		dataStmt = colList(1) + "=" + colList(1)
+		cmd = cmd + dataStmt
+		' process the passed in list
+		For cntr = 2 to  UBound(colList)
+			dataStmt = ","
+			dataStmt = dataStmt + colList(cntr) + "=" + colList(cntr)
+			cmd = cmd + dataStmt
+		Next
+	End If
+
+
+	bldDisaggregateCmd = cmd
+
+	Goto xit
+
+ErrHndlr:
+	Call ErrorMsg ("bldDisaggregateCmd", Err(), Error$())
+
+Xit:
+
+End Function ' bldDisaggregateCmd
+
+
+Sub printPlacemarkBegin(ByVal outputFileNum as integer,
+			ByVal nPoly as integer, ByVal objTemp as Object, nColour as integer,
+			nSize as integer, nStyle as integer, nFill as integer, bMultiGeom as Logical)
+
+	Dim iObjType as smallint
+	iObjType = ObjectInfo(objTemp, OBJ_INFO_TYPE)
+
+	Do Case iObjType
+		Case  OBJ_TYPE_POINT
+			Print # outputFileNum, Indnt2 + "<Placemark>"
+			nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_COLOR)
+			nSize = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_POINTSIZE)
+			nStyle = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_CODE)
+		Case  OBJ_TYPE_PLINE
+			Print # outputFileNum, Indnt2 + "<Placemark>"
+			nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),FONT_FORECOLOR)
+			nSize = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_WIDTH)
+			nStyle = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_PATTERN)
+
+		  Case OBJ_TYPE_REGION
+			Print # outputFileNum, Indnt2 + "<Placemark>"
+			nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_COLOR)
+			nSize = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_WIDTH)
+			nStyle = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_BRUSH),BRUSH_PATTERN)
+			nFill = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_BRUSH),BRUSH_FORECOLOR)
+
+		  Case OBJ_TYPE_LINE
+		   Print # outputFileNum, Indnt2 + "<Placemark>"
+			nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),FONT_FORECOLOR)
+			nSize = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_WIDTH)
+			nStyle = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_PATTERN)
+
+		Case  OBJ_TYPE_TEXT
+			Print # outputFileNum, Indnt2 + "<Placemark>"
+			' nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_COLOR)
+			nColour = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_PEN),PEN_COLOR)
+			' nSize = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_POINTSIZE)
+			' nStyle = STYLEATTR(OBJECTINFO(objTemp, OBJ_INFO_SYMBOL),SYMBOL_CODE)
+
+   End Case
+
+End Sub
+
+Sub printHeaderAndCData(ByVal outputFileNum as integer, ByVal objTemp as Object,
+					ByVal nCount as integer, ByVal strPlaceName as string, ByVal nPoly as integer)
+	OnError Goto HandleError
+	Dim iObjType as smallint
+	Dim strNameVal as string
+	Dim strAttributes as string
+	Dim nSelCols, nSelColPos, nCols, nPos As Smallint
+
+	iObjType = ObjectInfo(objTemp, OBJ_INFO_TYPE)
+
+	If iObjType = OBJ_TYPE_REGION And nPoly > 1 Then
+		Goto skippy
+	End If
+
+	If iObjType = OBJ_TYPE_TEXT Then
+		strNameVal = ObjectInfo(objTemp, OBJ_INFO_TEXTSTRING)
+	Else
+		If gbUsePlacenameField Then
+			strNameVal = Str$(Selection.Col(gPlacenameFieldIdx))
+		Else
+			strNameVal = gstrPlaceName
+		End If
+	End If
+
+	'Handle the Feature NAME and DESCRIPTION
+	If LEFT$(SelectionInfo(SEL_INFO_TABLENAME), 8) = "COSMETIC"  THEN
+		Print # outputFileNum, Indnt4 + "<name>Item " + STR$(nCount) + "</name>"		  'Name to appear on left list
+	Else
+		' By putting this name in CDATA, it doesn't get parsed by the xml validator.
+		' "Sao Tome & Principe", for example, is invalid because of the "&".  In CDATA, it's fine.
+		Print # outputFileNum, Indnt4 + "<name><![CDATA[" + strNameVal + "]]></name>" 	'Name to appear on left list
+
+		'Loop through building Attribute data
+		Print # outputFileNum, Indnt4 + "<description><![CDATA[<br><br><br>"
+		Print # outputFileNum, Indnt4 + "<table border=""1"" padding=""0"">"
+
+		'------------------------------------------------------------
+		' This is where we use the gSelectedColNames
+		'------------------------------------------------------------
+		Dim sValue as string
+		Dim dValue As float
+		If gUseSelectedColNames = TRUE then
+			strAttributes = ""
+			nSelCols = UBound(gSelectedColNames)
+
+			' Find the columns in the selection that match the columns the user selected
+			For nSelColPos = 1 to nSelCols
+				nCols = TableInfo(Selection,TAB_INFO_NCOLS)
+				For nPos = 1 to nCols
+					If  ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_NAME) = gSelectedColNames(nSelColPos) then
+						strAttributes = Indnt4 + "<tr><td>" + gSelectedColNames(nSelColPos) + "</td>"
+						
+						If ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_TYPE ) = COL_TYPE_FLOAT or ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_TYPE ) =COL_TYPE_DECIMAL then
+							dValue = Selection.Col(nPos)
+							call ConvertDecimalToString(dValue,sValue)
+						Else
+							sValue = STR$(Selection.Col(nPos))
+						End If 
+						
+						
+						strAttributes = strAttributes + "<td>" + sValue + "</td></tr>"
+
+						Print # outputFileNum, strAttributes
+						Exit For
+					End If
+				Next
+			Next
+		Else
+			strAttributes = ""
+			nCols = TableInfo(Selection,TAB_INFO_NCOLS)
+
+			nPos = 1
+			While nPos < nCols + 1
+				if ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_TYPE ) = COL_TYPE_FLOAT or ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_TYPE ) =COL_TYPE_DECIMAL then
+							dValue = Selection.Col(nPos)
+							call ConvertDecimalToString(dValue,sValue)
+						Else
+							sValue = STR$(Selection.Col(nPos))
+				End If 
+						
+ 				strAttributes = Indnt6 + "<tr><td>" +ColumnInfo(Selection,"COL" + STR$(nPos),COL_INFO_NAME) + "</td>"
+ 				strAttributes = strAttributes + "<td>" + sValue + "</td></tr>"
+ 				Print # outputFileNum, strAttributes
+				nPos = nPos + 1
+			Wend
+
+		End If
+
+		'Add Attribute Data to DESCRIPTOR
+		Print # outputFileNum, Indnt8 + "]]></description>"
+	End If
+
+	'Set basic display style
+	Print # outputFileNum, Indnt4 + "<visibility>1</visibility>"
+	Print # outputFileNum, Indnt4 + "<open>0</open>"
+
+	Exit Sub
+	HandleError:
+		Note "printHeaderAndCData: " + Error$()
+		Resume Next
+skippy:
+
+End Sub
+
+Sub printDiagnostic1(ByVal obj as Object)
+	Dim nCntObjs,
+		typ 		as smallint
+
+	typ = ObjectInfo(obj, OBJ_INFO_TYPE)
+
+	Do case typ
+	  Case OBJ_TYPE_REGION
+		  nCntObjs = ObjectInfo(obj, OBJ_INFO_NPOLYGONS)
+		  Print "    DIAG: Region : " + str$(nCntObjs) + " polygons"
+
+	  Case OBJ_TYPE_PLINE
+		  nCntObjs = ObjectInfo(obj, OBJ_INFO_NPOLYGONS)
+		  Print "    DIAG: PLine : " + str$(nCntObjs) + " polygons"
+
+	  Case OBJ_TYPE_LINE
+		  Print "    DIAG: Line"
+
+	  Case else
+		  Print "    DIAG: Some other type"
+	End Case
+End Sub
+
+Sub printStyleElement(strExtrudeVal as string, objTemp as Object,
+				nColour as Integer, nFill as integer, strAltMode as string,
+				strTesselate as string, nStyle as integer, iObjType as smallint,
+				outputFileNum as integer, strWidth as string)
+
+	Do Case iObjType
+
+		Case  OBJ_TYPE_PLINE
+			 Print # outputFileNum, Indnt6 + "<Style>"
+			 Print # outputFileNum, Indnt8 + "<LineStyle>"
+			 Print # outputFileNum, Indnt10 + "<color>" + GetAABBGGRR(nColour) + "</color>"
+			 Print # outputFileNum, Indnt10 + "<width>" + strWidth + "</width>"
+			 Print # outputFileNum, Indnt8 + "</LineStyle>"
+			 Print # outputFileNum, Indnt6 + "</Style>"
+
+		Case OBJ_TYPE_REGION
+			 Print # outputFileNum, Indnt6 + "<Style>"
+			 Print # outputFileNum, Indnt8 + "<LineStyle>"
+			 Print # outputFileNum, Indnt10 + "<color>" + GetAABBGGRR(nColour) + "</color>"
+			 Print # outputFileNum, Indnt10 + "<width>" + strWidth + "</width>"
+			 Print # outputFileNum, Indnt8 + "</LineStyle>"
+			 Print # outputFileNum, Indnt8 + "<PolyStyle>"
+			 If nStyle = 1 THEN 'Its has no fill
+				 Print # outputFileNum, Indnt10 + "<fill>0</fill>"
+				 Print # outputFileNum, Indnt10 + "<outline>1</outline>"
+			 Else 'It has colour fill
+				 Print # outputFileNum, Indnt10 + "<fill>1</fill>"
+				 Print # outputFileNum, Indnt10 + "<outline>1</outline>"
+				 Print # outputFileNum, Indnt10 + "<color>" + GetAABBGGRR(nFill) + "</color>"
+			 End If
+			 Print # outputFileNum, Indnt8 + "</PolyStyle>"
+			 Print # outputFileNum, Indnt6 + "</Style>"
+
+		 Case  OBJ_TYPE_LINE
+			 Print # outputFileNum, Indnt4 + "<Style>"
+			 Print # outputFileNum, Indnt6 + "<LineStyle>"
+			 Print # outputFileNum, Indnt8 + "<color>" + GetAABBGGRR(nColour) + "</color>"
+			 Print # outputFileNum, Indnt8 + "<width>" + strWidth + "</width>"
+			 Print # outputFileNum, Indnt6 + "</LineStyle>"
+			 Print # outputFileNum, Indnt4 + "</Style>"
+	End Case
+
+End Sub ' printStyleElement
+
+Sub progressBarProc()
+
+	Dim obj 		as Object
+	Dim nCntObjs	as Integer
+	Dim alias2  	as string
+	Dim typ 		as smallint
+
+	OnError goto errH
+
+	'----------------------------------------
+	'   New selection, single row
+	'----------------------------------------
+	selName = tmpSelName()
+	Select * from alias where ROWID = cntr into selName
+
+	If Not selection.obj Then
+		Goto cntnu
+	End If
+
+	obj = selection.obj
+	gbGotObject = TRUE
+	typ = ObjectInfo(obj, OBJ_INFO_TYPE)
+
+	nCntObjs = 1
+
+	do case typ
+		Case OBJ_TYPE_REGION
+			nCntObjs = ObjectInfo(obj, OBJ_INFO_NPOLYGONS)
+
+		Case OBJ_TYPE_PLINE
+			nCntObjs = ObjectInfo(obj, OBJ_INFO_NPOLYGONS)
+
+		Case Else
+			nCntObjs = 1
+
+	End case
+
+	Dim tmpNam2 as string
+
+
+	tmpNam2 = MakeTmpFileName("", "", TRUE, alias2)
+
+	commit table selName as tmpNam2
+
+	Drop table selName
+
+	If nCntObjs > 1
+			Or typ = OBJ_TYPE_COLLECTION
+			Or typ = OBJ_TYPE_MPOINT Then
+		call disaggregateCommittedSelection( tmpNam2, alias2 )
+	End If
+
+	call processDisaggTable( tmpNam2, alias2, KmlOutputFileNum, gstrPlaceName )
+
+	Open table tmpNam2 as alias2
+	Drop table alias2
+	Goto cntnu
+
+errH:
+	
+
+cntnu:
+	cntr = cntr + 1
+
+	Fetch Next from alias
+
+   If Not EOT(alias) then
+		ProgressBar = cntr
+	Else
+		ProgressBar = -1
+	End If
+
+
+
+xit:
+
+End Sub

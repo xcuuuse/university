@@ -1,0 +1,12 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 5
+    ID Decimal (5, 0) ;
+    CODE Char (8) ;
+    AREA Char (40) ;
+    DISTRICT Char (40) ;
+    BOUNDARY Char (40) ;

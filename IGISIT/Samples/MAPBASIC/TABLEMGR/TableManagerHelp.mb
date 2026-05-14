@@ -1,0 +1,100 @@
+Include "TableManager.def"
+'****************************************************************************
+' Sub procedure: TableManagerHelp
+'****************************************************************************
+Sub TableManagerHelp
+
+  OnError Goto HandleError
+
+  Dialog
+    Title GetResString(IDS_APP_DESCRIPTION) + " " + GetResString(IDS_HELP) + " (" + GetResString(IDS_VERSION)+ " " + AppVersion + ")"
+
+    Control StaticText Title GetResString(IDS_HELP_1) Position 10, 10
+    Control StaticText Title GetResString(IDS_HELP_2) Position 10, 19
+
+    Control StaticText Title GetResString(IDS_HELP_3) Position 10, 37
+    Control StaticText Title GetResString(IDS_HELP_4) Position 10, 46
+    Control StaticText Title GetResString(IDS_HELP_5) Position 10, 55
+
+    Control StaticText Title GetResString(IDS_HELP_6) Position 10, 73
+    Control StaticText Title GetResString(IDS_HELP_7) Position 10, 82
+
+    Control StaticText Title GetResString(IDS_HELP_8) Position 10, 100
+    Control StaticText Title GetResString(IDS_HELP_9) Position 10, 109
+
+    Control StaticText Title GetResString(IDS_HELP_10) Position 10, 127
+    Control StaticText Title GetResString(IDS_HELP_11) Position 10, 136
+
+    Control StaticText Title GetResString(IDS_HELP_12) Position 10, 154
+    Control StaticText Title GetResString(IDS_HELP_13) Position 10, 163
+
+    Control StaticText Title GetResString(IDS_HELP_14) Position 10, 181
+    Control StaticText Title GetResString(IDS_HELP_15) Position 10, 190
+
+    Control StaticText Title GetResString(IDS_HELP_16) Position 10, 208
+    Control StaticText Title GetResString(IDS_HELP_17) Position 10, 217
+    Control StaticText Title GetResString(IDS_HELP_18) Position 10, 226
+
+    Control StaticText Title GetResString(IDS_HELP_19) Position 10, 244
+    Control StaticText Title GetResString(IDS_HELP_20) Position 10, 253
+    Control StaticText Title GetResString(IDS_HELP_21) Position 10, 262
+
+    Control StaticText Title GetResString(IDS_HELP_22) Position 10, 280
+    Control StaticText Title GetResString(IDS_HELP_23) Position 10, 289
+    Control StaticText Title GetResString(IDS_HELP_24) Position 10, 298
+
+    Control OKButton
+      Title GetResString(IDS_OK)
+
+  Exit Sub
+
+HandleError:
+  Note "TableManagerHelp: " + Error$()
+  Resume Next
+
+End Sub
+
+'****************************************************************************
+' Sub procedure: MetaDataTemplateHelp
+'****************************************************************************
+Sub MetaDataTemplateHelp
+
+  OnError Goto HandleError
+
+  Dialog
+    Title GetResString(IDS_META_DATA_HELP_VER) + " "+ AppVersion + ")"
+    ' The first 6 lines of text are a repeat of part of the main help screen: 
+    ' To add a new key...  
+    Control StaticText Title GetResString(IDS_HELP_8) Position 10, 10
+    Control StaticText Title GetResString(IDS_HELP_9) Position 10, 19
+    ' To delete a key... 
+    Control StaticText Title GetResString(IDS_HELP_10) Position 10, 36
+    Control StaticText Title GetResString(IDS_HELP_11) Position 10, 45
+    ' To modify a key... 
+    Control StaticText Title GetResString(IDS_HELP_12) Position 10, 63
+    Control StaticText Title GetResString(IDS_HELP_13) Position 10, 72
+    ' The rest of the text on this help screen is slightly different 
+    ' than the main help screen
+    ' To use an automatic value in a key value... 
+    Control StaticText Title GetResString(IDS_HELP_25) Position 10, 90
+    Control StaticText Title GetResString(IDS_HELP_26) Position 10, 99
+    Control StaticText Title GetResString(IDS_HELP_27) Position 10, 108
+    Control StaticText Title GetResString(IDS_HELP_28) Position 10, 117
+    ' To add all the keys.... to the current TEMPLATE 
+    Control StaticText Title GetResString(IDS_HELP_29) Position 10, 135
+    Control StaticText Title GetResString(IDS_HELP_30) Position 10, 144
+    Control StaticText Title GetResString(IDS_HELP_31) Position 10, 153
+    ' To save ... as a metadata template... 
+    Control StaticText Title GetResString(IDS_HELP_32) Position 10, 171
+    Control StaticText Title GetResString(IDS_HELP_33) Position 10, 180
+
+    Control OKButton
+      Title GetResString(IDS_OK)
+
+  Exit Sub
+
+HandleError:
+  Note "MetaDataTemplateHelp: " + Error$()
+  Resume Next
+
+End Sub

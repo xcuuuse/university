@@ -1,0 +1,155 @@
+Include "MAPBASIC.DEF"
+Include "MENU.DEF"
+
+Declare Sub Main
+Declare Sub CloseProgram
+Declare Sub RunAnalysis
+
+Global ms_x       As String
+Global ms_y       As String
+Global ms_radius  As String
+Global ms_table   As String
+Global ms_field   As String
+Global ms_oper    As String
+Global ms_value   As String
+Global WORKPATH   As String
+
+Sub Main()
+    WORKPATH = ApplicationDirectory$()
+    ms_x      = "-95.0"
+    ms_y      = "38.0"
+    ms_radius = "500"
+    ms_table  = ""
+    ms_field  = ""
+    ms_oper   = ">"
+    ms_value  = "1000000"
+
+    Create Menu "&BufferTool" As
+        "&Запустить анализ"  Calling RunAnalysis,
+        "(-",
+        "Выход"              Calling CloseProgram
+
+    Alter Menu Bar Add "&BufferTool"
+End Sub
+
+Sub CloseProgram
+    Alter Menu Bar Remove "BufferTool"
+    Terminate Application "buffer.mbx"
+End Sub
+
+Sub RunAnalysis
+    Dim f_x      As Float
+    Dim f_y      As Float
+    Dim oPt      As Object
+    Dim oBuf     As Object
+    Dim bStyle   As Brush
+    Dim w_tmp    As Integer
+    Dim sSQL     As String
+
+    Dialog Title "Шаг 1: Точка на карте"
+    Control StaticText  Position 10, 10  Title "Долгота (X):"
+    Control EditText    Position 90, 10  Value ms_x Into ms_x Width 70
+    Control StaticText  Position 10, 30  Title "Широта  (Y):"
+    Control EditText    Position 90, 30  Value ms_y Into ms_y Width 70
+    Control OKButton     Position 30, 60
+    Control CancelButton Position 85, 60
+    If Not CommandInfo(CMD_INFO_DLG_OK) Then
+        Exit Sub
+    End If
+
+    Dialog Title "Шаг 2: Радиус буфера"
+    Control StaticText  Position 10, 10  Title "Радиус (км):"
+    Control EditText    Position 90, 10  Value ms_radius Into ms_radius Width 60
+    Control OKButton     Position 30, 40
+    Control CancelButton Position 85, 40
+    If Not CommandInfo(CMD_INFO_DLG_OK) Then
+        Exit Sub
+    End If
+
+    If Val(ms_radius) <= 0 Then
+        Note "Радиус должен быть больше нуля!"
+        Exit Sub
+    End If
+
+    Dialog Title "Шаг 3: Условие отбора"
+    Control StaticText  Position 10, 10  Title "Имя таблицы:"
+    Control EditText    Position 10, 25  Value ms_table Into ms_table Width 150
+    Control StaticText  Position 10, 55  Title "Поле для условия (напр. Pop_1990):"
+    Control EditText    Position 10, 70  Value ms_field Into ms_field Width 150
+    Control StaticText  Position 10, 100 Title "Оператор (>, <, >=, <=, =, <>):"
+    Control EditText    Position 10, 115 Value ms_oper Into ms_oper Width 40
+    Control StaticText  Position 10, 145 Title "Значение:"
+    Control EditText    Position 10, 160 Value ms_value Into ms_value Width 100
+    Control OKButton     Position 30, 190
+    Control CancelButton Position 90, 190
+    If Not CommandInfo(CMD_INFO_DLG_OK) Then
+        Exit Sub
+    End If
+
+    If ms_table = "" Then
+        Note "Введите имя таблицы!"
+        Exit Sub
+    End If
+
+    If ms_field = "" Then
+        Note "Введите имя поля!"
+        Exit Sub
+    End If
+
+    f_x = Val(ms_x)
+    f_y = Val(ms_y)
+    oPt = CreatePoint(f_x, f_y)
+
+    OnError GoTo SkipDrop1
+    Drop Table TempPt
+    OnError GoTo 0
+
+    Create Table TempPt (ID Integer) File WORKPATH & "TempPt"
+    Create Map For TempPt
+    Insert Into TempPt (obj) Values (oPt)
+
+    Select * From TempPt
+
+    bStyle = MakeBrush(1, 0, BLACK)
+
+    OnError GoTo BadBuf
+    Create Object As Buffer From Selection Into Variable oBuf Width Val(ms_radius) Units "km" Resolution 32
+    OnError GoTo 0
+
+    Drop Table TempPt
+
+    OnError GoTo SkipDrop2
+    Drop Table TempBuf
+    OnError GoTo 0
+
+    Create Table TempBuf (ID Integer) File WORKPATH & "TempBuf"
+    Create Map For TempBuf
+    Insert Into TempBuf (obj) Values (oBuf)
+
+    Select * From States 
+    Where States.obj Within oBuf 
+    And States.Pop_1990 > 1000000 
+    Into BufResult
+
+    Drop Table TempBuf
+
+    Browse * From BufResult
+    Note "found recs: " & Str$(TableInfo(BufResult, TAB_INFO_NROWS))
+
+    Browse * From BufResult
+    Note "Объекты в буфере показаны в таблице BufResult."
+    Exit Sub
+
+BadBuf:
+    Note "Ошибка при создании буфера! Проверьте координаты и открытые таблицы."
+    Drop Table
+TempPt
+    Exit Sub
+
+SkipDrop1:
+    Resume Next
+
+SkipDrop2:
+    Resume Next
+
+End Sub

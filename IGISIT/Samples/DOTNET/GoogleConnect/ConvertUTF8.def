@@ -1,0 +1,14 @@
+
+'  Methods in UTF8.dll
+
+Declare Method WriteUTF8  
+	Class "MapInfo.WriteUTF"  Lib "ConvertUTF8.dll" 
+	(ByVal strFnIn As String, ByVal strFnOut as String) as Integer
+
+Declare Method GetErrorMessage
+	Class "MapInfo.WriteUTF"  Lib "ConvertUTF8.dll" 
+	(strErrMsg As String) as Integer
+
+Declare Method ConvertDecimalToString
+    Class "MapInfo.WriteUTF"  Lib "ConvertUTF8.dll" 
+    (ByVal dVal As float,  str as String) 

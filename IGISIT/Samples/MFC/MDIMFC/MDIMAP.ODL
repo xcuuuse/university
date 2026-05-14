@@ -1,0 +1,40 @@
+// mdimap.odl : type library source for mdimap.exe
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (mdimap.tlb).
+
+[ uuid(AE8B3FC1-F801-11CE-BD29-00AA00594AD7), version(1.0) ]
+library mdimap
+{
+	importlib("stdole32.tlb");
+	
+	//  Primary dispatch interface for CMdimapDoc
+	
+	[ uuid(AE8B3FC2-F801-11CE-BD29-00AA00594AD7) ]
+	dispinterface IMDIMap
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CMdimapDoc)
+			//}}AFX_ODL_PROP
+			
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CMdimapDoc)
+			[id(1)] SCODE WindowContentsChanged(long lWindowId);
+			//}}AFX_ODL_METHOD
+
+	};
+
+	//  Class information for CMdimapDoc
+	
+	[ uuid(AE8B3FC0-F801-11CE-BD29-00AA00594AD7) ]
+	coclass CMdimapDoc
+	{
+		[default] dispinterface IMDIMap;
+	};
+
+	//{{AFX_APPEND_ODL}}
+};

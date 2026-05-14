@@ -1,0 +1,65 @@
+--------------------Configuration: Mdimap - Win32 Debug--------------------
+Begining build with project "C:\WORK\Bug18340\Samples\Mfc\MdiMfc\Mdimap.dsp", at root.
+Active configuration is Win32 (x86) Application (based on Win32 (x86) Application)
+
+Project's tools are:
+			"32-bit C/C++ Compiler for 80x86" with flags "/nologo /MDd /W3 /Gm /GX /Zi /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp".\WinDebug/Mdimap.pch" /Yu"stdafx.h" /Fo".\WinDebug/" /Fd".\WinDebug/" /FD /c "
+			"OLE Type Library Maker" with flags "/nologo /D "_DEBUG" /mktyplib203 /win32 "
+			"Win32 Resource Compiler" with flags "/l 0x409 /fo".\WinDebug/mdimap.res" /d "_DEBUG" /d "_AFXDLL" "
+			"Browser Database Maker" with flags "/nologo /o".\WinDebug/Mdimap.bsc" "
+			"COFF Linker for 80x86" with flags "/nologo /subsystem:windows /incremental:yes /pdb:".\WinDebug/Mdimap.pdb" /debug /machine:I386 /out:".\WinDebug/Mdimap.exe" "
+			"Custom Build" with flags ""
+			"<Component 0xa>" with flags ""
+
+Creating command line "midl.exe /nologo /D "_DEBUG" /tlb ".\WinDebug/mdimap.tlb" /mktyplib203 /win32 "C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimap.odl"" 
+Creating command line "rc.exe /l 0x409 /fo".\WinDebug/mdimap.res" /i ".\WinDebug" /d "_DEBUG" /d "_AFXDLL" "C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimap.rc"" 
+Creating temp file "C:\temp\RSPFF.tmp" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp".\WinDebug/Mdimap.pch" /Yu"stdafx.h" /Fo".\WinDebug/" /Fd".\WinDebug/" /FD /c 
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimap.cpp"
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mainfrm.cpp"
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimadoc.cpp"
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimavw.cpp"
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mapinfow.cpp"
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\ovvwdlg.cpp"
+>
+Creating command line "cl.exe @C:\temp\RSPFF.tmp" 
+Creating temp file "C:\temp\RSP100.tmp" with contents </nologo /MDd /W3 /Gm /GX /Zi /Od /D "_DEBUG" /D "WIN32" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp".\WinDebug/Mdimap.pch" /Yc"stdafx.h" /Fo".\WinDebug/" /Fd".\WinDebug/" /FD /c 
+"C:\WORK\Bug18340\Samples\Mfc\MdiMfc\stdafx.cpp"
+>
+Creating command line "cl.exe @C:\temp\RSP100.tmp" 
+Creating temp file "C:\temp\RSP101.tmp" with contents </nologo /subsystem:windows /incremental:yes /pdb:".\WinDebug/Mdimap.pdb" /debug /machine:I386 /out:".\WinDebug/Mdimap.exe" 
+.\WinDebug\stdafx.obj
+.\WinDebug\mdimap.obj
+.\WinDebug\mainfrm.obj
+.\WinDebug\mdimadoc.obj
+.\WinDebug\mdimavw.obj
+.\WinDebug\mapinfow.obj
+.\WinDebug\ovvwdlg.obj
+.\WinDebug\mdimap.res>
+Creating command line "link.exe @C:\temp\RSP101.tmp" 
+Creating Type Library...
+Processing C:\WORK\Bug18340\Samples\Mfc\MdiMfc\mdimap.odl
+mdimap.odl
+Processing E:\VC\INCLUDE\oaidl.idl
+oaidl.idl
+Processing E:\VC\INCLUDE\objidl.idl
+objidl.idl
+Processing E:\VC\INCLUDE\unknwn.idl
+unknwn.idl
+Processing E:\VC\INCLUDE\wtypes.idl
+wtypes.idl
+Compiling resources...
+Compiling...
+stdafx.cpp
+Compiling...
+mdimap.cpp
+mainfrm.cpp
+mdimadoc.cpp
+mdimavw.cpp
+mapinfow.cpp
+ovvwdlg.cpp
+Generating Code...
+Linking...
+
+
+
+Mdimap.exe - 0 error(s), 0 warning(s)

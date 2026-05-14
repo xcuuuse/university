@@ -1,0 +1,232 @@
+'************* Copyright 2007 MapInfo Corp. *********************************
+include "GELink.def"
+
+Sub DlgPickColumns( byval tblName As String )
+
+   Dim i          As Smallint
+   Dim countCols  As Smallint
+   Dim s          As String
+   Dim colName    As String
+
+
+   If gLastUsedTableName <> tblName Then
+      countCols = NumCols(tblName)
+   
+      redim gColNames(countCols)
+
+      For i = 1 to countCols
+         s = "col" + Str$(i)
+         gColNames(i) = ColumnInfo(tblName, s, COL_INFO_NAME)
+      Next
+
+      Redim gTempSelectedColNames(UBound(gColNames))
+      For i = 1 to countCols
+         gTempSelectedColNames(i) = gColNames(i)
+      Next
+
+      Redim gTempColNames(0)
+      Redim gSelectedColNames(0)
+
+   End If
+
+
+    Dialog
+     Title GetResString(IDS_CHOOSE_COLUMNS_TITLE)
+     Width 237 Height 185
+     Calling DlgPickCols_OnShow
+
+      Control StaticText Title GetResString(IDS_AVAIL_COLS)
+         position 5, 8
+
+      Control MultiListBox
+        ID MultiListBox1
+        Title from variable gTempColNames
+        Position 5, 23
+        Width 100 Height 140
+        Value 0
+'      Calling MultiListBox1_OnClick
+
+       Control Button
+         ID MoveTo
+         Title ">"
+         Position 107, 56
+         width 22 Height 15
+         calling btnAvailableToSelectedHandler
+
+       Control Button
+         ID MoveFrom
+         Title "<"
+         Position 107, 75
+         width 22 Height 15
+         calling btnSelectedToAvailableHandler
+
+      Control StaticText Title GetResString(IDS_SELECTED_COLS)
+         position 131, 8
+
+      Control MultiListBox
+        ID MultiListBoxTarget
+        Title from variable gTempSelectedColNames
+        Position 131,23
+        Width 100 Height 140
+        Value 0
+
+       Control OKButton
+         ID DlgPickColsBtnOK
+         Title GetResString(IDS_OK_MNU_ITEM)
+         Position 66, 167
+         Width 45 Height 15
+
+       Control CancelButton
+         ID DlgPickColsBtnCancel
+         Title GetResString(IDS_CANCEL_MNU_ITEM)
+         Position 126, 167
+         Width 45 Height 15
+
+    If CommandInfo(CMD_INFO_DLG_OK) = 1 Then
+      gLastUsedTableName = tblName
+      gChooseColumnsOK = TRUE
+      call DlgPickCols_OnOKModalResult
+    Else
+       call DlgPickCols_OnCancelModalResult
+    End If
+
+End Sub
+
+Sub btnAvailableToSelectedHandler
+
+   Dim item as smallint
+   Dim newIndex as smallint
+
+   ' Get the user's selection, add it to gTempSelectedColNames
+   ' At the same time, set the source to ""
+   item = ReadControlValue(MultiListBox1)
+   If item < 1 Then
+      Goto NoSelection
+   End If
+
+   newIndex = UBound(gTempSelectedColNames)
+   While item > 0
+      newIndex = newIndex + 1
+      Redim gTempSelectedColNames(newIndex)
+      gTempSelectedColNames(newIndex) = gTempColNames(item)
+      gTempColNames(item) = ""
+      item = ReadControlValue(MultiListBox1)
+   Wend
+
+   ' Shrink gTempColNames
+   ' Copy the non-empty entries to a temp array, shring gTempColNames,then copy them back.
+   ' 
+   Dim cntItems as smallint
+   cntItems = UBound(gTempColNames)
+   Dim tmpArray(0) as string
+
+   cntItems = 0
+   For item = 1 to UBound(gTempColNames)
+      If gTempColNames(item) <> "" Then
+         cntItems = cntItems + 1
+         Redim tmpArray(cntItems)
+         tmpArray(cntItems) = gTempColNames(item)
+      End If
+   Next
+
+   Redim gTempColNames(cntItems)
+   For item = 1 to cntItems
+      gTempColNames(item) = tmpArray(item)
+   Next
+
+   Redim tmpArray(0)
+
+   Alter Control MultiListBox1 Title from variable gTempColNames
+
+   Alter Control MultiListBoxTarget Title from variable gTempSelectedColNames
+
+NoSelection:
+
+End Sub
+
+
+Sub btnSelectedToAvailableHandler
+
+   Dim item as smallint
+   Dim newIndex as smallint
+
+   ' Get the user's selection, add it to gTempSelectedColNames
+   ' At the same time, set the source to ""
+   item = ReadControlValue(MultiListBoxTarget)
+   If item < 1 Then
+      Goto NoSelection
+   End If
+
+   newIndex = UBound(gTempColNames)
+   While item > 0
+      newIndex = newIndex + 1
+      ' Adding an item to gTempColNames
+      Redim gTempColNames(newIndex)
+      gTempColNames(newIndex) = gTempSelectedColNames(item)
+      gTempSelectedColNames(item) = ""
+      item = ReadControlValue(MultiListBoxTarget)
+   Wend
+
+   ' Shrink gTempColNames
+   ' Copy the non-empty entries to a temp array, shring gTempColNames,then copy them back.
+   Dim cntItems as smallint
+   cntItems = UBound(gTempSelectedColNames)
+   Dim tmpArray(0) as string
+
+   cntItems = 0
+   For item = 1 to UBound(gTempSelectedColNames)
+      If gTempSelectedColNames(item) <> "" Then
+         cntItems = cntItems + 1
+         Redim tmpArray(cntItems)
+         tmpArray(cntItems) = gTempSelectedColNames(item)
+      End If
+   Next
+
+   Redim gTempSelectedColNames(cntItems)
+   For item = 1 to cntItems
+      gTempSelectedColNames(item) = tmpArray(item)
+   Next
+
+   Redim tmpArray(0)
+
+   Alter Control MultiListBox1 Title from variable gTempColNames
+
+   Alter Control MultiListBoxTarget Title from variable gTempSelectedColNames
+
+NoSelection:
+
+End Sub
+
+
+
+Sub DlgPickColsBtnCancel_OnClick
+	gUseSelectedColNames = FALSE
+End Sub
+
+'-------------------------
+' Sub DlgPickCols_OnShow
+'-------------------------
+Sub DlgPickCols_OnShow
+
+   Dim item as smallint
+
+   gChooseColumnsOK = FALSE
+
+   Alter Control MultiListBox1 Title from variable gTempColNames
+   
+   Alter Control MultiListBoxTarget Title from variable gTempSelectedColNames
+
+End Sub
+
+
+Sub DlgPickCols_OnCancelModalResult
+End Sub
+
+Sub MultiListBox1_OnClick
+End Sub
+
+Sub DlgPickCols_OnOKModalResult
+End Sub
+
+
+

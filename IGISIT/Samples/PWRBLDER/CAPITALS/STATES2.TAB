@@ -1,0 +1,14 @@
+!table
+!version 300
+!charset WindowsLatin1
+
+Definition Table
+  Type DBF Charset "WindowsLatin1"
+  Fields 7
+    State Char (2) ;
+    Statename Char (20) ;
+    Capital Char (20) ;
+    Motto Char (254) ;
+    Birdname Char (25) ;
+    Flowername Char (25) ;
+    ShadeVal Char (1) ;

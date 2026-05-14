@@ -1,0 +1,57 @@
+#header
+{
+  background:url(http://media.mapnik.org/images/bg-head.png) repeat-x;
+  height:40px;
+  margin:0;
+}
+
+h1,h2,h3,h4,h5 {color:#073f93;font-weight:normal;}
+h1 {font-size: 16pt;}
+h2 {font-size: 14pt;}
+:link, :visited {
+ text-decoration: none;
+ color: #a00;
+ border-bottom: 1px dotted #bbb;
+}
+:link:hover, :visited:hover {
+ background-color: #eee;
+ color: #448;
+}
+
+
+#navbar
+{
+   padding:0.4em;
+   background-color:#647a8e;
+}
+
+#navbar a {color:#fff;border:none;}
+#navbar ul{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+#navbar li {display:inline;margin:0;padding:0.2em;}
+#navbar :link:hover,#navbar :visited:hover
+{
+   color:#647a8e;
+   background-color: #ccc;
+} 
+
+<?cs
+##################################################################
+# Site CSS - Place custom CSS, including overriding styles here.
+?>
+
+#mbanner {
+background:#9D9FA1 none repeat scroll 0 0;
+color:#FFFFFF;
+font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+font-size:44px;
+height:32px;
+padding:4px 16px 0;
+text-shadow:2px 2px 3px gray;
+vertical-align:top;
+}
+

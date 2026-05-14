@@ -1,0 +1,16 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 9
+    ID Decimal (5, 0) ;
+    CODE Char (8) ;
+    NAME_CODE Char (60) ;
+    F4 Decimal (7, 1) ;
+    F9 Char (50) ;
+    F32 Decimal (6, 0) ;
+    NAME_F32 Char (12) ;
+    F36 Decimal (6, 0) ;
+    NAME_F36 Char (14) ;

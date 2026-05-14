@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE Map>
+<Map srs="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs">
+
+	<Style name="trace line style">
+		<Rule name="default">
+			<LineSymbolizer>
+				<CssParameter name="stroke">red</CssParameter>
+				<CssParameter name="stroke-width">2.2</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+	</Style>
+	
+	<Style name="trace polygon style">
+		<Rule name="default">
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#ffcccc</CssParameter>
+				<CssParameter name="fill-opacity">0.4</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">red</CssParameter>
+				<CssParameter name="stroke-width">2.2</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+	</Style>
+
+
+	<Style name="region rivers style">
+		<Rule name="riversR">
+			<Filter>[CODE] = '31410000' or [CODE] = '31120000' or [CODE] = '31131000'</Filter> 
+			<PolygonSymbolizer>
+				<CssParameter name="fill">steelblue</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">steelblue</CssParameter>
+				<CssParameter name="stroke-width">0.3</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+	</Style>
+
+	<Style name="basic style">
+		<Rule name="debug-intersect">
+			<Filter>[CODE] = 'debug-intersect'</Filter> 
+			<PointSymbolizer allow_overlap="true" file="circle-inter.png" type="png" width="4"  
+			height="4" />
+			<MinScaleDenominator>20</MinScaleDenominator>
+		</Rule>
+		
+		<Rule name="debug-intersect">
+			<Filter>[CODE] = 'debug-intersect'</Filter> 
+			<PointSymbolizer allow_overlap="true" file="circle-inter.png" type="png" width="6"  
+			height="6" />
+			<MinScaleDenominator>3</MinScaleDenominator>
+			<MaxScaleDenominator>20</MaxScaleDenominator>
+		</Rule>
+		
+		<Rule name="debug-intersect">
+			<Filter>[CODE] = 'debug-intersect'</Filter> 
+			<PointSymbolizer allow_overlap="true" file="circle-inter.png" type="png" width="12"  
+			height="12" />
+			<MaxScaleDenominator>3</MaxScaleDenominator>
+		</Rule>
+	
+		<Rule>
+			<Filter>[CODE] = '0'</Filter> 
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#f2eff9</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">rgb(50%,50%,50%)</CssParameter>
+				<CssParameter name="stroke-width">0.1</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+
+		<Rule name="areas">
+			<Filter>[CODE] = '83120000'</Filter>
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#cccccc</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">maroon</CssParameter>
+				<CssParameter name="stroke-width">0.6</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+
+        <Rule name="areas-selected">
+			<Filter>[CODE] = '83120000' and [selected] = '1'</Filter>
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#ffcccc</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">black</CssParameter>
+				<CssParameter name="stroke-width">0.8</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+		
+		<Rule name="rivers-text">
+			<Filter>[CODE] = '31410000'</Filter> 
+			<TextSymbolizer name="F9" face_name="DejaVu Sans Book" size="11" fill="#000" halo_radius="1" placement="line" />
+			<MaxScaleDenominator>10</MaxScaleDenominator>
+		</Rule>
+		
+		<Rule name="rivers">
+			<Filter>[CODE] = '31410000'</Filter> 
+			<LineSymbolizer>
+				<CssParameter name="stroke">steelblue</CssParameter>
+				<CssParameter name="stroke-width">0.4</CssParameter>
+			</LineSymbolizer>
+			<MinScaleDenominator>20</MinScaleDenominator>
+		</Rule>
+		
+		<Rule name="rivers">
+			<Filter>[CODE] = '31410000'</Filter> 
+			<LineSymbolizer>
+				<CssParameter name="stroke">steelblue</CssParameter>
+				<CssParameter name="stroke-width">1</CssParameter>
+			</LineSymbolizer>
+			<MaxScaleDenominator>20</MaxScaleDenominator>
+			<MinScaleDenominator>10</MinScaleDenominator>
+		</Rule>
+		
+		<Rule name="rivers">
+			<Filter>[CODE] = '31410000'</Filter> 
+			<LineSymbolizer>
+				<CssParameter name="stroke">steelblue</CssParameter>
+				<CssParameter name="stroke-width">1.5</CssParameter>
+			</LineSymbolizer>
+			<MaxScaleDenominator>10</MaxScaleDenominator>
+		</Rule>
+		
+		<Rule name="bigRivers">
+			<Filter>[CODE] = '31410000' and [F9] = 'днепр'</Filter> 
+			<LineSymbolizer>
+				<CssParameter name="stroke">red</CssParameter>
+				<CssParameter name="stroke-width">1.4</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+		
+		<Rule name="districts">
+			<Filter>[CODE] = '83130000'</Filter> 
+			<LineSymbolizer>
+				<CssParameter name="stroke">maroon</CssParameter>
+				<CssParameter name="stroke-width">0.2</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+
+        <Rule name="districts-selected">
+			<Filter>[CODE] = '83130000' and [selected] = '1'</Filter>
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#ffcccc</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">maroon</CssParameter>
+				<CssParameter name="stroke-width">0.2</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+		
+		<Rule name="towns">
+			<Filter>[CODE] = '41100000' and [F38] &gt; 100000 and [selected] = '1'</Filter> 
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#009900</CssParameter>
+			</PolygonSymbolizer>
+		</Rule>	
+		
+		<Rule name="towns">
+			<Filter>[CODE] = '41100000' and [F38] &gt; 100000</Filter> 
+			<PolygonSymbolizer>
+				<CssParameter name="fill">#ff0000</CssParameter>
+			</PolygonSymbolizer>
+			<LineSymbolizer>
+				<CssParameter name="stroke">black</CssParameter>
+				<CssParameter name="stroke-width">0.2</CssParameter>
+			</LineSymbolizer>
+			
+			<TextSymbolizer name="F9" face_name="DejaVu Sans Book" size="12" fill="white" halo_fill= "#2E2F39" halo_radius="1" wrap_width="20" spacing="5" allow_overlap="true" avoid_edges="true" min_distance="10" dy="-10"/>
+		</Rule>
+		
+		<Rule name="default">
+			<LineSymbolizer>
+				<CssParameter name="stroke">black</CssParameter>
+				<CssParameter name="stroke-width">0.2</CssParameter>
+			</LineSymbolizer>
+		</Rule>
+		
+		
+	</Style>
+</Map>
+

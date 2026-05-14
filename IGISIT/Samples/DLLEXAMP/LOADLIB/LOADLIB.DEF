@@ -1,0 +1,10 @@
+;Windows Definition File for Win16 version of LoadLib DLL
+;========================================================================
+LIBRARY   LOADLIB
+EXETYPE   WINDOWS
+CODE      PRELOAD MOVEABLE DISCARDABLE
+DATA      PRELOAD MOVEABLE SINGLE
+HEAPSIZE  1024
+EXPORTS
+          WEP PRIVATE
+

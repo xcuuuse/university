@@ -1,0 +1,255 @@
+'************* Copyright 2006 MapInfo Corp. *********************************
+
+'Add files for standard definitions
+INCLUDE "..\..\mapbasic\inc\MAPBASIC.DEF"
+INCLUDE "..\..\mapbasic\inc\ICONS.DEF"
+INCLUDE "..\..\mapbasic\inc\MENU.DEF"
+
+' Include a file that provides string resource loading functionality
+Include "..\..\mapbasic\Inc\ResStrng.def"
+
+'-----------------
+' GELink_Main.mb
+'-----------------
+Declare Sub Main                                        'Main program start point.
+
+'------------
+' GELink.mb
+'------------
+Declare Sub Initialise                          'This subroutine reads the INI file to load setup values and set the necessary global variables
+Declare Sub AboutApp                            'Standard 'About' box
+Declare Sub ExitApp                                     'Exits the program after checking with the user
+Declare Sub SetPreferences
+Declare Sub ExportImage (BYVAL strFile As String,BYVAL  strTitle As String,BYVAL  strDesc As String)
+Declare Sub ExportKML(BYVAL strFile As String,BYVAL  strTitle As String,BYVAL  strDesc As String)
+Declare Sub PromptUser
+Declare Sub ErrorMsg (ByVal strSubName As String, ByVal errMsg As String, ByVal err as integer) 'Error Handler procedure
+
+Declare Sub Convert
+Declare Sub CheckColour
+Declare Sub GetBrowseDir
+Declare Sub GetFilename
+Declare Sub BtnPickCol_OnClick
+
+'---------------------------
+' GELink_ExportKML
+'---------------------------
+Declare Sub NewExportKML(BYVAL strFile As String,BYVAL  strTitle As String,BYVAL  strDesc As String, sBaseTblName as String, bSeamless as Logical)
+
+'--------------------
+' GELink_ColPick.mb
+'--------------------
+Declare Sub DlgPickColumns( byval tblName As String )
+' Dialog Controls IDs
+Define   DlgPickColsBtnOK       1
+Define   DlgPickColsBtnCancel   2
+Define   MultiListBox1          3
+Define   MultiListBoxTarget     4
+Define   MoveTo                 5
+Define   MoveFrom               6
+Define   HeightMode_ClampToGround       1
+Define   HeightMode_RelativeToGround    2
+Define   HeightMode_FromField           3
+
+' Controls Handlers Declaration
+Declare Sub DlgPickColsBtnOK_OnClick
+Declare Sub DlgPickColsBtnCancel_OnClick
+Declare Sub MultiListBox1_OnClick
+
+Declare Sub btnAvailableToSelectedHandler
+Declare Sub btnSelectedToAvailableHandler
+
+Declare Sub DlgPickCols_OnShow
+Declare Sub DlgPickCols_OnOKModalResult
+Declare Sub DlgPickCols_OnCancelModalResult
+
+'-----------------
+' GELink_Util.mb
+'-----------------
+Declare Function MakeTmpFileName(ByVal Path as string, ByVal prefix as string, ByVal bUnique as Logical, nameOnly as string) as string
+Declare Function ConvertObjForKML(obj as Object, ObjType as smallint) as Object
+Declare Function GetAABBGGRR(nC As Integer) As String
+Declare Function VerifyPathExists(ByVal path as string) as Logical
+Declare Sub WinFocusChangedHandler
+Declare Sub replaceSpaceWithScore(str as string)
+Declare Function MI_fullPath(src as String) as String
+Declare Function IsValidFileName(ByVal path as string) as Logical
+
+Declare Sub StringToArray (In_String,Out_String_Array() As String)
+Declare Sub ArrayToString (In_String_Array(),Out_String As String)
+Declare Sub UnderscoreString (String_Array() As String)
+Declare Function IsPunct (ch1 As String) As Logical
+Declare Sub ClearArray (arr1() As String)
+Declare Function tmpSelName() as String
+Declare Function XMLHeader() as String
+Declare Function isSeamlessComponenetTable(sLayerName as string, sSelectionTableName as string) as Logical
+Declare Function ShellEx(cmd as string) as Integer
+Declare Function CheckForGoogleEarth() as Logical
+
+Declare Function GetINIString32Wrapper(ByVal Section as string, ByVal Entry AS STRING, ByVal Default as String, Buffer As String, ByVal SizeOfBuf As Integer,  ByVal FileName As String) As Integer
+'----------------------------------
+'Define the basic global variables
+'----------------------------------
+'Main vars required for shell
+Global gstrAppName              As String       'Application program name
+
+Global gUseSelectedColNames as Logical ' Need this to force use of empty selected col list
+Global gChooseColumnsOK       as Logical  ' User could choose, OK on Choose Columns, then Cancel on main export dialog
+                                          ' Don't update the global lists unless user chooses OK on both dialogs.
+Global gSelectedColNames(0) As String
+Global gTempSelectedColNames(0) as String  ' Temp storage, until user clicks OK; then, strings will be copied to gSelectedColNames
+Global gColNames(0)             As String
+Global gTempColNames(0)                 As String
+
+Global gLastUsedTableName  As String   ' Need to keep track of what table we used in case we have to reinit the column picker
+
+
+Global gstrMsg                  As String       'SCratch for neighborhood use
+Global gnHMode                  As Integer
+Global gnHVal                   As Integer
+Global gnHField                 As Integer
+Global gnhField_NumericsOnly    As Integer
+Global gbExtrude                As Logical
+Global gstrOutputPath           As String
+Global gstrPlaceName            As String
+
+Global iLastWinType             as Integer
+Global gPlacenameFieldIdx       as Integer
+Global gPlacenameMode           as Integer
+Global gbUsePlacenameField as Logical
+Global gbRunGENow               As Logical
+Global gbAllowRunGE             As Logical
+Global gSelCntr                 as Integer
+
+Define GELINK_BTN_ID            10999
+Define OUTPUT_PATH_EDIT         2001
+Define FILENAME_EDIT            2002
+Define HEIGHT_EDIT                      2003
+Define HEIGHT_MODE_RDIO         2004
+Define EXTRUDE_CHK                      2005
+Define PLACENAME_RDIO           2006
+Define PLACENAME_EDIT           2007
+Define PLACENAME_POPUP          2008
+Define POS_OBJECTS_POPUP        2009
+Define SELECT_COPYRIGHT_CHK     2010
+Define SELECT_COPYRIGHT_FILE_BTN 2011
+Define SELECT_COPYRIGHT_EDIT    2012
+Define RUN_GE_NOW_CHK      2013
+
+Define EXPORT_MODE_IMAGE        1
+Define EXPORT_MODE_KML          2
+
+Define Indnt2              "  "
+Define Indnt4              "    "
+Define Indnt6              "      "
+Define Indnt8              "        "
+Define Indnt10             "          "
+Define Indnt12             "            "
+Define Indnt14             "              "
+
+Define RunOptionRunGE                   1
+Define RunOptionSaveFileOnly    2
+
+Define INI_TOKEN_CONTENT_SIZE	254
+'------------------------------
+' String resource IDs
+'------------------------------
+Define IDS_GOOGLE_EARTH_LINK_MNU    1
+Define IDS_EXPORT_TO_GE_MNU_ITEM    2
+Define IDS_ABOUT_MNU_ITEM           3
+Define IDS_EXIT_MNU_ITEM            4
+Define IDS_APP_NAME                 5
+Define IDS_APP_TITLE                6
+Define IDS_VERSION                  7
+Define IDS_WARNING_BANG             8
+Define IDS_ERROR_READING_INI        9
+Define IDS_ABOUT_TITLE              10
+Define IDS_APPLICATION_INFORMATION  11
+Define IDS_APPLICATION_NAME         12
+Define IDS_DOT_MBX                  13
+Define IDS_APPLICATION_DIR          14
+Define IDS_APPLCATION_VER           15
+Define IDS_COMPILED_IN              16
+Define IDS_MAPBASIC_VERSION         17
+Define IDS_RUNNING_UNDER            18
+Define IDS_CREATED_BY               19
+Define IDS_PHONE                    20
+Define IDS_FAX                      21
+Define IDS_EMAIL                    22
+Define IDS_WEB                      23
+Define IDS_TECHNICAL_SUPPORT        24
+Define IDS_GENERAL_ERR_MSG          25
+Define IDS_COMMMA                   26
+Define IDS_MODULE                   27
+Define IDS_THE_ERROR_WAS            28
+Define IDS_DOT                      29
+Define IDS_PLEASE_CONFIRM_EXIT      30
+Define IDS_CANCEL_MNU_ITEM          31
+Define IDS_EXIT                     32
+Define IDS_CONFIRM                  33
+Define IDS_EXPORT_IMAGE_DLG_TITLE   34
+Define IDS_OUTPUT_PATH              35
+Define IDS_FILE_NAME                36
+Define IDS_PLACE_NAME                37
+Define IDS_DESCRIPTION              38
+Define IDS_EXTRUDE_LINES_TO_SURFACE 39
+Define IDS_FOLLOW_TERRAIN           40
+Define IDS_HEIGHT_VALUE             41
+Define IDS_HEIGHT_FIELD             42
+Define IDS_SELECT_OUTPUT_DIR        43
+Define IDS_CLOSE_MAPINFO            44
+Define IDS_CLOSE                    45
+Define IDS_ONLY                     46
+Define IDS_SHOW_VIEW                47
+Define IDS_SHOW_LAYER               48
+Define IDS_PROB_COMM_W_GE           49
+Define IDS_ERR_BUILDING_KML         50
+Define IDS_ERROR_INFORMATION        51
+Define IDS_CHOOSE_COLUMNS_W_UL      52
+Define IDS_OK                       53
+Define IDS_CANCEL                   54
+Define IDS_OK_MNU_ITEM              55
+Define IDS_CHOOSE_COLUMNS_TITLE     56
+Define IDS_BUILD_NUMBER             57
+Define IDS_BUILD                    58
+Define IDS_TOOLTIP                  59
+Define IDS_MUST_ENTER_FILENAME          60
+Define IDS_ENTER_VALID_OUTPUT_DIR       61
+Define IDS_NEED_NUMERIC_HEIGHT          62
+Define IDS_NOT_WIN_MAPPER_ERR           63
+Define IDS_NO_OBJ_IN_SELECTION          64
+Define IDS_EXPORT_OBJS_DLG_TITLE    65
+Define IDS_EXPORT_DLG_TITLE             66
+Define IDS_POSITION_OBJECTS                     67
+Define IDS_GET_NAME_SOURCE                      68
+Define IDS_ABOUT_BOX_TEXT                       69
+Define IDS_ABOUT_BOX_TEXT2                      70
+Define IDS_ABOUT_BOX_TEXT3                      71
+Define IDS_ABOUT_BOX_TEXT4                      72
+Define IDS_ABOUT_BOX_TEXT5                      73
+Define IDS_ABOUT_BOX_TEXT6                      74
+Define IDS_ABOUT_BOX_TEXT7                      75
+Define IDS_ABOUT_BOX_TEXT8                      76
+Define IDS_ABOUT_BOX_TEXT9                      77
+Define IDS_ABOUT_BOX_TEXT10                     78
+Define IDS_ABOUT_BOX_TEXT11                     79
+Define IDS_ABOUT_BOX_TEXT12             80
+Define IDS_ABOUT_BOX_TEXT13             81
+Define IDS_ABOUT_BOX_TEXT14                     82
+Define IDS_ABOUT_BOX_TEXT15                     83
+Define IDS_COPYRIGHT_GROUP_TEXT     84
+Define IDS_BAD_COPYRIGHTFILE_ERR    85
+Define IDS_RUN_OPTIONS                          86
+Define IDS_ERR_GOOGLEEARTH_INSTALL  87
+Define IDS_AVAIL_COLS            88
+Define IDS_SELECTED_COLS         89
+Define IDS_HELP                  90
+Define IDS_CANT_FIND_GE          91
+Define IDS_MAPINFO_SAVED_VIEW    92
+Define IDS_MAP_VIEW              93
+Define IDS_MAPINFO_SAVED_OBJECTS 94
+Define IDS_ITEMS_FROM_LAYER      95
+Define IDS_CHOOSE_FILE         	 96
+Define IDS_FILENAME_TOO_LONG_ERR 97
+Define IDS_BADFILENAME_ERR       98
+Define IDS_DEFAULT_COPYRIGHT     99

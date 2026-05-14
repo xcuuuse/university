@@ -1,0 +1,49 @@
+'*****************************************************************************
+' LoadLib.MB
+'
+' Test to see if a DLL can be loaded or not
+'*****************************************************************************
+'NOTE WELL:
+' - this code assumes that the appropriate DLL (or both) is accessible,
+'   presumably in the current working directory
+' - this program will compile & run with MapInfo/MapBasic 3.0 or
+'   with MapInfo/MapBasic 4.0 in either/both Win16 or Win32
+'*****************************************************************************
+
+Declare Function TestLoadLibrary_w16 Lib "LoadLib.DLL" Alias "TestLoadLibrary" (ByVal dllpath as String) As Integer
+Declare Function TestLoadLibrary_w32 Lib "LoadLb32.DLL" Alias "TestLoadLibrary" (ByVal dllpath as String) As Integer
+Declare Function TestLoadLibrary (ByVal dllpath as String) as Integer
+
+Declare Sub Main
+
+Function TestLoadLibrary(ByVal dllpath as String) As Integer
+  Dim rc as Integer
+  rc = 0
+
+  if (SystemInfo(1) <> 1) Then			'SYS_INFO_PLATFORM <> PLATFORM_WIN
+    Note "TestLoadLibrary is not supported on this platform."
+  elseif (SystemInfo(3) < 400) Then	        'SYS_INFO_MIVERSION
+    rc = TestLoadLibrary_w16(dllpath)
+  elseif (SystemInfo(14) = 1) Then		'SYS_INFO_MIPLATFORM = MIPLATFORM_WIN16
+    rc = TestLoadLibrary_w16(dllpath)
+  elseif (SystemInfo(14) = 2) Then		'SYS_INFO_MIPLATFORM = MIPLATFORM_WIN32
+    rc = TestLoadLibrary_w32(dllpath)
+  end if
+
+  TestLoadLibrary = rc
+  '--------------------------------------------------------------------------
+  ' Debugging code here: print results to Message window
+  '--------------------------------------------------------------------------
+  Print "TestLoadLibrary("+dllpath+") ==> "+str$(rc)
+  '--------------------------------------------------------------------------
+End Function
+
+Sub Main
+  Dim rc as Integer
+
+  rc = TestLoadLibrary("LoadLib.DLL")
+  rc = TestLoadLibrary("LoadLb32.DLL")
+  rc = TestLoadLibrary("notexist.DLL")
+  rc = TestLoadLibrary("d:\winnt35\system32\user32.dll")
+End Sub
+

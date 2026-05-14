@@ -1,0 +1,144 @@
+'****************** Copyright 2005 MapInfo Corp ****************************
+'NAME:
+'Version:
+'Date:
+'Language:
+'Author:
+'Description:
+'Modification:
+'
+'****************************************************************************
+
+'****************************************
+'Declare Windows API functs (16 & 32 BIT)
+'****************************************
+Define BIF_RETURNONLYFSDIRS   &H0001  ' For finding a folder to start document searching
+Define BIF_NEWDIALOGSTYLE     &H0040  ' Use the new dialog layout with the ability to resize
+Define CSIDL_PERSONAL         &H0005
+
+Type BrowseInfo
+ 	hWndOwner			As Integer
+	pIDLRoot				As Integer
+	pszDisplayName			As Integer
+	lpszTitle				As String
+	ulFlags				As Integer
+	lpfnCallBack			As Integer
+	lParam				As Integer
+	iImage				As Integer
+End Type
+
+Type tSystemTime
+		nYear   		As Smallint
+		nMonth  		As Smallint
+		nDayOfWeek  	As Smallint
+		nDay			As Smallint
+		nHour   		As Smallint
+		nMinute 		As Smallint
+		nSecond 		As Smallint
+		nMillisecond	As Smallint
+End Type
+
+
+Declare Function GetINIString32	Lib "KERNEL32" Alias "GetPrivateProfileStringA"
+	(BYVAL Section, BYVAL Entry As String, BYVAL Default, Buffer As String, BYVAL SizeOfBuf As Integer,  BYVAL FileName As String) As Integer
+Declare Function WritePrivateProfileStringA LIB "Kernel32.dll"
+	(BYVAL section, BYVAL entry, BYVAL stringentry, BYVAL filename As String) As Smallint
+Declare Function LESGetLocalTime Lib "KERNEL32" Alias "GetLocalTime" (CurrentTime AS tSystemTime) As Smallint
+Declare Function BrowseFolders(BYVAL strTitleMessage As String) As String
+Declare Function SHBrowseForFolder LIB "shell32"(lpbi AS BROWSEINFO) As Integer
+Declare Function SHGetSpecialFolderPath Lib "shell32" Alias "SHGetSpecialFolderPathA" ( ByVal hwndOwner as Integer, lpszPath as String, ByVal nFolder as Integer, ByVal fCreate as Logical) as Logical
+Declare Function SHGetPathFromIDList LIB "shell32" ALIAS "SHGetPathFromIDList" (BYVAL pidList As Integer, lpBuffer As String) As Integer
+
+Declare Function DeleteFile Lib "KERNEL32" Alias "DeleteFileA" (lpPathName as string) as Logical
+Declare Function CopyFile Lib "KERNEL32" Alias "CopyFileA" (ByVal lpPathName as string, ByVal newFile as string, ByVal bFailIfExists as logical) as Logical
+Declare Function GetTempFileName Lib "KERNEL32" Alias "GetTempFileNameA" (ByVal lpPathName as string, ByVal lpPrefixString as string, ByVal uUnique as integer, lpTempFileName as string) as integer
+Declare Function GetTempPath Lib "Kernel32" Alias "GetTempPathA" (ByVal nBufferLength as integer, lpBuffer as string) as integer
+Declare Function FullPath Lib "msvcrt" Alias "_fullpath" (absPath as String, relPath as String, ByVal maxLength as Integer) as String
+Declare Function GetACP Lib "kernel32.dll" as integer
+Declare Function ShellExecute Lib "shell32.dll" Alias "ShellExecuteA" (hwnd as integer, lpOperation as string, lpFile as string, lpParameters as string, lpDirectory as string, nShowCmd as integer) as Integer
+Declare Function MoveFile Lib "KERNEL32" Alias "MoveFileA" (ByVal lpPathName as string, ByVal newFile as string) as Logical
+
+
+'  typedef enum {                                          typedef enum {
+'      ASSOCF_INIT_NOREMAPCLSID = 0x00000001,                  ASSOCSTR_COMMAND = 1,
+'      ASSOCF_INIT_BYEXENAME = 0x00000002,                     ASSOCSTR_EXECUTABLE,
+'      ASSOCF_OPEN_BYEXENAME = 0x00000002,                     ASSOCSTR_FRIENDLYDOCNAME,
+'      ASSOCF_INIT_DEFAULTTOSTAR = 0x00000004,                 ASSOCSTR_FRIENDLYAPPNAME,
+'      ASSOCF_INIT_DEFAULTTOFOLDER = 0x00000008,               ASSOCSTR_NOOPEN,
+'      ASSOCF_NOUSERSETTINGS = 0x00000010,                     ASSOCSTR_SHELLNEWVALUE,
+'      ASSOCF_NOTRUNCATE = 0x00000020,                         ASSOCSTR_DDECOMMAND,
+'      ASSOCF_VERIFY = 0x00000040,                             ASSOCSTR_DDEIFEXEC,
+'      ASSOCF_REMAPRUNDLL = 0x00000080,                        ASSOCSTR_DDEAPPLICATION,
+'      ASSOCF_NOFIXUPS = 0x00000100,                           ASSOCSTR_DDETOPIC
+'      ASSOCF_IGNOREBASECLASS = 0x00000200                 } ASSOCSTR;
+'  } ASSOCF;
+
+'  HRESULT AssocQueryString(
+'      ASSOCF flags,
+'      ASSOCSTR str,
+'      LPCTSTR pszAssoc,
+'      LPCTSTR pszExtra,
+'      LPTSTR pszOut,
+'      DWORD *pcchOut
+'  );
+
+Declare Function AssocQueryString Lib "shlwapi" Alias "AssocQueryStringW" (
+        byval flags as integer, 
+        byval assocType as integer, 
+        byval assocStr as string, 
+        byval extraStr as string, 
+        outStr as string, 
+        maxLength as integer) as Integer
+
+'  Return Value
+'
+'  Returns a standard error value or one of the following: Error Meaning
+'  S_OK Success.                                                        0x00
+'  E_POINTER The pszOut buffer is too small to hold the entire string.  0x80004003
+'  S_FALSE pszOut is NULL. pcchOut contains the required buffer size.   0x01
+
+
+'  HINSTANCE FindExecutable(          
+'      LPCTSTR lpFile,
+'      LPCTSTR lpDirectory,
+'      LPTSTR lpResult
+'  );
+
+Declare Function FindExe Lib "Shell32" Alias "FindExecutableA" (
+        ByVal FileName as string, 
+        ByVal dirName as string, 
+        result as string) as Integer
+
+' Reg Key Security Options...
+Define READ_CONTROL        &H20000
+Define KEY_QUERY_VALUE         &H1
+Define KEY_SET_VALUE           &H2
+Define KEY_CREATE_SUB_KEY      &H4
+Define KEY_ENUMERATE_SUB_KEYS  &H8
+Define KEY_NOTIFY             &H10
+Define KEY_CREATE_LINK        &H20
+Define KEY_ALL_ACCESS  KEY_QUERY_VALUE + KEY_SET_VALUE + KEY_CREATE_SUB_KEY + KEY_ENUMERATE_SUB_KEYS + KEY_NOTIFY + KEY_CREATE_LINK + READ_CONTROL
+
+' Reg Create Type Values...
+Define REG_OPTION_NON_VOLATILE  0       ' Key is preserved when system is rebooted
+
+Define ERROR_SUCCESS   0
+
+Define REG_NONE  0                       ' No value type
+Define REG_SZ  1                         ' Unicode nul terminated string
+Define REG_EXPAND_SZ  2                  ' Unicode nul terminated string
+Define REG_BINARY  3                     ' Free form binary
+Define REG_DWORD  4                      ' 32-bit number
+Define REG_DWORD_LITTLE_ENDIAN  4        ' 32-bit number (same as REG_DWORD)
+Define REG_DWORD_BIG_ENDIAN  5           ' 32-bit number
+Define REG_LINK  6                       ' Symbolic Link (unicode)
+Define REG_MULTI_SZ  7                   ' Multiple Unicode strings
+
+' Reg Key ROOT Types...
+Define HKEY_LOCAL_MACHINE  &H80000002
+Define HKEY_CURRENT_USER   &H80000001
+
+Define PARENT_DIR               ".."
+Define CURRENT_DIR              "."
+
+

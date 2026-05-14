@@ -1,0 +1,99 @@
+'***************************************************************************
+' IcoTest.MB
+'
+' Sample program to demonstrate techinques for Win16 & Win32 compatibility.
+'***************************************************************************
+'NOTE WELL:
+' - this code assumes that the appropriate DLLs are accessible in the
+'   Win16 and Win32 subdirectories, respectively, with respect to where this
+'   program is run from
+' - this program will compile & run with MapInfo/MapBasic 4.0
+'   in either/both Win16 or Win32
+'***************************************************************************
+
+Include "mapbasic.def"
+
+'***************************************************************************
+' Declare local procedures/functions
+'***************************************************************************
+Declare	Sub Main
+Declare	Sub TestDLLCall
+Declare	Function InitResDLL () As String
+
+'***************************************************************************
+' Declare DLL procedures/functions, and wrapper functions for each
+'***************************************************************************
+Declare	Function MyDllFunc_w32 Lib "win32\ico32.dll" Alias "MyDllFunc"
+		(ByVal myparm As Integer) As Integer
+
+Declare	Function MyDllFunc_w16 Lib "win16\ico16.dll" Alias "MyDllFunc"
+		(ByVal myparm As Integer) As Integer
+
+Declare	Function MyDllFunc (ByVal myparm As Integer) As Integer
+
+'***************************************************************************
+' Helper Function: InitResDLL - returns path to DLL to load resources from
+'***************************************************************************
+
+Function InitResDLL () As String
+  if (SystemInfo(SYS_INFO_MIPLATFORM) = MIPLATFORM_WIN16) Then
+    InitResDLL = ApplicationDirectory$()+"win16\ico16.dll"
+  elseif (SystemInfo(SYS_INFO_MIPLATFORM) = MIPLATFORM_WIN32) Then
+    InitResDLL = ApplicationDirectory$()+"win32\ico32.dll"
+  else
+    Note "This application is not supported on this platform."
+    End Program
+  end if
+End Function
+
+'***************************************************************************
+' Wrapper Function: MyyDllFunc - calls appropriate DLL
+'***************************************************************************
+Function MyDllFunc (ByVal myparm As Integer) As Integer
+  if (SystemInfo(SYS_INFO_MIPLATFORM) = MIPLATFORM_WIN16) Then
+    MyDllFunc = MyDllFunc_w16(myparm)
+  elseif (SystemInfo(SYS_INFO_MIPLATFORM) = MIPLATFORM_WIN32) Then
+    MyDllFunc = MyDllFunc_w32(myparm)
+  else
+    Note "This application is not supported on this platform."
+    End Program
+  end if
+End Function
+
+'***************************************************************************
+' TestDLLCall: function that is called on each button click
+'              increments global variable 'parmval', makes DLL call with
+'                that value, and prints the result
+'***************************************************************************
+
+Global parmval As Integer
+
+Sub TestDLLCall
+
+  parmval = parmval + 1
+
+  Print "The answer is: " + Str$(MyDllFunc(parmval))
+
+End Sub
+
+'***************************************************************************
+' -- MAIN --
+'
+' This subroutine declares a button on a new button pad.
+' To test the program, activate a Map window, select the button on the
+' button pad, and click in the Map window
+'***************************************************************************
+
+Sub Main
+  Dim icodll As String
+
+  icodll = InitResDLL()
+Print Chr$(12)
+Print "IcoTest program is loaded from "+ApplicationDirectory$()
+Print "Resource DLL is "+icodll
+
+  Create ButtonPad "IcoTest" As
+        ToolButton Calling TestDLLCall
+			Icon 134   File icodll
+			Cursor 136 File icodll
+End Sub

@@ -1,0 +1,102 @@
+Include "MENU.DEF"
+Include "MAPBASIC.DEF"
+
+Declare Sub CloseProgram
+Declare Sub CreateAndCount
+Declare Function UpdateLineStyle(ByVal oTarget as Object, ByVal newPen as Pen) as Object
+
+Global WORKPATH As String
+Global MapFront as logical
+Global PenStyle as pen
+Global ms_width as string
+Global ms_pop as Integer
+
+WORKPATH = ApplicationDirectory$()
+PenStyle = makepen(2,2,BLACK)
+ms_width = "300"
+ms_pop = "1000"
+
+Create menu "&???????? ????" as
+    "&???????"  Calling CreateAndCount,
+    "(-",
+    "???????"   Calling CloseProgram
+
+alter menu bar add "&???????? ????"
+
+Sub CloseProgram
+    alter menu bar remove "???????? ????"
+    Terminate Application "new.mbx"
+End Sub
+
+Sub CreateAndCount
+    Dim BrushStyle as brush
+    Dim i, m_width as smallint
+    Dim BufObj as Object
+    Dim pNew as Pen
+
+    Dialog Title "??????? ????"
+    control statictext   position 10, 10  title "?????? ? ??:"
+    control edittext     position 100, 10 value ms_width into ms_width width 30
+    control StaticText   position 10, 40  Title "???-?? ??????:"
+    control EditText     position 80, 40  value ms_pop into ms_pop width 50
+    control OKButton     position 40, 70
+    control CancelButton position 90, 70
+
+    If commandinfo(CMD_INFO_DLG_OK) then
+        if not frontwindow() then
+            MapFront = FALSE
+        else
+            if windowinfo(frontwindow(),WIN_INFO_TYPE) = WIN_MAPPER then
+                MapFront = TRUE
+            else
+                MapFront = FALSE
+            End If
+        End If
+
+        if MapFront then
+            pNew = MakePen(2, 2, BLUE)
+            set event processing off
+            m_width = val(ms_width)
+            BrushStyle = makebrush(1,0,BLACK)
+            set style brush BrushStyle
+            set style pen PenStyle
+
+            OnError GoTo Skip
+            Drop table temp1
+            OnError GoTo 0
+
+            Create table temp1 (ID integer) file WORKPATH+"temp1"
+            Create map for temp1
+            add map layer temp1
+            set map layer 0 editable on
+
+            OnError GoTo BadBuf
+            create object as buffer from Selection into variable BufObj width m_width Units "km" resolution 15
+            OnError GoTo 0
+
+            alter object BufObj Info OBJ_INFO_BRUSH, BrushStyle
+            alter object BufObj Info OBJ_INFO_PEN, PenStyle
+            Insert Into WindowInfo(FrontWindow(),WIN_INFO_TABLE) (obj) values(BufObj)
+
+            Select STATES.State_Name, STATES.Pop_Male From STATES Where (STATES.obj Within BufObj And STATES.Pop_Male > ms_pop) Into Request
+            Update Request set obj = UpdateLineStyle(obj, pNew)
+
+            Browse * From Request
+            drop table temp1
+            run menu command M_ANALYZE_UNSELECT
+        End If
+    End If
+    Exit Sub
+
+    BadBuf:
+        Note "??? ??????? ??????"
+        Drop Table temp1
+        Exit Sub
+    Skip:
+        Resume Next
+End Sub
+
+Function UpdateLineStyle(ByVal oTarget as Object, ByVal newPen as Pen) as Object
+    Alter Object oTarget Info OBJ_INFO_PEN, newPen
+    UpdateLineStyle = oTarget
+End Function

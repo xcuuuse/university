@@ -1,0 +1,541 @@
+'************ Copyright 2006 MapInfo Corp. *********************************
+
+Include "GELink.def"
+Include "Win32API.def"
+
+'-----------------------------------------------------------------------------------------------
+' Returns a complete, unique filename w/ path.
+' Also fills in the nameOnly param with just the name part; this could be used as a unique alias.
+'-----------------------------------------------------------------------------------------------
+Function MakeTmpFileName(ByVal Path as string, ByVal prefix as string, ByVal bUnique as Logical, nameOnly as string) as string
+
+   Dim tmpPath, prfx,
+      tmpNam         as string
+   Dim uniq, retval,
+      pos1, pos2     as integer
+
+
+   ' make unique file name.  See documentation for GetTempFileName().
+   ' build a large enough string for the fn to fill in
+   tmpPath = String$(256, " ")
+   tmpNam = String$(512, " ")
+
+   tmpPath = Path
+   If Len(tmpPath) = 0 Then
+      retval = GetTempPath(256, tmpPath)
+   End If
+
+   prfx = prefix
+   If Len(prfx) < 1 Then
+      prfx = "jnk"
+   End If
+
+   If bUnique = TRUE Then
+      uniq = 0
+   Else
+      uniq = 1
+   End If
+
+   retval = GetTempFileName(tmpPath, prfx, uniq, tmpNam)
+
+   ' Now, get just the filename part to return to be used as an alias
+   pos1 = 1
+   pos2 = InStr(pos1, tmpNam, "\")
+   While pos2 > 0
+      pos1 = pos2
+      pos2 = InStr(pos1+1, tmpNam, "\")
+   Wend
+
+   ' pos1 should be the position of the last '\'
+   nameOnly = Right$(tmpNam, Len(tmpNam) - pos1)
+   ' get the name w/o extension
+   pos1 = InStr(1, nameOnly, ".")
+   If pos1 > 0 Then
+      nameOnly = Left$(nameOnly, pos1 - 1)
+   End If
+
+   retval = DeleteFile(tmpNam)
+   MakeTmpFileName = tmpNam
+
+End Function
+
+
+' Note: This fn fills in the ObjType with the type of the returned object.
+'     This could be the same as the object passed in.
+'       obj is IN param, objType is OUT param
+Function ConvertObjForKML(obj as Object, ObjType as smallint) as Object
+   Dim objOut as Object
+      '-------------------------------------
+      '   Convert obj as necessary
+      '   OBJ_TYPE_ARC        --> PLINE
+      '   OBJ_TYPE_ELLIPSE    --> REGION
+      '   OBJ_TYPE_LINE       OK
+      '   OBJ_TYPE_PLINE      OK
+      '   OBJ_TYPE_POINT      OK
+      '   OBJ_TYPE_FRAME      NOT SUPPORTED (Shouldn't be any way to select one)
+      '   OBJ_TYPE_REGION     OK
+      '   OBJ_TYPE_RECT       --> REGION
+      '   OBJ_TYPE_ROUNDRECT     --> REGION
+      '   OBJ_TYPE_TEXT       OK
+      '   OBJ_TYPE_MPOINT         OK
+      '   OBJ_TYPE_COLLECTION    OK
+      '-------------------------------------
+      ObjType = ObjectInfo(obj, OBJ_INFO_TYPE)
+      Do Case ObjType
+         Case OBJ_TYPE_ARC
+            objOut = ConvertToPline(obj)
+            ObjType = OBJ_TYPE_PLINE
+
+         Case OBJ_TYPE_ELLIPSE
+            objOut = ConvertToRegion(obj)
+            ObjType = OBJ_TYPE_REGION
+
+         Case OBJ_TYPE_ROUNDRECT
+            objOut = ConvertToRegion(obj)
+            ObjType = OBJ_TYPE_REGION
+
+         Case OBJ_TYPE_RECT
+            objOut = ConvertToRegion(obj)
+            ObjType = OBJ_TYPE_REGION
+
+         Case Else
+            objOut = obj
+      End Case
+
+      ConvertObjForKML = objOut
+
+End Function
+
+'-----------------------------------------------------------------
+'This routine converts a MapBasic INTEGER colour value to a HTML
+'hexidecimal colour value compatible with KML colour clause
+'-----------------------------------------------------------------
+Function GetAABBGGRR(nC As Integer) As String
+Dim nR,nG,nB As Integer
+Dim strHex   As String
+
+   'Calc Individual RGG values
+   nB = nC MOD &H100
+   nC = nC \ &H100
+   nG = nC MOD &H100
+   nC = nC \ &H100
+   nR = nC MOD &H100
+
+   'Convert to Hex   AABBGGRR
+   strHex = "FF" 'Solid
+   strHex = strHex + MID$("0123456789ABCDEF", (nB\16) +1 ,1)
+   nB = nB MOD 16
+   strHex = strHex + MID$("0123456789ABCDEF", nB + 1,1)
+   strHex = strHex + MID$("0123456789ABCDEF", (nG\16) +1 ,1)
+   nG = nG MOD 16
+   strHex = strHex + MID$("0123456789ABCDEF", nG + 1,1)
+   strHex = strHex + MID$("0123456789ABCDEF", (nR\16) +1 ,1)
+   nR = nR MOD 16
+   strHex = strHex + MID$("0123456789ABCDEF", nR + 1,1)
+
+   'Set retrn value
+   GetAABBGGRR = strHex
+End Function
+
+'-----------------------------------------------------
+' Try to write a file to the path passed in.
+'-----------------------------------------------------
+Function VerifyPathExists(ByVal path as string) as Logical
+   OnError goto BadPathErr
+   Dim tmpNam as string
+   Dim exists,
+      result as Logical
+   Dim alias as string
+
+   exists = TRUE
+
+   tmpNam = String$(512, " ")
+
+   tmpNam  = MakeTmpFileName(path, "", TRUE, alias)
+
+   Open File tmpNam for Output as #999
+   Close File #999
+
+   result = DeleteFile(tmpNam)
+
+ Goto xit
+
+BadPathErr:
+   exists = FALSE
+   Resume Next
+
+xit:
+   VerifyPathExists = exists
+End Function
+
+Function IsValidFileName(ByVal fName as string) as Logical
+	Dim path As String
+	Dim retVal As Integer
+	Dim isValid As Logical
+
+	path = Space$(256)
+	retVal = GetTempPath(255, path)
+	path = path & fname
+
+	OnError goto badNameErr
+	Open File path For Output as 1
+	Close File 1
+	isValid = TRUE	
+	Goto xit
+
+badNameErr:
+	Print "********   " & Err() & "        " & Error$()
+	isValid = FALSE
+
+xit:
+	IsValidFileName = isValid
+	
+End Function
+'----------------------------------------------------------------------------------------
+' MapInfo event handler -- monitor what kind of window is front-most.
+' Enable and disable our toolbutton appropriately.
+'
+' Do it via the handler, in case our Google Earth Link menu isn't hidden on the Map menu.
+'-----------------------------------------------------------------------------------------
+Sub WinFocusChangedHandler
+
+   Dim iWinType As SmallInt
+
+   iWinType=WindowInfo(CommandInfo(CMD_INFO_WIN),WIN_INFO_TYPE)
+
+   If 0 = FrontWindow() Then
+      Alter Button PromptUser Disable
+
+   elseIf (iWinType = WIN_BUTTONPAD Or iWinType = WIN_TOOLBAR)
+         And iLastWinType = WIN_MAPPER Then
+      Alter Button PromptUser Enable
+
+   elseIf iWinType = WIN_MAPPER Then
+      Alter Button PromptUser Enable
+      iLastWinType = iWinType
+   Else
+      Alter Button PromptUser Disable
+      iLastWinType = iWinType
+   End If
+
+End Sub
+
+' Replace any space characters with '_'
+Sub replaceSpaceWithScore(str as string)
+
+   Dim posSpace as integer
+   Dim lastSpace as integer
+   Dim posStart as Integer
+   Dim newStr as String
+   Dim copy as string
+
+   copy = str
+
+   newStr = ""
+   posStart = 1
+   posSpace = Instr(1, copy, " ")
+   lastSpace = posSpace
+
+   While posSpace <> 0
+      lastSpace = posSpace
+      newStr = newStr + Mid$(copy, posStart, posSpace - 1)
+      newStr = newStr + "_"
+
+      posStart = posSpace + 1
+      posSpace = Instr(posStart, copy, " ")
+   Wend
+
+   ' if we found a space, we want to copy the rest of the string
+   If lastSpace <> 0 Then
+      newStr = newStr + Mid$(copy, lastSpace + 1, Len(copy) - lastSpace)
+   Else
+      newStr = copy
+   End If
+
+   str = newStr
+
+End Sub
+
+Function MI_fullPath(src as String) as String
+   Dim dest as String
+   Dim path as String
+   Dim src2 as String
+   Dim ch as String
+   Dim pos, llen as Integer
+
+   dest = String$(512, " ")
+   src2 = ""
+
+   ' Double up any backslashes
+   llen = Len(src)
+   For pos = 1 to llen
+      ch = Mid$(src, pos, 1)
+      src2 = src2 + ch
+      If ch = "\" Then
+         src2 = src2 + "\"
+      End If
+   Next
+
+   path = FullPath(dest, src2, 512)
+
+   MI_fullPath = dest
+
+End Function
+
+Sub StringToArray (In_String,Out_String_Array() As String)
+
+      Dim lcv,i As SmallInt
+      Dim ch1 As String
+
+      Call ClearArray(Out_String_Array)
+
+      lcv = len(In_String)
+      redim Out_String_Array(lcv)
+
+      For i = 1 to lcv
+         Out_String_Array(i) = Mid$(In_String,i,1)
+      Next
+
+   End Sub
+
+   Sub ArrayToString (In_String_Array(),Out_String As String)
+
+      Dim lcv,i As SmallInt
+
+      Out_String = ""
+
+      lcv = Ubound(In_String_Array)
+
+      For i = 1 to lcv
+         Out_String = Out_String + In_String_Array(i)
+      Next
+
+   End Sub
+
+   Function IsPunct (ch1 As String) As Logical
+
+      IsPunct = FALSE
+
+      Do Case ch1
+         Case "!","@","#"
+            IsPunct = TRUE
+         Case "$","%","^"
+            IsPunct = TRUE
+         Case "&","*","("
+            IsPunct = TRUE
+         Case ")","+","="
+            IsPunct = TRUE
+         Case "{","}","["
+            IsPunct = TRUE
+         Case "]","|","\"
+            IsPunct = TRUE
+         Case ":",";","'"
+            IsPunct = TRUE
+         Case "<",">",",","-"
+            IsPunct = TRUE
+         Case "!","@","#","."
+            IsPunct = TRUE
+         Case "?","/","`"," "
+            IsPunct = TRUE
+      End Case
+
+   End Function
+
+   Sub UnderscoreString (String_Array() As String)
+
+      Dim i,lcv As SmallInt
+      lcv = UBound(String_Array)
+
+      For i = 1 to lcv
+         If IsPunct(String_Array(i)) = TRUE Then
+            String_Array(i) = "_"
+         End If
+      Next
+   End Sub
+
+   Sub ClearArray (arr1() As String)
+
+      Dim i as SmallInt
+
+      For i = 1 to Ubound(arr1)
+         arr1(i) = ""
+      Next
+
+   End Sub
+
+function tmpSelName() as String
+   dim s as string
+   s = "s" + Str$(gselCntr)
+   tmpSelName = s
+   gselCntr = gselCntr + 1
+end function
+
+'Codepage 874 WebName:windows-874
+'Codepage 932 WebName:shift_jis
+'Codepage 936 WebName:gb2312
+'Codepage 949 WebName:ks_c_5601-1987
+'Codepage 950 WebName:big5
+
+function XMLHeader() as string
+   dim sACP as string
+   dim sCodePageName as string
+   dim sTemp as string
+   sACP = GetACP()
+   if sACP = "874" then
+      sCodePageName = "windows-874"
+   elseif sACP = "932" then
+      sCodePageName = "shift_jis"
+   elseif sACP = "936" then
+      sCodePageName = "gb2312"
+   elseif sACP = "949" then
+      sCodePageName = "ks_c_5601-1987"
+   elseif sACP = "950" then
+      sCodePageName = "big5"
+    else
+      sCodePageName = "Windows-" + sACP
+   end if
+   sTemp = "<?xml version=""1.0"" encoding="""+ sCodePageName + """?>"
+
+   XMLHeader = sTemp
+end function
+
+Function isSeamlessComponenetTable(sLayerName as string, sSelectionTableName as string) as Logical
+   dim bResult as Logical
+   dim colVal as string
+   dim colName as string
+   dim nCount as integer
+   dim Temp_table as string
+   dim Temp_X as float
+   dim tmpTblName as string
+
+   nCount = 1
+   bResult = FALSE
+
+   Temp_table = MakeTmpFileName("", "", TRUE, tmpTblName)
+   commit table sLayerName as Temp_table
+
+onerror goto squelch
+ 
+   open table Temp_Table as tmpTblName
+   set table tmpTblName seamless off
+
+onerror goto hndlr
+
+   select * from tmpTblName into aaZZ noselect
+
+   Fetch first from aaZZ
+   do while not EOT(aaZZ)
+
+     colVal = aaZZ.COL2
+     if colVal = sSelectionTableName then
+        bResult = TRUE
+        Exit do
+     end if
+     Fetch Next from aaZZ
+
+   Loop
+
+   isSeamlessComponenetTable = bResult
+
+goto xit
+
+squelch:
+   resume next
+
+hndlr:
+   resume next
+
+xit:
+
+End Function
+
+Function ShellEx(cmd as string) as Integer
+   Dim zed as integer
+   Dim opn, emty as string
+
+   zed = 0
+   opn = "open"
+   emty = ""
+
+   ShellEx = ShellExecute(zed, opn, cmd, emty, emty, zed)
+
+End Function
+
+'------------------------------------------------------------------------*
+' CheckForGoogleEarth
+'    Determine if GoogleEarth is installed by looking for the executable
+'    for a .kml file.
+'------------------------------------------------------------------------*
+Function CheckForGoogleEarth() as Logical
+   Dim   tmpPath, 
+         prfx, 
+         tmpNam,
+         scratch,
+         contents  as string
+   
+   Dim   pos1,
+         result   as integer
+
+   Dim   retVal   as Logical
+
+   OnError goto errHndlr
+
+   retVal = FALSE
+   tmpPath = Space$(256)
+   tmpNam = Space$(512)
+   contents = Space$(512)
+   
+   retval = GetTempPath(256, tmpPath)
+   prfx = "jnk"
+   
+   retval = GetTempFileName(tmpPath, prfx, 1, tmpNam)
+   
+   pos1 = InStr(1, tmpNam, ".")
+   scratch = Left$(tmpNam, pos1)
+   
+   tmpNam = scratch + "kml"
+   
+   Open File tmpNam for Output as 1
+   scratch = "test"
+   Print #1, scratch
+   
+   Close File #1
+   
+   result = FindExe(tmpNam, "\", contents)
+
+   If result > 32 Then
+      retval = TRUE
+   Else
+      retVal = FALSE
+   End If
+
+   result = DeleteFile(tmpNam)
+
+   Goto xit
+
+errHndlr:
+   Print Error$()
+
+xit:
+
+   '' For testing
+   '' CheckForGoogleEarth = FALSE
+
+   CheckForGoogleEarth = retVal
+
+End Function
+
+Function GetINIString32Wrapper(ByVal Section as string, ByVal Entry AS STRING, ByVal Default as String, Buffer As String, ByVal SizeOfBuf As Integer,  ByVal FileName As String) As Integer
+	Dim s as String
+	Dim i as Integer
+
+	i = GetINIString32(Section, Entry, Default, Buffer, SizeOfBuf, FileName)
+
+	s = Section + " " + Entry + " Default: "  + Default + "  Contents: " + Buffer
+
+	GetINIString32Wrapper = i
+
+End Function
+
+
+

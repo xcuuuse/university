@@ -1,0 +1,6 @@
+(buffer.mb:95) Found: [End sub] while searching for [End Program], [End MapInfo], or [End if]. 
+(buffer.mb:97) Unrecognized command: function. 
+(buffer.mb:98) Variable oTarget not defined. 
+(buffer.mb:98) Unrecognized command: Info. 
+(buffer.mb:100) Found: [End function] while searching for [End Program], [End MapInfo], or [End if]. 
+(buffer.mb:100) Sub/Function without End Sub/Function. 

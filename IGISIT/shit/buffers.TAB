@@ -1,0 +1,34 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 22
+    State_Name Char (20) Index 1 ;
+    State Char (2) Index 2 ;
+    FIPS_Code Char (2) Index 3 ;
+    Pop_1980 Decimal (10, 0) Index 4 ;
+    Pop_1990 Decimal (10, 0) Index 5 ;
+    Num_Hh_80 Decimal (10, 0) ;
+    Num_Hh_90 Decimal (10, 0) ;
+    Med_Inc_80 Decimal (10, 0) ;
+    Med_Inc_90 Decimal (10, 0) ;
+    BPI_1990 Decimal (10, 4) Index 6 ;
+    Pop_Urban Decimal (10, 0) Index 7 ;
+    Pop_Rural Decimal (10, 0) Index 8 ;
+    Pop_Male Decimal (10, 0) Index 9 ;
+    Pop_Female Decimal (10, 0) ;
+    Pop_Cauc Decimal (10, 0) ;
+    Pop_Black Decimal (10, 0) ;
+    Pop_Native Decimal (10, 0) ;
+    Pop_Asian Decimal (10, 0) Index 10 ;
+    Pop_Other Decimal (10, 0) ;
+    Sales_1990 Decimal (10, 0) Index 11 ;
+    Total_Area Decimal (8, 1) ;
+    URL Char (35) ;
+begin_metadata
+"\IsReadOnly" = "FALSE"
+"\MapInfo" = ""
+"\MapInfo\TableID" = "629de58d-6558-495d-8611-3804f53848e8"
+end_metadata

@@ -1,0 +1,188 @@
+!Workspace
+!Version 600
+!Charset WindowsCyrillic
+Open Table "республика_пл" As республика_пл Interactive
+Open Table "болота_пл" As болота_пл Interactive
+Open Table "геосеть" As геосеть Interactive
+Open Table "гидрография_лин" As гидрография_лин Interactive
+Open Table "гидрография_пл" As гидрография_пл Interactive
+Open Table "гидрография_точ" As гидрография_точ Interactive
+Open Table "гидросооруж_лин" As гидросооруж_лин Interactive
+Open Table "города_пл" As города_пл Interactive
+Open Table "дороги_лин" As дороги_лин Interactive
+Open Table "дорсооруж_точ" As дорсооруж_точ Interactive
+Open Table "желдороги_лин" As желдороги_лин Interactive
+Open Table "инж_коммун_лин" As инж_коммун_лин Interactive
+Open Table "области_пл" As области_пл Interactive
+Open Table "Объект_инж_пл" As Объект_инж_пл Interactive
+Open Table "объект_инж_точ" As объект_инж_точ Interactive
+Open Table "поселения_пл" As поселения_пл Interactive
+Open Table "промобъекты_пл" As промобъекты_пл Interactive
+Open Table "Промобъекты_точ" As Промобъекты_точ Interactive
+Open Table "районы_пл" As районы_пл Interactive
+Open Table "растительность_пл" As растительность_пл Interactive
+Open Table "рельеф_лин" As рельеф_лин Interactive
+Open Table "рельеф_пл" As рельеф_пл Interactive
+Open Table "рельеф_точ" As рельеф_точ Interactive
+Open Table "админ_центры_пл" As админ_центры_пл Interactive
+Map From рельеф_точ,Промобъекты_точ,объект_инж_точ,дорсооруж_точ,гидрография_точ,геосеть,
+  рельеф_лин,инж_коммун_лин,желдороги_лин,дороги_лин,гидросооруж_лин,гидрография_лин,
+  админ_центры_пл,рельеф_пл,растительность_пл,районы_пл,промобъекты_пл,поселения_пл,
+  Объект_инж_пл,области_пл,города_пл,гидрография_пл,болота_пл,республика_пл 
+  Position (0.0520833,0.0520833) Units "in"
+  Width 8.28125 Units "in" Height 6.4375 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On
+Set Map
+  CoordSys Earth Projection 1, 1001
+  Center (27.97985898,53.717665)
+  Zoom 554.2388103 Units "mi"
+  Preserve Zoom Display Position
+  Distance Units "mi" Area Units "sq mi" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 2
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 3
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 4
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 5
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 6
+    Display Graphic
+    Label Line Arrow Position Right Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 7
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 8
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 9
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 10
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 11
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 12
+    Display Graphic
+    Label Line Arrow Position Above Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates Off Offset 2
+      Visibility On
+  Layer 13
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 14
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 15
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 16
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 17
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 18
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 19
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 20
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 21
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 22
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 23
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+  Layer 24
+    Display Graphic
+    Label Line None Position Center Font ("Arial Cyr",0,9,0) Pen (1,2,0) 
+      With CODE
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window FrontWindow() Printer
+ Name "HP Color Inkjet CP1700" Orientation Portrait Copies 1
+ Papersize 9

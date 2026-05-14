@@ -1,0 +1,4 @@
+[Link] 
+Application=NamedViews.mbx 
+Module=nviews.mbo
+Module=..\..\MAPBASIC\Lib\auto_lib.mbo

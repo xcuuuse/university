@@ -1,0 +1,67 @@
+'************* Copyright 2006 MapInfo Corp. *********************************
+
+INCLUDE "GELink.def"
+
+Sub Main
+'-----------------------
+	Dim mnuName, abt, xit, xprt, msg As String
+	'Setup error handler
+	OnError GOTO ErrorHandler
+
+	if LoadStrings((ApplicationDirectory$() + "gelink.str")) = FALSE Then
+		Note "Unable to access resource string file: " + ApplicationDirectory$() + "gelink.str"
+		Exit Sub
+	End If
+
+
+	'Set up global variables
+	Call Initialise
+
+	mnuName = GetResString(IDS_GOOGLE_EARTH_LINK_MNU)
+
+	xit = GetResString(IDS_EXIT_MNU_ITEM)
+
+	abt = GetResString(IDS_ABOUT_MNU_ITEM)
+
+	xprt = GetResString(IDS_EXPORT_TO_GE_MNU_ITEM)
+
+
+	'Create new Google Earth Link menu - added change to name based on edit mode BP 24/6/99
+	CREATE MENU mnuName AS
+		'"Set &Preferences"			CALLING SetPreferences,
+		'"(-",
+		xprt    CALLING PromptUser,
+		"(-",
+		abt + " " + gstrAppName 	CALLING AboutApp,
+		xit + " " + gstrAppName  	CALLING ExitApp
+
+	'Add menu to main menu
+	Alter menu id 9 add "(-"
+	Alter MENU ID 9 ADD  mnuName as mnuName 		'<<<<Eventually remove and use method to add to Tool menu
+
+	msg = GetResString(IDS_TOOLTIP)
+	Alter ButtonPad ID 3 Add Separator
+		PushButton ID GELINK_BTN_ID Icon 125
+		Calling PromptUser
+		HelpMsg msg
+	Show
+
+	Dim iWin as integer
+	iWin = FrontWindow()
+	If iWin <> 0 Then
+		If  WindowInfo(iWin, WIN_INFO_TYPE) = WIN_MAPPER Then
+			Alter Button ID GELINK_BTN_ID  Enable
+		Else
+			Alter Button ID GELINK_BTN_ID Disable
+		End If
+	Else
+			Alter Button ID GELINK_BTN_ID Disable
+	End If
+
+	Exit Sub
+
+ErrorHandler:
+	CALL ErrorMsg("Main", Error$(), Err())
+
+End Sub 'Main
+

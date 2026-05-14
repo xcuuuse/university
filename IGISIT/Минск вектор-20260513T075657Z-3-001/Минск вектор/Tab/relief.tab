@@ -1,0 +1,9 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 2
+    ID Decimal (11, 0) ;
+    высота Decimal (14, 2) ;

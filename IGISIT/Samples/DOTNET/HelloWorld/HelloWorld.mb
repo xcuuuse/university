@@ -1,0 +1,27 @@
+
+' HelloWorld.mb:  Demonstration of how to call a .Net method from MapBasic. 
+'
+' Note: For this MapBasic program to run correctly, you need to build one of
+' the accompanying .Net solutions: 
+'       To use C#, build HelloWorldCS.sln 
+'   or, 
+'       To use Visual Basic, build HelloWorldVB.sln.  
+' Then copy the resulting assembly file (MapBasicSamples.dll) to the 
+' same directory where you will run HelloWorld.MBX from.  
+
+
+'
+' Declare a .Net method (for source code, see HelloWorld.cs or HelloWorld.vb)
+'
+Declare Method SayHello  
+	Class "MapInfo.MiPro.Samples.HelloWorld"  Lib "MapBasicSamples.dll" 
+	(ByVal strName As String)
+
+Declare Sub Main 
+
+Sub Main 
+
+	' Call the .Net method.  
+	Call SayHello("Chris")
+
+End Sub 

@@ -1,0 +1,100 @@
+Include "MENU.DEF"
+Include "MAPBASIC.DEF"
+Include "ICONS.DEF"
+
+Declare Sub CloseProgram
+Declare Sub StartTool
+Declare Sub PointHandler
+Declare Function UpdateLineStyle(ByVal oTarget as Object, ByVal newPen as Pen) as Object
+
+Global WORKPATH As String
+Global PenStyle as pen
+Global ms_width as string
+Global ms_pop as Integer
+
+WORKPATH = ApplicationDirectory$()
+PenStyle = makepen(2,2,BLACK)
+ms_width = "300"
+ms_pop = "1000"
+
+Create menu "Buffer Zone" as "Select Point" Calling StartTool, "(-", "Close" Calling CloseProgram
+alter menu bar add "Buffer Zone"
+
+Sub CloseProgram
+    Alter ButtonPad "PointBufferTool" Hide
+    alter menu bar remove "Buffer Zone"
+    Terminate Application "new.mbx"
+End Sub
+
+Sub StartTool
+    Create ButtonPad "PointBufferTool" as ToolButton Calling PointHandler Icon MI_ICON_CROSSHAIR DrawMode DM_CUSTOM_POINT HelpMsg "Click on the map to set buffer center" Show Float
+    Note "Click crosshair tool on the panel, then click on the map."
+End Sub
+
+Sub PointHandler
+    Dim BrushStyle as brush
+    Dim m_width as smallint
+    Dim BufObj as Object
+    Dim ptObj as Object
+    Dim pNew as Pen
+    Dim x as Float
+    Dim y as Float
+
+    x = CommandInfo(CMD_INFO_X)
+    y = CommandInfo(CMD_INFO_Y)
+
+    Dialog Title "Buffer radius" control statictext position 10, 10 title "Radius (km):" control edittext position 100, 10 value ms_width into ms_width width 30 control OKButton position 40, 40 control CancelButton position 90, 40
+
+    If Not commandinfo(CMD_INFO_DLG_OK) Then Exit Sub
+
+    Dialog Title "Filter condition" control statictext position 10, 10 title "Min Pop_Male:" control edittext position 100, 10 value ms_pop into ms_pop width 50 control OKButton position 40, 40 control CancelButton position 90, 40
+
+    If Not commandinfo(CMD_INFO_DLG_OK) Then Exit Sub
+
+    pNew = MakePen(2, 2, BLUE)
+    set event processing off
+    m_width = val(ms_width)
+    BrushStyle = makebrush(1,0,BLACK)
+    set style brush BrushStyle
+    set style pen PenStyle
+
+    OnError GoTo Skip
+    Drop table temp1
+    OnError GoTo 0
+
+    Create table temp1 (ID integer) file WORKPATH+"temp1"
+    Create map for temp1
+    add map layer temp1
+    set map layer 0 editable on
+
+    ptObj = CreatePoint(x, y)
+
+    OnError GoTo BadBuf
+    BufObj = Buffer(ptObj, 15, m_width, "km")
+    OnError GoTo 0
+
+    alter object BufObj Info OBJ_INFO_BRUSH, BrushStyle
+    alter object BufObj Info OBJ_INFO_PEN, PenStyle
+    Insert Into WindowInfo(FrontWindow(),WIN_INFO_TABLE) (obj) values(BufObj)
+
+    Select STATES.State_Name, STATES.Pop_Male From STATES Where (STATES.obj Intersects BufObj And STATES.Pop_Male > ms_pop) Into Request
+    Update Request set obj = UpdateLineStyle(obj, pNew)
+
+    Browse * From Request
+    drop table temp1
+    run menu command M_ANALYZE_UNSELECT
+
+    Exit Sub
+
+    BadBuf:
+        Note "Buffer creation failed"
+        Drop Table temp1
+        Exit Sub
+    Skip:
+        Resume Next
+End Sub
+
+Function UpdateLineStyle(ByVal oTarget as Object, ByVal newPen as Pen) as Object
+    Alter Object oTarget Info OBJ_INFO_PEN, newPen
+    UpdateLineStyle = oTarget
+End Function

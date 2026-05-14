@@ -1,0 +1,1162 @@
+'************* Copyright 2007 Pitney Bowes MapInfo Corp. *********************************
+
+Include "GELink.def"
+Include "ConvertUTF8.def"
+Include "Win32API.def"
+
+Define LF					CHR$(13)
+Define MAX_PATH 			 260
+
+'*********************************
+'Define the basic global variables
+'*********************************
+
+Global gstrAppTitle 	As String	'Long description of application name
+Global tCurrTime	 AS tSystemTime
+Global sCopyright   		As String
+Global sCopyrightFilename  As String
+Global bImportCopyright 	As Logical
+Global gstrINIFile  		As String
+
+Global gstrVersion  		As String
+Global gstrBuild			As String
+
+'-----------------------------
+' Local routines
+'-----------------------------
+Declare Sub OKBtnHndlr1
+Declare Sub RadioBtnHndlr
+Declare Sub DlgHndlr
+Declare sub PlaceNameRdio_Hndlr
+Declare Sub selectExportModeDlgHndlr
+Declare Sub ExportModeChkHndlr
+Declare Sub exportImageDlgHndlr
+Declare Sub exportImageDlgControlsHndlr
+'-------------------------------------------------------------------------------------------------------------------------------
+'------SYSTEM ROUTINES----------------------------------------------------------------------------------------------------------
+'-------------------------------------------------------------------------------------------------------------------------------
+
+Sub Initialise
+	Dim   strMyDocs, 	   'What is sent to API funct.
+		 strStyle,
+		 strDefault  As String	'Default value supplied
+
+	Dim   nRetVal	 As Integer  'Value returned from function that reads INI
+	Dim   nPos,nPos2  As Smallint 'General LOOP counter
+	Dim   bFound 	 AS LOGICAL
+	
+	Dim   bFoundValue as Logical
+
+	'Setup error handler
+	strDefault = "Empty"
+	OnError GOTO ErrorHandler
+	
+	'***************************************************************************
+	'SET GLOBAL VARIABLES
+	'***************************************************************************
+
+	'------------------------------------------------------------------------*
+	'   As of 6/2007, the build number is independant of any MIPro build.  
+	'   It should be incremented whenever there is a release of GELink.
+	'   (MIPro release, slipstream release, etc.)
+	'-------------------------------------------------------------------------*
+	gstrVersion = "2.0 "
+	gstrBuild = "1 "
+
+	gstrAppName	= GetResString(IDS_APP_NAME)
+	gstrAppTitle  = GetResString(IDS_APP_TITLE) '	"Google Earth Link"
+	gstrINIFile	= GetFolderPath$( FOLDER_MI_PREFERENCE ) + gstrAppName + ".INI"
+	
+	gbExtrude = TRUE
+	gnHMode = HeightMode_ClampToGround
+	gnHVal  = 5
+	gnhField = 1
+	gnhField_NumericsOnly = 1
+	
+	gPlacenameMode = 1
+	gbAllowRunGE = TRUE
+	
+	sCopyright = GetResString(IDS_DEFAULT_COPYRIGHT) ' "Exported from MapInfo"
+	sCopyrightFilename = ""
+	bImportCopyright = FALSE
+	
+	gbAllowRunGE = CheckForGoogleEarth()
+	gbRunGENow = gbAllowRunGE
+	gSelCntr = 0
+	
+	' Handle case when no map window open
+	OnError goto NoMapWinOpen
+	 ' This fixes a startup focus problem
+	iLastWinType=WindowInfo(CommandInfo(CMD_INFO_WIN),WIN_INFO_TYPE)
+	
+	OnError GOTO ErrorHandler
+	
+	'--------------------------------------------------
+	' READ IN INI FILE SETTINGS
+	'--------------------------------------------------
+	strMyDocs = string$(512, " ")
+	
+	OnError goto ErrorHandler
+	
+	' Ini file will live in preferences dir
+	Dim strContents as string
+	Dim Default as string
+	Dim RetVal As Integer
+	strContents = string$(INI_TOKEN_CONTENT_SIZE, " ")
+	strDefault = string$(INI_TOKEN_CONTENT_SIZE, " ")
+	strDefault = GetFolderPath$( FOLDER_MI_PREFERENCE )
+
+	If FileExists(gstrINIFile) Then
+		
+		nRetVal = GetINIString32Wrapper("Settings","OutputPath", strDefault, strContents, 128, gstrINIFile)
+
+		If strContents <> "" Then
+			gstrOutputPath = strContents
+		Else
+			gstrOutputPath = GetFolderPath$( FOLDER_MI_PREFERENCE )
+		End If
+
+	Else
+		' Default Output Path is user's 'My Documents'
+		Dim	nCreate,
+			hwnd,
+			id 	as Integer
+
+		nCreate = 0
+		hwnd = 0
+		id = CSIDL_PERSONAL
+	
+		OnError goto MyDocsError
+		bFoundValue = SHGetSpecialFolderPath ( hwnd, strMyDocs, id, nCreate )
+	
+		If Not bFoundValue Then
+			strMyDocs = APPLICATIONDIRECTORY$()
+		End If
+		gstrOutputPath = strMyDocs
+	End If
+
+	OnError goto ErrorHandler
+
+	' Check for trailing '\' on path.
+	If "\" <>  Mid$(gstrOutputPath, Len(gstrOutputPath), 1) then
+		gstrOutputPath = gstrOutputPath + "\"
+	End If
+
+	Goto goodXit
+
+NoMapWinOpen:
+	Resume Next
+
+ErrorHandler:
+	gstrMsg = GetResString(IDS_WARNING_BANG) + CHR$(13)+CHR$(13)
+	gstrMsg = gstrMsg + GetResString(IDS_ERROR_READING_INI) + " "
+	gstrMsg = gstrMsg + GetResString(IDS_APP_NAME) + "."
+	gstrMsg = gstrMsg + Chr$(13) + Error$()
+	Goto Xit
+
+RegError:
+	gstrMsg = GetResString(IDS_CANT_FIND_GE) + CHR$(13)+CHR$(13)
+	note gstrMsg
+	gbAllowRunGE = FALSE
+	gbRunGENow = FALSE
+	Resume Next
+
+MyDocsError:
+	Note "Error finding My Documents folder"
+	Resume Next
+
+Xit:
+	Note gstrMsg
+
+goodXit:
+
+End Sub 'Initalise
+
+
+Sub AboutApp
+'-----------------------
+'Subroutine:	AboutApp
+'-----------------------
+
+	'Show the dialog
+	Dialog Title  GetResString(IDS_ABOUT_TITLE) + " " + GetResString(IDS_APP_TITLE)
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT)  Position 5, 5
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT2) Position 5, 14
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT3)  Position 5, 23
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT4) Position 5, 32
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT5)  Position 5, 41
+	
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT6)  Position 5, 53
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT7)  Position 5, 62
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT8)  Position 5, 71
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT9)  Position 5, 80
+	
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT10)  Position 5, 93
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT11)  Position 5, 102
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT12)  Position 5, 111
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT13)  Position 5, 120
+	
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT14)  Position 5, 133
+		Control  StaticText Title GetResString(IDS_ABOUT_BOX_TEXT15)  Position 5, 142
+	
+		Control StaticText Title GetResString(IDS_APPLCATION_VER) 	POSITION 5,155
+		Control StaticText Title gstrVersion + GetResString(IDS_BUILD) + gstrBuild
+	
+		Control OKButton Title GetResString(IDS_OK_MNU_ITEM)
+	' end dialog
+
+	Exit Sub
+ErrorHandler:
+	Resume Next
+End Sub 'About App
+
+Sub ExitApp
+	End Program
+End Sub'Exit App
+
+
+
+'-----------------------
+'Test routine for colour
+'  	 DEBUG ONLY
+'-----------------------
+Sub CheckColour
+	Dim nInt As Integer
+	Dim strTxt As String
+	
+	Dialog Title "Check Colour AABBGGRR"
+		Control EditText INTO nInt  ID 1
+		Control EditText INTO strTxt ID 2
+		Control Button Title "Conv" CALLING Convert
+		Control OKButton Title GetResString(IDS_OK_MNU_ITEM)
+End Sub
+
+Sub Convert
+	Dim nInt As Integer
+	Dim strTxt As String
+	nInt = ReadControlValue(1)
+	strTxt = GetAABBGGRR(nInt)
+	Alter Control 2 VALUE strTxt
+End Sub
+
+
+'---------------------------------------------------------------------------------------
+'-- MISC ROUTINES-----------------------------------------------------------------------
+'---------------------------------------------------------------------------------------
+' These vars are useful to the OKBtnHndlr
+Dim strFile  As String
+Dim nExportMode	 As Integer 	'
+
+Sub PromptUser
+	Dim strModes As String
+	Dim strPlaceName As String
+	Dim strDescr As String
+	Dim strDateTime As String
+	Dim nCheck 	 As Integer  'Used in getting system time
+	Dim strCol 	 As String
+	Dim strFields   As String
+	Dim strAllFields as String
+	Dim nField(60)	As Integer
+	Dim nCount 	 As Integer
+	Dim nPos	 As Integer
+	Dim iWin 	  as Integer
+	
+	OnError goto ErrHndlr
+	
+	'----------------------------------------------------------
+	' Verify that a map is frontmost window
+	'----------------------------------------------------------
+	iWin = FrontWindow()
+	If WindowInfo(iWin, WIN_INFO_TYPE) <> WIN_MAPPER Then
+		Goto NotWinMapperErr
+	End If
+	'Check if there is a selection
+	
+	Dim bSeamless			  as Logical
+	Dim sLyrName 			  as string
+	Dim selTableName 		  as string
+	dim sBaseTblName 		  as String
+	Dim iLyrCnt  			  as Integer
+	Dim cnt, winCount		  as Integer
+	
+	iLyrCnt = MapperInfo(iWin, MAPPER_INFO_LAYERS)
+	bSeamless = FALSE
+	
+	'-------------------------------------------------------------------*
+	'	Demon (8.5.1)
+	'	There are at least several cases (seamless,
+	'	selection on a join table) where we can't detect if
+	'	the selection is in the front window.
+	'
+	'	If there is a selection, we'll use it.
+	'-------------------------------------------------------------------*
+	Dim selectionCopyName,
+		selName,
+		als  	  as string
+	Dim bDoDrop as Logical
+	
+	selectionCopyName = "garbageXXX"
+	bDoDrop = False
+	
+	If SelectionInfo(SEL_INFO_NROWS) <> 0 Then
+		selName = SelectionInfo(SEL_INFO_SELNAME)
+		selTableName = SelectionInfo(SEL_INFO_TABLENAME)
+		
+		selectionCopyName = MakeTmpFileName("", "GEL", TRUE, als)
+		Commit Table selName as selectionCopyName
+		
+		Open Table selectionCopyName as als
+		bDoDrop = True
+	End If
+	
+	'Check if there is a selection
+	If SelectionInfo(SEL_INFO_NROWS) = 0 Then
+		strModes = GetResString(IDS_SHOW_VIEW)
+		nExportMode = EXPORT_MODE_IMAGE
+		GOTO Jmp
+	Else
+		'Set combo box text
+		strModes = GetResString(IDS_SHOW_VIEW) + ";" + GetResString(IDS_SHOW_LAYER)
+		nExportMode = EXPORT_MODE_KML
+		
+		'Build list of fields on selection
+		If LEFT$(SelectionInfo(SEL_INFO_TABLENAME), 8) = "COSMETIC"  THEN
+			strFields = ""
+		Else
+			nCount = 0
+			strFields = ""
+			For nPos = 1 TO TableInfo(SelectionInfo(SEL_INFO_TABLENAME),TAB_INFO_NCOLS)
+				strCol = "COL" + STR$(nPos)
+				If ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol,COL_INFO_TYPE) = COL_TYPE_DECIMAL OR
+					ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol,COL_INFO_TYPE) = COL_TYPE_FLOAT   OR
+					ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol,COL_INFO_TYPE) = COL_TYPE_INTEGER OR
+					ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol,COL_INFO_TYPE) = COL_TYPE_SMALLINT THEN
+					strFields = strFields + PROPER$(ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol, COL_INFO_NAME)) + ";"
+					nCount = nCount + 1
+					nField(nCount) = nPos
+				End If
+			Next
+			If strFields <> "" THEN strFields = LEFT$(strFields, LEN(strFields)-1) End If
+	
+			' Build the list of all fields for the place name combo
+			nCount = 0
+			strAllFields = ""
+			For nPos = 1 TO TableInfo(SelectionInfo(SEL_INFO_TABLENAME),TAB_INFO_NCOLS)
+				strCol = "COL" + STR$(nPos)
+				If ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol,COL_INFO_TYPE) <> COL_TYPE_GRAPHIC THEN
+					strAllFields = strAllFields + PROPER$(ColumnInfo(SelectionInfo(SEL_INFO_TABLENAME),strCol, COL_INFO_NAME)) + ";"
+				End If
+			Next
+			If strAllFields <> "" THEN 
+				strAllFields = LEFT$(strAllFields, LEN(strAllFields)-1) 
+			End If
+		End If
+	End If
+	
+	'Ask user for type of Export
+	Dialog Title GetResString(IDS_EXPORT_DLG_TITLE) 
+	   Control RADIOGROUP Title strModes VALUE nExportMode INTO nExportMode POSITION 30,10
+	   Control OKButton Title GetResString(IDS_OK_MNU_ITEM)
+	   Control CANCELBUTTON Title GetResString(IDS_CANCEL_MNU_ITEM)
+	
+	'Exit if user hit CANCEL
+	If NOT CommandInfo(CMD_INFO_DLG_OK) THEN 
+		Exit Sub 
+	End If
+
+Jmp:'Get Date Time for default file name
+	dim sArray() as string
+	nCheck = LESGetLocalTime(tCurrTime)
+	strDateTime = STR$(YEAR(CURDATE())) + "-" + STR$(MONTH(CURDATE()))+"-"+ STR$(DAY(CURDATE())) + "_" + Format$(tCurrTime.nHour,"0#")+"-"+ Format$(tCurrTime.nMinute,"0#")
+	
+	'Build default
+	If nExportMode = EXPORT_MODE_IMAGE THEN
+		strFile  =  WindowInfo(iWin, WIN_INFO_NAME) +  "_" + strDateTime
+		call stringToArray(strFile, sArray)
+		call UnderscoreString(sArray)
+		call ArrayToString(sArray, strFile)
+	
+		strPlaceName = GetResString(IDS_MAPINFO_SAVED_VIEW)
+		strDescr = GetResString(IDS_MAP_VIEW)
+	Else
+		strFile  =  SelectionInfo(SEL_INFO_TABLENAME) + "_" + strDateTime
+		call stringToArray(strFile, sArray)
+		call UnderscoreString(sArray)
+		call ArrayToString(sArray, strFile)
+	
+		strPlaceName = GetResString(IDS_MAPINFO_SAVED_OBJECTS)
+		strDescr = STR$(SelectionInfo(SEL_INFO_NROWS)) + GetResString(IDS_ITEMS_FROM_LAYER) + PROPER$(SelectionInfo(SEL_INFO_TABLENAME))
+	End If
+
+
+	'--------------------
+	' Image Export
+	'--------------------
+	If nExportMode = EXPORT_MODE_IMAGE THEN
+		Dialog Title GetResString(IDS_EXPORT_IMAGE_DLG_TITLE) Calling exportImageDlgHndlr
+			Control StaticText Title GetResString(IDS_OUTPUT_PATH) POSITION 10,10
+			Control EditText   VALUE gstrOutputPath INTO gstrOutputPath WIDTH 120 POSITION 75,8 ID OUTPUT_PATH_EDIT
+			Control Button Title "..."  POSITION 200,7 WIDTH 15 CALLING GetBrowseDir
+			Control StaticText Title GetResString(IDS_FILE_NAME) POSITION 10,25
+			Control EditText VALUE strFile INTO strFile WIDTH 140 POSITION 75,23 ID FILENAME_EDIT
+			Control StaticText Title GetResString(IDS_PLACE_NAME) POSITION 10,40
+			Control EditText VALUE strPlaceName INTO strPlaceName WIDTH 140 POSITION 75,38
+	
+			Control GROUPBOX Title GetResString(IDS_COPYRIGHT_GROUP_TEXT) Position 10, 55 Width 180 Height 30
+			Control CheckBox ID SELECT_COPYRIGHT_CHK calling exportImageDlgControlsHndlr value bImportCopyright Position 15, 68
+			Control EditText ID SELECT_COPYRIGHT_EDIT width 135 value sCopyrightFilename into sCopyrightFilename Position 29, 67
+			Control Button   ID SELECT_COPYRIGHT_FILE_BTN Title "..."  CALLING GetFilename Position 170, 66 WIDTH 15
+	
+			Control CheckBox ID RUN_GE_NOW_CHK Title GetResString(IDS_RUN_OPTIONS) Position 15, 90 value gbRunGENow into gbRunGENow
+	
+			Control OKButton Title GetResString(IDS_OK_MNU_ITEM) calling OKBtnHndlr1 Position 60, 105
+			Control CANCELBUTTON Title GetResString(IDS_CANCEL_MNU_ITEM) Position 120, 105
+	Else
+		'---------------------
+		'  Objects Export
+		'---------------------
+
+		Dim rdioBtnStr As String
+		rdioBtnStr = GetResString(IDS_FOLLOW_TERRAIN) + ";"
+		rdioBtnStr = rdioBtnStr + GetResString(IDS_HEIGHT_VALUE) + ";"
+		rdioBtnStr = rdioBtnStr + GetResString(IDS_HEIGHT_FIELD)
+	
+		'Ask for attrinute details
+	
+		Dialog Title GetResString(IDS_EXPORT_OBJS_DLG_TITLE)
+			Calling DlgHndlr
+			Control StaticText Title GetResString(IDS_OUTPUT_PATH) POSITION 10,10
+			Control EditText VALUE gstrOutputPath INTO gstrOutputPath WIDTH 120 POSITION 75,8 ID OUTPUT_PATH_EDIT
+			Control Button Title "..."  POSITION 200,7 WIDTH 15 CALLING GetBrowseDir
+			Control StaticText Title GetResString(IDS_FILE_NAME) POSITION 10,25
+			Control EditText VALUE strFile INTO strFile WIDTH 140 POSITION 75,23 ID FILENAME_EDIT
+
+			Control StaticText Title GetResString(IDS_DESCRIPTION) POSITION 10, 40
+			Control EditText VALUE strDescr INTO strDescr WIDTH 140 POSITION 75,38
+
+			' Place name group
+			Control Groupbox width 205 height 55 Title GetResString(IDS_GET_NAME_SOURCE)					Position 10, 55
+   
+			Control RadioGroup Title " ; " value gPlacenameMode ID PLACENAME_RDIO into gPlacenameMode
+													calling PlaceNameRdio_Hndlr  					Position 15, 70
+			Control EditText VALUE strPlaceName INTO strPlaceName WIDTH 143 ID PLACENAME_EDIT				  POSITION 37, 68
+			Control POPUPMENU Title strAllFields VALUE gPlacenameFieldIdx INTO gPlacenameFieldIdx
+																WIDTH 75 ID PLACENAME_POPUP  		POSITION 37, 85
+   
+			' Position objects group
+			Control Groupbox width 205 height 85 Title GetResString(IDS_POSITION_OBJECTS)   							Position 10, 115
+			Control RADIOGROUP Title rdioBtnStr VALUE gnHMode INTO gnHMode   ID HEIGHT_MODE_RDIO calling RadioBtnHndlr  POSITION 15,130
+   
+			Control EditText VALUE gnHVal INTO gnHVal WIDTH 50 ID HEIGHT_EDIT   							POSITION 125,143
+			Control POPUPMENU Title strFields VALUE gnhField_NumericsOnly INTO gnhField_NumericsOnly WIDTH 75   ID POS_OBJECTS_POPUP POSITION 125,158
+			Control CHECKBOX  Title GetResString(IDS_EXTRUDE_LINES_TO_SURFACE) VALUE gbExtrude INTO gbExtrude ID EXTRUDE_CHK  POSITION 15, 175
+   
+			Control CheckBox ID RUN_GE_NOW_CHK Title GetResString(IDS_RUN_OPTIONS) value gbRunGENow into gbRunGENow position 15, 205
+   
+			Control Button calling BtnPickCol_OnClick Title GetResString(IDS_CHOOSE_COLUMNS_W_UL)   			  POSITION 10,220
+			Control OKButton Title GetResString(IDS_OK_MNU_ITEM) calling OKBtnHndlr1
+			Control CANCELBUTTON Title GetResString(IDS_CANCEL_MNU_ITEM)
+		 ' end dialog
+
+	End If
+
+	If CommandInfo(CMD_INFO_DLG_OK) THEN
+		dim res as integer
+		Dim alias as string
+	
+		OnError goto BadValErrHndlr
+	
+		If nExportMode = EXPORT_MODE_KML Then
+			'Store field for height
+			gnHField = nField(gnhField_NumericsOnly)
+		End If
+	
+		'If from Cosmetic then it has no fields
+		If strFields = "" AND gnHMode = HeightMode_FromField THEN gnHMode = HeightMode_RelativeToGround End If
+	
+		'Call the appropriate Routine
+		If nExportMode = EXPORT_MODE_IMAGE THEN
+			CALL ExportImage(strFile, strPlaceName, strDescr)
+		Else
+			CALL NewExportKML(strFile, strPlaceName, strDescr, sBaseTblName, bSeamless)
+		End If
+	
+	
+		'' Save the user's output path
+		Dim retval as Smallint
+		retval = WritePrivateProfileStringA("Settings", "OutputPath", gstrOutputPath, gstrINIFile)
+
+	End If
+
+	OnError goto ErrHndlr
+
+	Goto xit
+
+BadValErrHndlr:
+	Note GetResString(IDS_NEED_NUMERIC_HEIGHT)
+	Resume xit
+
+ErrHndlr:
+	' Could not convert data error -- can happen when user puts invalid char in height val box, but doesn't choose that radio button.
+	If Err() = 854 Then
+		Resume Next
+	ElseIf Err() = 689  Then ' als wasn't opened
+		Resume Next
+	Else
+		CALL ErrorMsg ("PromptUser", Error$(), Err())
+		Resume xit
+	End If
+
+BadPathErr:
+	Note GetResString(IDS_ENTER_VALID_OUTPUT_DIR)
+	goto xit
+
+NotWinMapperErr:
+	Note GetResString(IDS_NOT_WIN_MAPPER_ERR)
+	Goto xit
+
+xit:
+	If  bDoDrop = TRUE Then
+		Drop table als
+	End If
+
+End Sub
+
+Sub GetBrowseDir
+	Dim   strDirectoryPath As String
+	
+	'Set up error handler
+	OnError GOTO ErrorHandler
+	strDirectoryPath = BrowseFolders(GetResString(IDS_SELECT_OUTPUT_DIR))
+	If strDirectoryPath = "" THEN 
+		Exit Sub 
+	End If
+	
+	If RIGHT$(strDirectoryPath,2) = "\\" THEN 
+		strDirectoryPath = LEFT$(strDirectoryPath,LEN(strDirectoryPath)-1) 
+	End If
+	Alter Control OUTPUT_PATH_EDIT VALUE strDirectoryPath
+	Exit Sub
+
+ErrorHandler:
+	CALL ErrorMsg ("GetBrowseDir", Error$(), Err())
+End Sub 'GetBrowseDir
+
+
+Sub GetFilename
+	sCopyrightFilename = FileOpenDlg(sCopyrightFilename,"","TXT",GetResString(IDS_CHOOSE_FILE))
+	Alter Control SELECT_COPYRIGHT_EDIT Value sCopyrightFilename
+End Sub
+
+Function BrowseFolders(BYVAL strTitleMessage As String) As String
+	Dim	lpIDList, retVal  As Integer
+	Dim	sBuffer			As String
+	Dim	strOutputDirectory	As String
+	Dim	tBrowseInfo		AS BROWSEINFO
+
+	'Set up error handler
+	OnError GOTO ErrorHandler
+	tBrowseInfo.hWndOwner = SYSTEMINFO(SYS_INFO_MAPINFOWND)
+	tBrowseInfo.lpszTitle = strTitleMessage
+	tBrowseInfo.ulFlags = BIF_RETURNONLYFSDIRS + BIF_NEWDIALOGSTYLE  ' + BIF_DONTGOBELOWDOMAIN
+	lpIDList = SHBrowseForFolder(tBrowseInfo)
+	If (lpIDList) THEN
+	  sBuffer = SPACE$(MAX_PATH)
+	  retVal = SHGetPathFromIDList(lpIDList, sBuffer)
+	  strOutputDirectory = sBuffer & "\"
+	End If
+	BrowseFolders = strOutputDirectory
+	Exit Function
+ErrorHandler:
+	CALL ErrorMsg ("BrowseFolders", Error$(), Err())
+End Function 'BrowseFolders
+
+'/////////////////////////////////////////////////////////////////////////////////////////
+
+Sub ExportImage(BYVAL strFile As String,BYVAL  strTitle As String,BYVAL  strDesc As String)
+	Dim strKMLFile As String
+	Dim strJPGFile As String
+	Dim strJPGFileFullPath As String
+	Dim strDateTime As String
+	Dim nCheck  	As Integer  'Used in getting system time
+	Dim nPos 	As Integer
+	Dim bLegend 	AS LOGICAL
+	Dim sCurrentNumberFormat as string
+	Dim sTemp as string
+	Dim tmpOutFileName, tmpAlias as string
+	Dim errVal as integer
+	Dim bMoved as logical
+	Dim sOriginalImageReprojectionSetting As String	
+	Dim bImageReprojectionSettingChanged as logical
+	Dim bCoordSysChanged as logical
+	Dim bFileOpened as logical
+	'Set up error handler
+
+
+
+	OnError GOTO ErrorHandler
+	errVal = 0
+	bMoved = TRUE
+	bImageReprojectionSettingChanged = FALSE
+	bCoordSysChanged  = FALSE
+	bFileOpened = FALSE
+	
+	'Set CoordSys to WGS 84
+	SET COORDSYS EARTH PROJECTION 1, 104
+	' Ensure that numbers are written out in US/XML Standard form 
+	' which is periods for decimal points
+	' save and restore the current setting just in case the application displays numbers itself.
+
+	sCurrentNumberFormat = SystemInfo(SYS_INFO_NUMBER_FORMAT)
+	Set Format Number   "9,999.9"
+
+
+	'Scan for Thematic Layer being used
+	bLegend = FALSE
+	For nPos = 1 TO MapperInfo(FrontWindow(),MAPPER_INFO_LAYERS)
+	  If LayerInfo(FrontWindow(),nPos,LAYER_INFO_TYPE) = LAYER_INFO_TYPE_THEMATIC AND
+		 LayerInfo(FrontWindow(),nPos,LAYER_INFO_DISPLAY) <> LAYER_INFO_DISPLAY_OFF THEN
+			bLegend = TRUE
+			Exit For
+	  End If
+	Next
+
+	'Get Date Time for default file name
+	nCheck = LESGetLocalTime(tCurrTime)
+	strDateTime = STR$(YEAR(CURDATE())) + "/" + STR$(MONTH(CURDATE()))+"/"+ STR$(DAY(CURDATE())) + " at " + Format$(tCurrTime.nHour,"0#")+":"+ Format$(tCurrTime.nMinute,"0#")
+
+	'Set the save Image File Name
+	'----------------------------------------------------------------------------------*
+	'  	 T23240 -- if we don't put the path on the jpg file, the kml and jpg can be
+	'  	 moved to a different dir and still work.
+	'----------------------------------------------------------------------------------*
+	strJPGFileFullPath = gstrOutputPath + strFile + ".JPG"
+	strJPGFile = strFile + ".JPG"
+
+
+	Dim zm, centerX, centerY as float
+	Dim strSavedCoordSys, cmd, distUnits as String
+	'--------------------------------------------------------------------------------------------
+	' If Image Reporjection setting for map is none, We won't be able to coerce the map to WGS 84
+	'--------------------------------------------------------------------------------------------
+	sOriginalImageReprojectionSetting = MapperInfo(FrontWindow(),MAPPER_INFO_REPROJECTION)
+	If sOriginalImageReprojectionSetting = "none" then
+		set map window FrontWindow()Image reprojection auto
+		bImageReprojectionSettingChanged = TRUE
+	End If
+	
+	'--------------------------------------------------------------------------------------------
+	' Save the current coordsys.  We want to coerce the map to WGS 84 so it exports nicely.
+	'--------------------------------------------------------------------------------------------
+	strSavedCoordSys = MapperInfo(FrontWindow(), MAPPER_INFO_COORDSYS_CLAUSE)
+	zm = MapperInfo(FrontWindow(), MAPPER_INFO_ZOOM)
+	distUnits = MapperInfo(FrontWindow(), MAPPER_INFO_DISTUNITS)
+	centerX = MapperInfo(FrontWindow(), MAPPER_INFO_CENTERX)
+	centerY = MapperInfo(FrontWindow(), MAPPER_INFO_CENTERY)
+
+	cmd = "Set Map WINDOW " + Str$(FrontWindow()) + " CoordSys Earth Projection 1, 104 Zoom " +
+		 Str$(zm) + " Center (" + Str$(centerX) + "," + Str$(centerY) + ")"
+
+	Run command cmd
+
+onerror goto frontWinErr
+	SAVE WINDOW FrontWindow() AS strJPGFileFullPath Type "JPEG" RESOLUTION 180 COPYRIGHT sCopyright   ' "Exported from MapInfo on " + strDateTime
+
+	OnError GOTO ErrorHandler
+
+	'Open the KML Text Output File
+	strKMLFile = gstrOutputPath + strFile + ".KML"
+	' We are writing out XML which requires a valid character set.
+	' MapBasic does not support UTF-8 so the best we can do is write out
+	' the current Windows character set. This takes two steps.
+	' First we tell MapBasic that we are using this character set so it
+	' basically writes out all the characters in the native character set.
+	' Then we write out the same information in the XML file. However,
+	' the names of MapInfo character sets and the XML standard are different.
+	' The XML standard for Windows characters sets all have the prefix string "Windows-"
+	' followed by the active code page. MapBasic does not give us this but
+	' a simple call to the Windows API (GetACP) will.
+	
+	tmpOutFileName = MakeTmpFileName("", "", TRUE, tmpAlias)
+
+	Open File tmpOutFileName For OUTPUT AS #1 Charset SystemInfo(SYS_INFO_CHARSET)
+	bFileOpened = TRUE
+	'----------------------------
+	'Add Mapper Image to KML File
+	'----------------------------
+	'Create the Header for the file
+
+	sTemp = XMLHeader()
+
+	Print #1, sTemp
+
+	Print #1, "<kml xmlns=""http://earth.google.com/kml/2.0"">"
+
+	'Use Folder if Legend present
+	If bLegend = TRUE THEN
+	  Print # 1, "	<Folder>"
+	  Print # 1, "	<description>" + strTitle + "</description>"
+	  Print # 1, "	<name> " + strTitle + "</name>"
+	  Print # 1, "	<visibility>1</visibility>"
+	  Print # 1, "	<open>1</open>"
+	End If
+
+	'Add lines for Image Overlay file
+	Print # 1, " <GroundOverlay>"
+	Print # 1, "	<name> " + strTitle + "</name>"   			'Name to appear on left list
+	Print # 1, "	<visibility>1</visibility>"
+	Print # 1, "	<Icon>"
+	Print # 1, "	<href>" + strJPGFile + "</href>"
+	Print # 1, "	</Icon>"
+	Print # 1, "	<LatLonBox>"
+	Print # 1, "	 <north>" + Format$(MapperInfo(FrontWindow(),MAPPER_INFO_MAXY),"#.#######") + "</north>"
+	Print # 1, "	 <south>" + Format$(MapperInfo(FrontWindow(),MAPPER_INFO_MINY),"#.#######") + "</south>"
+	Print # 1, "	 <east>" + Format$(MapperInfo(FrontWindow(),MAPPER_INFO_MAXX),"#.#######") + "</east>"
+	Print # 1, "	 <west>" + Format$(MapperInfo(FrontWindow(),MAPPER_INFO_MINX),"#.#######") + "</west>"
+	Print # 1, "	 <rotation>0</rotation>"
+	Print # 1, "	</LatLonBox>"
+	Print # 1, " </GroundOverlay>"
+
+	'----------------------------
+	'Add Legend Image to KML File
+	'----------------------------
+	'Scan for Thematic Layer being used
+	bLegend = FALSE
+	For nPos = 1 TO MapperInfo(FrontWindow(),MAPPER_INFO_LAYERS)
+	  If LayerInfo(FrontWindow(),nPos,LAYER_INFO_TYPE) = LAYER_INFO_TYPE_THEMATIC AND
+		 LayerInfo(FrontWindow(),nPos,LAYER_INFO_DISPLAY) <> LAYER_INFO_DISPLAY_OFF THEN
+			bLegend = TRUE
+			Exit For
+	  End If
+	Next
+	'Add Legend if available
+	If bLegend = TRUE THEN
+	  'Set the save Image File Name
+		'----------------------------------------------------------------------------------*
+		' 	  T23240 -- if we don't put the path on the jpg file, the kml and jpg can be
+		' 	  moved to a different dir and still work.
+		'----------------------------------------------------------------------------------*
+		strJPGFileFullPath = gstrOutputPath + strFile + "_Legend.JPG"
+		strJPGFile = strFile + "_Legend.JPG"
+		SAVE WINDOW WINDOWID(WIN_LEGEND) AS strJPGFileFullPath Type "JPEG" 'RESOLUTION 360
+
+	  'Add Reference to KML
+	  Print # 1, "	<ScreenOverlay>"
+	  Print # 1, "	 <name>Thematic Legend</name>"
+	  Print # 1, "	  <visibility>1</visibility>"
+	  Print # 1, "	  <open>1</open>"
+	  Print # 1, "	  <Icon>"
+	  Print # 1, "  	<href>" + strJPGFile + "</href>"
+	  Print # 1, "	  </Icon>"
+	  Print # 1, "	  <color>ffffffff</color>"
+	  Print # 1, "	  <drawOrder>0</drawOrder>"
+	  Print # 1, "	  <overlayXY x=""0"" y=""1"" xunits=""fraction"" yunits=""fraction""/>"
+	  Print # 1, "	  <screenXY x=""0"" y=""1"" xunits=""fraction"" yunits=""fraction""/>"
+	  Print # 1, "	  <rotationXY x=""0"" y=""0"" xunits=""fraction"" yunits=""fraction""/>"
+	  Print # 1, "	  <size x=""0"" y=""0"" xunits=""fraction"" yunits=""fraction""/>"
+	  Print # 1, "	  <rotation>0</rotation>"
+	  Print # 1, "	</ScreenOverlay>"
+	  Print # 1, "  </Folder>"
+	End If
+
+	'Close the KML File
+	Print # 1, "</kml>"
+	Close File 1
+	bFileOpened = FALSE
+	
+	errVal = WriteUTF8(tmpOutFileName, strKMLFile)
+
+	
+	if errVal <> ERROR_SUCCESS then
+		Dim errmsg2 as string
+		Dim l as integer
+		l = GetErrorMessage(errMsg2)
+		bMoved = MoveFile(tmpOutFileName, strKMLFile) 
+		Note errMsg2
+	Else
+		Dim bDeleted as logical
+		bDeleted = DeleteFile(tmpOutFileName)
+	End if 
+
+	'Send it to Google Earth
+	If gbRunGENow = TRUE And bMoved = TRUE Then
+	  Dim ret as integer
+	  OnError GOTO ErrorHandlerGE
+	  ret = ShellEx(strKMLFile)
+	End If
+	Goto xit
+
+	'Set up error handler
+	Dim bRet as Logical
+
+ErrorHandler:
+	Dim errMsg as String
+	errMsg = GetResString(IDS_WARNING_BANG) + "  " + GetResString(IDS_ERR_BUILDING_KML) + chr$(13) + Error$()
+	errMsg = errMsg + Chr$(13) + GetResString(IDS_ERROR_INFORMATION) + str$(TIMER()) + " : " + strJPGFile + " : " + gstrOutputPath
+	Note errMsg
+	If bFileOpened then
+		Close File 1 ' strKMLFile
+	End If
+	If FileExists ( strKMLFile ) then
+		bRet = DeleteFile ( strKMLFile )
+	End If
+	Resume xit
+
+ErrorHandlerGE:
+	Note GetResString(IDS_WARNING_BANG) + "  " + GetResString(IDS_PROB_COMM_W_GE)
+	If FileExists ( strKMLFile ) then
+		bRet = DeleteFile ( strKMLFile )
+	End If
+	Resume xit
+
+frontWinErr:
+	' Partial fix for T23253.  We really need a better error message.
+	Dim pos As Integer
+
+	errMsg = Error$()
+	errVal = Err()
+
+	' Call ErrorMsg ("processCommittedSelection", er, Error$())
+    ' Remove the filename and line number
+	pos = InStr(1, errMsg, ")")
+	If pos > 0 Then
+		errMsg = Mid$(errMsg, pos + 1, Len(errMsg))
+	End If
+
+	errMsg = errMsg + Chr$(13) + GetResString(IDS_MUST_ENTER_FILENAME)
+
+	Note errMsg
+	Resume xit
+
+xit:
+	' restore the number format setting for this app
+	Set Format Number sCurrentNumberFormat
+	' Restore the coordsys and image reprojection setting
+	If bCoordSysChanged  then
+		'------------------------------------
+		' Restore the original coordsys
+		'------------------------------------
+		cmd = "Set Map WINDOW FRONTWINDOW() " + strSavedCoordSys + " Zoom " + Str$(zm)
+			 ' + " Units " + """" + distUnits + """" +
+			 ' + " Center (" + Str$(centerX) + "," + Str$(centerY) + ")"
+		'-------------------------------------------------
+		' Restore the original Image Reprojection Setting
+		'-------------------------------------------------
+		If bImageReprojectionSettingChanged then
+			cmd = cmd + " Image reprojection "+ sOriginalImageReprojectionSetting
+		End If
+	End If
+	run command cmd
+
+End Sub ' ExportImage
+
+
+Sub BtnPickCol_OnClick()
+	call DlgPickColumns( SelectionInfo(SEL_INFO_TABLENAME) )
+End Sub
+
+Sub ErrorMsg (BYVAL strSubName As String, BYVAL errMsg As String, ByVal err as integer)
+
+	gstrMsg = GetResString(IDS_WARNING_BANG)
+	gstrMsg = gstrMsg + "  "
+	gstrMsg = gstrMsg + GetResString(IDS_GENERAL_ERR_MSG)
+	gstrMsg = gstrMsg + " "
+	gstrMsg = gstrMsg + gstrAppTitle
+	gstrMsg = gstrMsg + GetResString(IDS_COMMMA)
+	gstrMsg = gstrMsg + " "
+	gstrMsg = gstrMsg + GetResString(IDS_MODULE)
+	gstrMsg = gstrMsg + " "
+	gstrMsg = gstrMsg + strSubName
+	gstrMsg = gstrMsg + GetResString(IDS_DOT)
+	gstrMsg = gstrMsg + "  "
+	gstrMsg = gstrMsg + GetResString(IDS_THE_ERROR_WAS)
+	gstrMsg = gstrMsg + Chr$(13)
+	gstrMsg = gstrMsg + Str$(err) + " : " + errMsg
+
+	Note gstrMsg
+End Sub
+
+Sub OKBtnHndlr1
+
+	Dim ok		as logical
+	Dim output,
+	   fname	as string
+
+	Dim hite, mode as integer
+
+	ok = TRUE
+	'----------------------------------
+	'  Validate user's entries
+	'----------------------------------
+	output = ReadControlValue(OUTPUT_PATH_EDIT)
+	fname = ReadControlValue(FILENAME_EDIT)
+
+	If nExportMode = EXPORT_MODE_KML Then
+	  OnError goto badValErrH
+	  mode = ReadControlValue(HEIGHT_MODE_RDIO)
+		 'Print "mode : " + Str$(mode)
+	  If mode = 2 Then
+		 hite = ReadControlValue(HEIGHT_EDIT)
+	  End If
+
+	  ' Get the placename, if user gave one
+	  mode = ReadControlValue(PLACENAME_RDIO)
+	  If mode = 1 Then
+		 gbUsePlacenameField = FALSE
+	  Else
+		 gbUsePlacenameField = TRUE
+	  End If
+	Else
+	  ' Validate the copyright file, if nec.
+	  If bImportCopyright = TRUE Then
+		 Dim str as String
+		 sCopyright = ""
+		 sCopyrightFilename = ReadControlValue(SELECT_COPYRIGHT_EDIT)
+
+		 OnError GoTo BadCopyrightFileErr
+
+		 Open File sCopyrightFilename for Input as 100
+
+		 Do While Not EOF(100)
+			str = ""
+			Line Input #100, str
+			sCopyright = sCopyright + Chr$(10) + str
+		 Loop
+		 Close File 100
+		 If Len(sCopyright) < 2 Then
+				 Goto BadCopyrightFileErr
+		 End If
+	  Else
+			  sCopyright = GetResString(IDS_DEFAULT_COPYRIGHT) 
+	  End If
+	End If
+
+	OnError goto genlErrH
+
+	If output = "" Then
+	  Goto BadPathErr
+	End If
+	' Check for trailing '\' on path.
+	If "\" <>  Mid$(output, Len(output), 1) then
+	  output = output + "\"
+	End If
+
+	Dim tmp as String
+	tmp = String$(512, " ")
+
+	tmp = MI_fullPath(output)
+
+   ' TODO:  T23253 -- verify the file name.  Can we do this in a maint. release?
+
+   '  That is, can we do this w/o resource changes?
+	If VerifyPathExists(tmp) <> TRUE Then
+	  goto BadPathErr
+	Else
+	  ' Need to do this, as the 'Into' clause  will put whatever is in the
+	  ' edit control into gstrOutputPath, if this fn ends successfully
+	  Alter Control OUTPUT_PATH_EDIT value tmp
+	  gstrOutputPath = tmp
+	End If
+
+	If fname = "" Then
+	  Goto BadFileErr
+	End If
+	' Check filename length.  Allow room for ".kml\0" or ".jpg\o"
+	If Len(fname) > 250 Then
+	   Goto fileNameTooLongErr
+	End If
+
+	' Make sure filename is valid
+	Dim bValidName as Logical
+	bValidName = IsValidFileName(fname)
+	If bValidName = FALSE Then
+		ok = FALSE
+		Note GetResString(IDS_BADFILENAME_ERR)
+	End If
+
+	If gChooseColumnsOK = TRUE Then
+	  gUseSelectedColNames = TRUE
+	  Dim cntr as smallint
+	  Redim gSelectedColNames(UBound(gTempSelectedColNames))
+
+	  For cntr = 1 to UBound(gTempSelectedColNames)
+		 gSelectedColNames(cntr) = gTempSelectedColNames(cntr)
+	  Next
+
+	  Redim gColNames(UBound(gTempColNames))
+	  For cntr = 1 to UBound(gTempColNames)
+		 gColNames(cntr) = gTempColNames(cntr)
+	  Next
+
+	End If
+
+
+	Goto Xit
+
+BadPathErr:
+	ok = FALSE
+	Note GetResString(IDS_ENTER_VALID_OUTPUT_DIR)
+	goto xit
+
+BadCopyrightFileErr:
+		ok = FALSE
+		Note GetResString(IDS_BAD_COPYRIGHTFILE_ERR)
+		GoTo xit
+
+BadFileErr:
+	ok = FALSE
+	Note GetResString(IDS_MUST_ENTER_FILENAME)
+	Goto xit
+
+genlErrH:
+	Note Error$()
+	Resume Xit
+
+badValErrH:
+	ok = FALSE
+	Note GetResString(IDS_NEED_NUMERIC_HEIGHT)
+	Resume Xit
+
+fileNameTooLongErr:
+	ok = FALSE
+	Note GetResString(IDS_FILENAME_TOO_LONG_ERR)
+	Goto Xit
+
+Xit:
+	If ok = FALSE Then
+	  Dialog Preserve
+	End If
+
+End Sub
+
+' For the Position Objects group...
+Sub RadioBtnHndlr
+
+	Do Case ReadControlValue(HEIGHT_MODE_RDIO)
+	  Case 1
+		 Alter Control EXTRUDE_CHK disable
+		 Alter Control POS_OBJECTS_POPUP disable
+		 Alter Control HEIGHT_EDIT disable
+
+	  Case 2
+		 Alter Control EXTRUDE_CHK enable
+		 Alter Control POS_OBJECTS_POPUP disable
+		 Alter Control HEIGHT_EDIT enable
+
+	  Case 3
+		 Alter Control EXTRUDE_CHK enable
+		 Alter Control POS_OBJECTS_POPUP enable
+		 Alter Control HEIGHT_EDIT disable
+
+	End Case
+
+
+	If ReadControlValue(HEIGHT_MODE_RDIO) = 1 Then
+	  Alter Control EXTRUDE_CHK disable
+	Else
+	  Alter Control EXTRUDE_CHK enable
+	End If
+End Sub
+
+Sub DlgHndlr
+	Call RadioBtnHndlr
+	Call PlaceNameRdio_Hndlr
+	If Not gbAllowRunGE Then
+	  Alter Control RUN_GE_NOW_CHK Disable
+	End If
+
+End Sub
+
+sub PlaceNameRdio_Hndlr
+	If ReadControlValue(PLACENAME_RDIO) = 1 Then
+	  Alter Control PLACENAME_EDIT enable
+	  Alter Control PLACENAME_POPUP disable
+	Else
+	  Alter Control PLACENAME_EDIT disable
+	  Alter Control PLACENAME_POPUP enable
+	End If
+End sub
+
+dim bImageIsChecked as Logical
+dim bKmlIsChecked as Logical
+
+Sub selectExportModeDlgHndlr
+	If nExportMode = EXPORT_MODE_KML Then
+	  Alter Control EXPORT_IMAGE_CHK enable
+	  Alter Control EXPORT_IMAGE_CHK Value FALSE
+	  bImageIsChecked = FALSE
+	  Alter Control EXPORT_OBJECTS_CHK enable
+	  Alter Control EXPORT_OBJECTS_CHK Value TRUE
+	  bKmlIsChecked = TRUE
+	Else
+	  Alter Control EXPORT_IMAGE_CHK enable
+	  Alter Control EXPORT_IMAGE_CHK Value TRUE
+	  bImageIsChecked = TRUE
+	  Alter Control EXPORT_OBJECTS_CHK Value FALSE
+	  Alter Control EXPORT_OBJECTS_CHK disable
+	  bKmlIsChecked = FALSE
+	End If
+End Sub
+
+Sub ExportModeChkHndlr
+	Dim nCtrl as Integer
+
+	nCtrl = TriggerControl()
+
+	' We want these checkboxes to behave like radio buttons.
+	' User can only check their choice, not uncheck.
+	If nCtrl = EXPORT_IMAGE_CHK Then
+	  If bImageIsChecked = FALSE Then
+		 Alter Control EXPORT_IMAGE_CHK value TRUE
+		 Alter Control EXPORT_OBJECTS_CHK Value FALSE
+
+		 nExportMode = EXPORT_MODE_IMAGE
+		 bImageIsChecked = TRUE
+		 bKmlIsChecked = FALSE
+	  Else ' Don't let the user uncheck; keep it checked
+		 Alter Control EXPORT_IMAGE_CHK Value TRUE
+	  End If
+	Else ' OBJ_CHK
+	  If bKmlIsChecked = FALSE Then
+		 Alter Control EXPORT_OBJECTS_CHK Value TRUE
+		 Alter Control EXPORT_IMAGE_CHK Value FALSE
+
+		 nExportMode = EXPORT_MODE_KML
+		 bKmlIsChecked = TRUE
+		 bImageIsChecked = FALSE
+	  Else
+
+		 Alter Control EXPORT_OBJECTS_CHK value TRUE
+	  End If
+	End If
+End Sub
+
+Sub exportImageDlgHndlr
+	If bImportCopyright = TRUE Then
+
+	  Alter Control SELECT_COPYRIGHT_FILE_BTN Enable
+	  Alter Control SELECT_COPYRIGHT_EDIT Enable
+	  Alter Control SELECT_COPYRIGHT_CHK Value TRUE
+	Else
+	  Alter Control SELECT_COPYRIGHT_FILE_BTN Disable
+	  Alter Control SELECT_COPYRIGHT_EDIT Disable
+	  Alter Control SELECT_COPYRIGHT_CHK Value FALSE
+	End If
+
+	If Not gbAllowRunGE Then
+	  Alter Control RUN_GE_NOW_CHK Disable
+	End If
+End Sub
+
+Sub exportImageDlgControlsHndlr
+	If ReadControlValue(SELECT_COPYRIGHT_CHK) = TRUE Then
+	  Alter Control SELECT_COPYRIGHT_FILE_BTN enable
+	  Alter Control SELECT_COPYRIGHT_EDIT enable
+	  bImportCopyright = TRUE
+	Else
+	  Alter Control SELECT_COPYRIGHT_FILE_BTN Disable
+	  Alter Control SELECT_COPYRIGHT_EDIT Disable
+	  bImportCopyright = FALSE
+	End If
+End Sub
+

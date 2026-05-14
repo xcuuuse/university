@@ -1,0 +1,13 @@
+REGEDIT
+; This .REG file may be used by your SETUP program.
+;   If a SETUP program is not available, the entries below will be
+;   registered in your InitInstance automatically with a call to
+;   CWinApp::RegisterShellFileTypes and COleObjectFactory::UpdateRegistryAll.
+
+
+HKEY_CLASSES_ROOT\MDIMap.Document = MDIMap Document
+HKEY_CLASSES_ROOT\MDIMap.Document\CLSID = {AE8B3FC0-F801-11CE-BD29-00AA00594AD7}
+
+HKEY_CLASSES_ROOT\CLSID\{AE8B3FC0-F801-11CE-BD29-00AA00594AD7} = MDIMap Document
+HKEY_CLASSES_ROOT\CLSID\{AE8B3FC0-F801-11CE-BD29-00AA00594AD7}\LocalServer32 = MDIMAP.EXE
+HKEY_CLASSES_ROOT\CLSID\{AE8B3FC0-F801-11CE-BD29-00AA00594AD7}\ProgId = MDIMap.Document

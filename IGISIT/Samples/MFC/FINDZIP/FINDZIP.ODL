@@ -1,0 +1,41 @@
+// findzip.odl : type library source for findzip.exe
+
+// This file will be processed by the Make Type Library (mktyplib) tool to
+// produce the type library (findzip.tlb).
+
+[ uuid(123EBBA1-F439-11CE-BD29-00AA00594AD7), version(1.0) ]
+library findzip
+{
+	importlib("stdole32.tlb");
+	
+	//  Primary dispatch interface for CFindzipDoc
+	
+	[ uuid(123EBBA2-F439-11CE-BD29-00AA00594AD7) ]
+	dispinterface IFindzi
+	{
+		properties:
+			// NOTE - ClassWizard will maintain property information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_PROP(CFindzipDoc)
+			//}}AFX_ODL_PROP
+			
+		methods:
+			// NOTE - ClassWizard will maintain method information here.
+			//    Use extreme caution when editing this section.
+			//{{AFX_ODL_METHOD(CFindzipDoc)
+			[id(1)] SCODE WindowContentsChanged(long lWindowID);
+			[id(2)] void OnQueryPosition(BSTR lpcstrArg);
+			//}}AFX_ODL_METHOD
+
+	};
+
+	//  Class information for CFindzipDoc
+	
+	[ uuid(123EBBA0-F439-11CE-BD29-00AA00594AD7) ]
+	coclass CFindzipDoc
+	{
+		[default] dispinterface IFindzi;
+	};
+
+	//{{AFX_APPEND_ODL}}
+};

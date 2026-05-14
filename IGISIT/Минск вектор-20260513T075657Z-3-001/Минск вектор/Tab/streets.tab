@@ -1,0 +1,10 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 3
+    название Char (64) ;
+    тип Char (16) ;
+    STREET_ID Decimal (11, 0) ;

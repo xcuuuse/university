@@ -1,0 +1,11 @@
+!table
+!version 300
+!charset WindowsCyrillic
+
+Definition Table
+  Type NATIVE Charset "WindowsCyrillic"
+  Fields 4
+    название Char (64) ;
+    линия Char (16) ;
+    тип Char (16) ;
+    ID Decimal (11, 0) ;

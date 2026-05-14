@@ -1,0 +1,64 @@
+!Workspace
+!Version  950
+!Charset WindowsCyrillic
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\STATES" As STATES Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\US_HIWAY" As US_HIWAY Interactive
+Open Table "buffers" As buffers Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\CANADA\CANADA" As CANADA Interactive
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where States . State_Name = "Oregon" and US_HIWAY . obj intersects States . obj  into Query1 
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where States . State_Name = "Oregon" and US_HIWAY . obj intersects States . obj  into Query2 order by STATES . State_Name  
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where States . State_Name = "Oregon" and US_HIWAY . obj intersects States . obj  into Query3 order by US_HIWAY . Highway  
+Browse * From Query1
+  Position (0.275,2.025) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+set window FrontWindow() Font ("Segoe UI",0,9,0)
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From Query2
+  Position (0.483333,2.3) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+set window FrontWindow() Font ("Segoe UI",0,9,0)
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From Query3
+  Position (0.691667,2.58333) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+set window FrontWindow() Font ("Segoe UI",0,9,0)
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9
+Map From CANADA,CANADA
+  Position (0.208333,1.95833) Units "in"
+  Width 8.04167 Units "in" Height 3.58333 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On Enhanced On Smooth Text Antialias Image High
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (-127.6591815,62.411507)
+  Zoom 6112.980313 Units "km"
+  Preserve Scale Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line None Position Center Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With Province_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+    Activate Using URL On Objects Relative Path Off
+  Layer 2
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line None Position Center Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With Province_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+   Object 8 Anchor (-101.034468,65.779803) 
+   Object 13 Anchor (-135.71146,62.892699) 
+   Object 6 Anchor (-119.996388,64.336251) 
+    Activate Using URL On Objects Relative Path Off
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9

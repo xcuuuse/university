@@ -1,0 +1,183 @@
+!Workspace
+!Version 1200
+!Charset WindowsCyrillic
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\STATES" As STATES Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\US_HIWAY" As US_HIWAY Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\STATECAP" As STATECAP Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\US_CUSTG" As US_CUSTG Interactive
+Open Table "MAPINFO\DATA\TUT_DATA\TUT_USA\USA\US_ZIPS" As US_ZIPS Interactive
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where STATES . obj intersects US_HIWAY . obj and STATES . State_Name = "Oregon"  into Query3 noselect  order by US_HIWAY . Highway  
+Select STATES . State_Name , US_HIWAY . Highway  from STATES , US_HIWAY  where STATES . obj intersects US_HIWAY . obj and STATES . State_Name = "Oregon"  into Query4 noselect  order by US_HIWAY . Highway  
+Select *  from STATES  where Total_Area > 50000  into Query5 noselect  
+Select sum ( Sales_1990 )  from STATES  into Query1 noselect  
+Map From STATES
+  Position (0.0583333,1.75) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On Enhanced On Smooth Text Antialias Image High
+Set Map
+  CoordSys Earth Projection 1, 62
+  Center (-121.2353381,55.05630022)
+  Zoom 5330.926329 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line None Position Center Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With State_Name
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Map Label Selection Off 
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9
+Create Redistricter STATES By State_Name With Count, Brush, Sum(Sales_1990), Sum(Pop_1990)
+    Layer 1 
+  Position (0.266667,2.01667) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+set shade 1 values 
+  "Alabama" Brush (2,65280,16777215) Pen (1,2,0) Line (1,2,65280) Symbol (34,65280,12) ,
+  "Alaska" Brush (2,16711680,16777215) Pen (1,2,0) Line (1,2,16711680) Symbol (34,16711680,12) ,
+  "Arizona" Brush (2,16711935,16777215) Pen (1,2,0) Line (1,2,16711935) Symbol (34,16711935,12) ,
+  "Arkansas" Brush (2,255,16777215) Pen (1,2,0) Line (1,2,255) Symbol (34,255,12) ,
+  "California" Brush (2,16776960,16777215) Pen (1,2,0) Line (1,2,16776960) Symbol (34,16776960,12) ,
+  "Colorado" Brush (2,65535,16777215) Pen (1,2,0) Line (1,2,65535) Symbol (34,65535,12) ,
+  "Connecticut" Brush (2,8388608,16777215) Pen (1,2,0) Line (1,2,8388608) Symbol (34,8388608,12) ,
+  "Delaware" Brush (2,128,16777215) Pen (1,2,0) Line (1,2,128) Symbol (34,128,12) ,
+  "District of Columbia" Brush (2,32768,16777215) Pen (1,2,0) Line (1,2,32768) Symbol (34,32768,12) ,
+  "Florida" Brush (2,8388736,16777215) Pen (1,2,0) Line (1,2,8388736) Symbol (34,8388736,12) ,
+  "Georgia" Brush (2,8421376,16777215) Pen (1,2,0) Line (1,2,8421376) Symbol (34,8421376,12) ,
+  "Hawaii" Brush (2,32896,16777215) Pen (1,2,0) Line (1,2,32896) Symbol (34,32896,12) ,
+  "Idaho" Brush (2,8454016,16777215) Pen (1,2,0) Line (1,2,8454016) Symbol (34,8454016,12) ,
+  "Illinois" Brush (2,8421631,16777215) Pen (1,2,0) Line (1,2,8421631) Symbol (34,8421631,12) ,
+  "Indiana" Brush (2,16744703,16777215) Pen (1,2,0) Line (1,2,16744703) Symbol (34,16744703,12) ,
+  "Iowa" Brush (2,16744576,16777215) Pen (1,2,0) Line (1,2,16744576) Symbol (34,16744576,12) ,
+  "Kansas" Brush (2,16777088,16777215) Pen (1,2,0) Line (1,2,16777088) Symbol (34,16777088,12) ,
+  "Kentucky" Brush (2,8454143,16777215) Pen (1,2,0) Line (1,2,8454143) Symbol (34,8454143,12) ,
+  "Louisiana" Brush (2,8405056,16777215) Pen (1,2,0) Line (1,2,8405056) Symbol (34,8405056,12) ,
+  "Maine" Brush (2,8405120,16777215) Pen (1,2,0) Line (1,2,8405120) Symbol (34,8405120,12) ,
+  "Maryland" Brush (2,4210816,16777215) Pen (1,2,0) Line (1,2,4210816) Symbol (34,4210816,12) ,
+  "Massachusetts" Brush (2,4227136,16777215) Pen (1,2,0) Line (1,2,4227136) Symbol (34,4227136,12) ,
+  "Michigan" Brush (2,8421440,16777215) Pen (1,2,0) Line (1,2,8421440) Symbol (34,8421440,12) ,
+  "Minnesota" Brush (2,4227200,16777215) Pen (1,2,0) Line (1,2,4227200) Symbol (34,4227200,12) ,
+  "Mississippi" Brush (2,12648384,16777215) Pen (1,2,0) Line (1,2,12648384) Symbol (34,12648384,12) ,
+  "Missouri" Brush (2,16761024,16777215) Pen (1,2,0) Line (1,2,16761024) Symbol (34,16761024,12) ,
+  "Montana" Brush (2,12632319,16777215) Pen (1,2,0) Line (1,2,12632319) Symbol (34,12632319,12) ,
+  "Nebraska" Brush (2,12648447,16777215) Pen (1,2,0) Line (1,2,12648447) Symbol (34,12648447,12) ,
+  "Nevada" Brush (2,8413312,16777215) Pen (1,2,0) Line (1,2,8413312) Symbol (34,8413312,12) ,
+  "New Hampshire" Brush (2,8413280,16777215) Pen (1,2,0) Line (1,2,8413280) Symbol (34,8413280,12) ,
+  "New Jersey" Brush (2,6324320,16777215) Pen (1,2,0) Line (1,2,6324320) Symbol (34,6324320,12) ,
+  "New Mexico" Brush (2,6316160,16777215) Pen (1,2,0) Line (1,2,6316160) Symbol (34,6316160,12) ,
+  "New York" Brush (2,8421472,16777215) Pen (1,2,0) Line (1,2,8421472) Symbol (34,8421472,12) ,
+  "North Carolina" Brush (2,16761087,16777215) Pen (1,2,0) Line (1,2,16761087) Symbol (34,16761087,12) ,
+  "North Dakota" Brush (2,16777152,16777215) Pen (1,2,0) Line (1,2,16777152) Symbol (34,16777152,12) ,
+  "Ohio" Brush (2,6324352,16777215) Pen (1,2,0) Line (1,2,6324352) Symbol (34,6324352,12) ,
+  "Oklahoma" Brush (2,16711680,16777215) Pen (1,2,0) Line (1,2,16711680) Symbol (34,16711680,12) ,
+  "Oregon" Brush (2,65280,16777215) Pen (1,2,0) Line (1,2,65280) Symbol (34,65280,12) ,
+  "Pennsylvania" Brush (2,255,16777215) Pen (1,2,0) Line (1,2,255) Symbol (34,255,12) ,
+  "Rhode Island" Brush (2,16711935,16777215) Pen (1,2,0) Line (1,2,16711935) Symbol (34,16711935,12) ,
+  "South Carolina" Brush (2,16776960,16777215) Pen (1,2,0) Line (1,2,16776960) Symbol (34,16776960,12) ,
+  "South Dakota" Brush (2,65535,16777215) Pen (1,2,0) Line (1,2,65535) Symbol (34,65535,12) ,
+  "Tennessee" Brush (2,8388608,16777215) Pen (1,2,0) Line (1,2,8388608) Symbol (34,8388608,12) ,
+  "Texas" Brush (2,32768,16777215) Pen (1,2,0) Line (1,2,32768) Symbol (34,32768,12) ,
+  "Utah" Brush (2,128,16777215) Pen (1,2,0) Line (1,2,128) Symbol (34,128,12) ,
+  "Vermont" Brush (2,8421376,16777215) Pen (1,2,0) Line (1,2,8421376) Symbol (34,8421376,12) ,
+  "Virginia" Brush (2,8388736,16777215) Pen (1,2,0) Line (1,2,8388736) Symbol (34,8388736,12) ,
+  "Washington" Brush (2,8421631,16777215) Pen (1,2,0) Line (1,2,8421631) Symbol (34,8421631,12) ,
+  "West Virginia" Brush (2,16744576,16777215) Pen (1,2,0) Line (1,2,16744576) Symbol (34,16744576,12) ,
+  "Wisconsin" Brush (2,32896,16777215) Pen (1,2,0) Line (1,2,32896) Symbol (34,32896,12) ,
+  "Wyoming" Brush (2,8454016,16777215) Pen (1,2,0) Line (1,2,8454016) Symbol (34,8454016,12) 
+  default Brush (2,16777215,16777215) Pen (1,2,0) Line (1,2,16777215) Symbol (40,16777215,12) 
+set legend 
+  layer prev 
+    display on 
+    shades on 
+    symbols off 
+    lines off 
+    count off 
+    title auto Font ("Tahoma",0,9,0)
+    subtitle auto Font ("Tahoma",0,8,0)
+    ascending on 
+    ranges Font ("Tahoma",0,8,0)
+      auto display off ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on ,
+      auto display on  
+
+Map From US_CUSTG
+  Position (0.258333,2.00833) Units "in"
+  Width 7.95833 Units "in" Height 3.5 Units "in" 
+Set Window FrontWindow() ScrollBars Off Autoscroll On Enhanced On Smooth Text Antialias Image High
+Set Map
+  CoordSys Earth Projection 1, 0
+  Center (0,-2.220446049e-16)
+  Zoom 506.2014277 Units "km"
+  Preserve Zoom Display Zoom
+  Distance Units "km" Area Units "sq km" XY Units "degree"
+Set Map
+  Layer 1
+    Display Graphic
+    Global Pen (1,2,0) Brush (2,16777215,16777215) Symbol (35,0,12) Line (1,2,0) Font ("Tahoma",0,9,0)
+    Label Line Arrow Position Right Font ("Tahoma",0,9,0) Pen (1,2,0) 
+      With ff
+      Parallel On Auto Off Overlap Off Duplicates On Offset 2
+      Visibility On
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9
+Browse * From Query1
+  Position (0.208333,1.95833) Units "in"
+  Width 8.04167 Units "in" Height 3.58333 Units "in" 
+set window FrontWindow() Font ("Segoe UI",0,9,0)
+Set Window FrontWindow() Printer
+ Name "MapInfo PDF Printer Version 2023" Orientation Portrait Copies 1
+ Papersize 9

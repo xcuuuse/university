@@ -1,0 +1,327 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>
+      WindowsInstallation –
+      Mapnik Wiki &amp; Documentation – Trac
+    </title><link rel="search" href="http://trac.mapnik.org/search"><link rel="help" href="http://trac.mapnik.org/wiki/TracGuide"><link rel="alternate" href="http://trac.mapnik.org/wiki/WindowsInstallation?format=txt" type="text/x-trac-wiki" title="Plain Text"><link rel="up" href="http://trac.mapnik.org/wiki/WindowsInstallation" title="View Latest Version"><link rel="start" href="http://trac.mapnik.org/wiki"><link rel="stylesheet" href="WindowsInstallation_files/trac_002.css" type="text/css"><link rel="stylesheet" href="WindowsInstallation_files/wiki.css" type="text/css"><link rel="shortcut icon" href="http://trac.mapnik.org/chrome/site/favicon.ico" type="image/x-icon"><link rel="icon" href="http://trac.mapnik.org/chrome/site/favicon.ico" type="image/x-icon"><link type="application/opensearchdescription+xml" rel="search" href="http://trac.mapnik.org/search/opensearch" title="Search Mapnik Wiki &amp; Documentation"><script type="text/javascript" src="WindowsInstallation_files/jquery.js"></script><script type="text/javascript" src="WindowsInstallation_files/trac.js"></script><script type="text/javascript" src="WindowsInstallation_files/search.js"></script><script type="text/javascript" src="WindowsInstallation_files/ie_pre7_hacks.js"></script><script type="text/javascript">
+      jQuery(document).ready(function($) {
+        $("#content").find("h1,h2,h3,h4,h5,h6").addAnchor("Link to this section");
+      });
+    </script>
+    <link rel="stylesheet" type="text/css" href="WindowsInstallation_files/style.css">
+  <link rel="stylesheet" type="text/css" href="WindowsInstallation_files/trac.css"></head>
+  <body>
+    <div id="siteheader">
+    </div>
+    <div id="banner">
+      <div id="header">
+        <a id="logo" href="http://mapnik.org/"><img src="WindowsInstallation_files/mapnik-logo.png" alt="mapnik" height="70" width="240"></a>
+      </div>
+      <form id="search" action="/search" method="get">
+        <div>
+          <label for="proj-search">Search:</label>
+          <input id="proj-search" name="q" size="18" type="text">
+          <input value="Search" type="submit">
+        </div>
+      </form>
+      <div id="metanav" class="nav">
+    <ul>
+      <li class="first"><a href="http://trac.mapnik.org/login">Login</a></li><li><a href="http://trac.mapnik.org/wiki/TracGuide">Help/Guide</a></li><li><a href="http://trac.mapnik.org/about">About Trac</a></li><li><a href="http://trac.mapnik.org/prefs">Preferences</a></li><li class="last"><a href="http://trac.mapnik.org/register">Register</a></li>
+    </ul>
+  </div>
+    </div>
+    <div id="mainnav" class="nav">
+    <ul>
+      <li class="first active"><a href="http://trac.mapnik.org/wiki">Home</a></li><li><a href="http://trac.mapnik.org/timeline">Timeline</a></li><li><a href="http://trac.mapnik.org/roadmap">Roadmap</a></li><li><a href="http://trac.mapnik.org/browser">Browse Source</a></li><li><a href="http://trac.mapnik.org/report">View Tickets</a></li><li><a href="http://trac.mapnik.org/search">Search</a></li><li class="last"><a href="http://trac.mapnik.org/stractistics">Stractistics</a></li>
+    </ul>
+  </div>
+    <div id="main">
+      <div id="ctxtnav" class="nav">
+        <h2>Context Navigation</h2>
+          <ul>
+            <li class="first "><a href="http://trac.mapnik.org/wiki/WikiStart">Start Page</a></li><li><a href="http://trac.mapnik.org/wiki/TitleIndex">Index</a></li><li><a href="http://trac.mapnik.org/wiki/WindowsInstallation?action=history">History</a></li><li class="last"><a href="http://trac.mapnik.org/wiki/WindowsInstallation?action=diff&amp;version=35">Last Change</a></li>
+          </ul>
+        <hr>
+      </div>
+    <div id="content" class="wiki">
+      <div class="wikipage searchable">
+        
+          <p>
+</p><div class="wiki-toc"><h4>Table of Contents</h4><ol><li><a href="#SupportedFeatures">Supported Features</a></li><li><a href="#Prerequisites">Prerequisites</a></li><li><a href="#Overview">Overview</a></li><li><a href="#ManualInstructions">Manual Instructions</a></li><li><a href="#Prerequisites1">Prerequisites</a></li><li><a href="#Overview1">Overview</a></li><li><a href="#ManualInstructions1">Manual Instructions</a></li><li><a href="#TroubleShooting">Trouble Shooting</a><ol><li><a href="#MapnikDLLnotfound">Mapnik DLL not found</a></li><li><a href="#MapnikPythonnotfound">Mapnik Python not found</a></li><li><a href="#UnknownWindowsDependencynotfound">Unknown (Windows) Dependency not found</a></li></ol></li><li><a href="#PreviousReleases">Previous Releases</a></li></ol></div><p>
+</p>
+<h1 id="InstallingMapnikinWindows">Installing Mapnik in Windows<a title="Link to this section" href="#InstallingMapnikinWindows" class="anchor"> ¶</a></h1>
+<p>
+If you are interested in installing Mapnik on other operating systems see: <a class="wiki" href="http://trac.mapnik.org/wiki/MapnikInstallation">MapnikInstallation</a>
+</p>
+<p>
+Mapnik can be installed and configured manually, or installed using OSGEO4W.
+</p>
+<h2 id="SupportedFeatures">Supported Features<a title="Link to this section" href="#SupportedFeatures" class="anchor"> ¶</a></h2>
+<p>
+The Windows builds have a slightly less complete feature set than is 
+possible from source builds. Full support is planned, and this table 
+tracks the versions in which new features are added:
+</p>
+<table class="wiki">
+<tbody><tr><td> <strong>Mapnik Feature</strong>                </td><td>    <strong>0.5.0</strong>  </td><td>  <strong>0.5.1</strong>  </td><td>     <strong>0.6.0</strong> </td><td> <strong>0.6.1</strong>   </td><td> <strong>0.7.0</strong>   </td><td> <strong>0.7.1</strong> 
+</td></tr><tr><td> Cairo Rendering                    </td><td> -                 </td><td> -               </td><td> -                </td><td> -               </td><td> -               </td><td> -              
+</td></tr><tr><td> ICU Unicode Support            </td><td> -                  </td><td> -               </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>          
+</td></tr><tr><td> Python 2.5 Support               </td><td>  <strong>*</strong>           </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>           </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> Python 2.6 Support               </td><td> -                 </td><td> -               </td><td> -                </td><td> -               </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> Libxml2 Parser Support        </td><td> -                 </td><td> -               </td><td> -                </td><td> <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> Shapefile Plugin                     </td><td>  <strong>*</strong>            </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> Raster Plugin                          </td><td>  <strong>*</strong>            </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> PostGIS Plugin                        </td><td>  <strong>*</strong>            </td><td>  <strong>*</strong>         </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> GDAL Plugin                           </td><td> -                  </td><td> -               </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> OGR Plugin                             </td><td> -                  </td><td> -               </td><td> -                </td><td> <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> SQLite Plugin                          </td><td> -                  </td><td> -               </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> OSM Plugin                             </td><td> -                  </td><td> -               </td><td> -                </td><td> -               </td><td> -               </td><td> -              
+</td></tr><tr><td> shapeindex.exe                     </td><td> -                  </td><td> <strong>*</strong>           </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr><tr><td> pgsql2sqlite.exe                   </td><td> -                  </td><td> -                </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>          </td><td>  <strong>*</strong>         </td><td> <strong>*</strong>         
+</td></tr></tbody></table>
+<ul><li>- : not available
+</li><li><strong>*</strong>: available
+</li></ul><p>
+* Note: as of Mapnik 0.6.1 memory-mapped files are disabled in the Shapefile Plugin in windows builds (see <a class="closed ticket" href="http://trac.mapnik.org/ticket/342" title="defect: Allow memory-mapping of shapefiles to be optional param for shape.input (closed: fixed)">#342</a>)
+</p>
+<h1 id="OSGEO4W0.7.0Install">OSGEO4W 0.7.0 Install<a title="Link to this section" href="#OSGEO4W0.7.0Install" class="anchor"> ¶</a></h1>
+<p>
+1) Download OSGEO4W installer: <a class="ext-link" href="http://trac.osgeo.org/osgeo4w/"><span class="icon">http://trac.osgeo.org/osgeo4w/</span></a>
+</p>
+<p>
+2) Select 'Advanced Install'
+</p>
+<p>
+3) Choose the Mapnik Python package under <strong>Libs &gt; mapnik: mapnik python bindings""" which will install both mapnik.dll and the python bindings.
+</strong></p>
+<p>
+4) Once OSGEO4W finishes installing you should be able to use the OSGEO4W shell to test:
+</p>
+<pre class="wiki">python
+&gt;&gt;&gt; import mapnik
+</pre><ul><li>Note: this mapnik version will only be available under 
+default settings from the OSGEO4W shell, and other previously installed 
+versions should be disabled through editing your 'PATH' and 'PYTHONPATH'
+ system variables
+</li></ul><h1 id="ManualInstall0.7.1">Manual Install 0.7.1<a title="Link to this section" href="#ManualInstall0.7.1" class="anchor"> ¶</a></h1>
+<p>
+To download and manually configure the Mapnik 0.7.1, please follow the instructions below.
+</p>
+<h2 id="Prerequisites">Prerequisites<a title="Link to this section" href="#Prerequisites" class="anchor"> ¶</a></h2>
+<ul><li>Windows XP or Vista (not yet tested in Windows 7)
+</li><li>Python 2.5 or Python 2.6 - <a class="ext-link" href="http://www.python.org/"><span class="icon">python.org</span></a>
+</li><li><a class="ext-link" href="http://prdownload.berlios.de/mapnik/mapnik-0.7.1-win32-py25_26.zip"><span class="icon">Mapnik 0.7.1 Binary Files</span></a> ([<a class="ext-link" href="http://download.berlios.de/mapnik/mapnik-0.7.1-win32-py25_26.zip"><span class="icon">Alt link</span></a>])
+</li><li><a class="ext-link" href="http://download.osgeo.org/proj/proj446_win32_bin.zip"><span class="icon">PROJ4 binary files</span></a>, if you are planning to use the OGC WMS server or wish to specify projections using EPSG codes
+</li></ul><h2 id="Overview">Overview<a title="Link to this section" href="#Overview" class="anchor"> ¶</a></h2>
+<blockquote>
+<p>
+This Guide will walk you through installing Mapnik and then running a test script to generate the sample map below:
+</p>
+</blockquote>
+<blockquote>
+<p>
+<br>
+</p>
+</blockquote>
+<p>
+<a style="padding: 0pt; border: medium none;" href="http://trac.mapnik.org/attachment/wiki/WindowsInstallation/demo.png"><img src="WindowsInstallation_files/demo.png" alt="Expected output of rundemo.py" title="Expected output of rundemo.py"></a>
+</p>
+<h2 id="ManualInstructions">Manual Instructions<a title="Link to this section" href="#ManualInstructions" class="anchor"> ¶</a></h2>
+<ol><li>Download the Mapnik binary
+</li></ol><ol start="2"><li>Place the unzipped folder into <strong>"C:\mapnik-0.7.1\"</strong>
+<ol class="loweralpha"><li>open the <tt>python\VERSION\site-packages\mapnik\paths.py</tt> file and confirm that the 'mapniklibpath' points to 'C:/mapnik-0.7.1/lib/mapnik'
+</li><li>do this for whichever python version you want to use, or both.
+</li></ol></li></ol><p>
+ 
+</p>
+<ol start="3"><li>Set your system and/or users environment variables:
+<ul><li>Hint: <i>Control Panel-&gt;System-&gt;Advanced-&gt;Environment Variables</i>
+<ol class="loweralpha"><li> add <strong>"C:\mapnik-0.7.1\lib"</strong> to the <tt>PATH</tt> variable.
+<ul><li>Note: you may also need to set your user path environment variable.
+</li><li>If the variable <tt>PATH</tt> is not already present, add it.
+</li><li>Setting this correctly allows the Mapnik python bindings to find the <tt>mapnik.dll</tt>
+</li></ul></li><li>for PYTHON support add:
+<ul><li>PYTHON 2.5:   <strong>"C:\mapnik-0.7.1\python\2.5\site-packages"</strong> to the <tt>PYTHONPATH</tt> variable.
+</li><li>PYTHON 2.6:   <strong>"C:\mapnik-0.7.1\python\2.6\site-packages"</strong> to the <tt>PYTHONPATH</tt> variable.
+</li><li>Setting this correctly allows Python to find the Mapnik python bindings when you do <tt>&gt;&gt;&gt; import mapnik</tt>
+</li></ul></li></ol></li></ul></li></ol><ol start="4"><li>Open a new console by running "cmd" to test settings:
+<ul><li>Type "path" to make sure your PATH contains <strong>"C:\mapnik-0.7.1\lib"</strong>
+</li></ul></li></ol><ol start="5"><li>Run "C:\Python25\python.exe" , then type at a python prompt:
+<div class="code"><pre><span class="kn">from</span> <span class="nn">mapnik</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div><ul><li>If you get no error message, you made it!
+</li><li>If you do get an error message, see <strong>Troubleshooting</strong> below
+</li></ul></li></ol><p>
+ 
+</p>
+<ol start="6"><li>open explorer, go to <strong>"C:\mapnik-0.7.1\demo\python"</strong>, double click <tt>rundemo.py</tt>
+<ul><li>you should see several demo.* files output.
+</li></ul></li></ol><ol start="7"><li>If you run into errors, confirm that you've added the right paths to your environment.
+<ul><li>Post further errors to the mailing list for assistance.
+</li></ul></li></ol><ol start="8"><li>Head over to <a class="wiki" href="http://trac.mapnik.org/wiki/GettingStarted">GettingStarted</a> for your first tutorial on the Mapnik Python API.
+</li></ol><h1 id="ManualInstall0.6.1">Manual Install 0.6.1<a title="Link to this section" href="#ManualInstall0.6.1" class="anchor"> ¶</a></h1>
+<p>
+To download and manually configure the Mapnik 0.6.1, please follow the instructions below.
+</p>
+<h2 id="Prerequisites1">Prerequisites<a title="Link to this section" href="#Prerequisites1" class="anchor"> ¶</a></h2>
+<ul><li>Windows XP or Vista (not yet tested in Windows 7)
+</li><li>Python 2.5 - <a class="ext-link" href="http://www.python.org/"><span class="icon">python.org</span></a>
+<ul><li>If you'd like to see support for Python 2.6 let us know by sending a note to the mailing list
+</li></ul></li><li><a class="ext-link" href="http://prdownload.berlios.de/mapnik/mapnik-0.6.1-win32-py25.zip"><span class="icon">Mapnik 0.6.1 Binary Files</span></a> (<a class="ext-link" href="http://media.mapnik.org/mapnik_0.6.1-win32_py25.zip"><span class="icon">Alternate download link</span></a>)
+</li><li><a class="ext-link" href="http://download.osgeo.org/proj/proj446_win32_bin.zip"><span class="icon">PROJ4 binary files</span></a>, if you are planning to use the OGC WMS server or wish to specify projections using EPSG codes
+<ul><li>For installation information see the <strong>readme.txt</strong> in the zip download
+</li></ul></li></ul><h2 id="Overview1">Overview<a title="Link to this section" href="#Overview1" class="anchor"> ¶</a></h2>
+<blockquote>
+<p>
+This Guide will walk you through installing Mapnik and then running a test script to generate the sample map below:
+</p>
+</blockquote>
+<blockquote>
+<p>
+<br>
+</p>
+</blockquote>
+<p>
+<a style="padding: 0pt; border: medium none;" href="http://trac.mapnik.org/attachment/wiki/WindowsInstallation/demo.png"><img src="WindowsInstallation_files/demo.png" alt="Expected output of rundemo.py" title="Expected output of rundemo.py"></a>
+</p>
+<h2 id="ManualInstructions1">Manual Instructions<a title="Link to this section" href="#ManualInstructions1" class="anchor"> ¶</a></h2>
+<ol><li>Download the Mapnik binary
+</li></ol><ol start="2"><li>Place the unzipped folder into <strong>"C:\mapnik_0_6_1\"</strong>
+</li></ol><p>
+ 
+</p>
+<ol start="3"><li>Set your system and/or users environment variables:
+<ul><li>Hint: <i>Control Panel-&gt;System-&gt;Advanced-&gt;Environment Variables</i>
+<ol class="loweralpha"><li> add <strong>"c:\mapnik_0_6_1\lib"</strong> to the <tt>PATH</tt> variable.
+<ul><li>Note: you may also need to set your user path environment variable.
+</li><li>If the variable <tt>PATH</tt> is not already present, add it.
+</li><li>Setting this correctly allows the Mapnik python bindings to find the <tt>mapnik.dll</tt>
+</li></ul></li><li>add <strong>"c:\mapnik_0_6_1\site-packages"</strong> to the <tt>PYTHONPATH</tt> variable.
+<ul><li>Setting this correctly allows Python to find the Mapnik python bindings
+</li></ul></li></ol></li></ul></li></ol><ol start="4"><li>Open a new console by running "cmd" to test settings:
+<ul><li>Type "path" to make sure your PATH contains <strong>"c:\mapnik_0_6_1\lib"</strong>
+</li></ul></li></ol><ol start="5"><li>Run "C:\Python25\python.exe" , then type at a python prompt:
+<div class="code"><pre><span class="kn">from</span> <span class="nn">mapnik</span> <span class="kn">import</span> <span class="o">*</span>
+</pre></div><ul><li>If you get no error message, you made it!
+</li><li>If you do get an error message, see <strong>Troubleshooting</strong> below
+</li></ul></li></ol><p>
+ 
+</p>
+<ol start="6"><li>open explorer, go to <strong>"c:\mapnik_0_6_1\demo\python"</strong>, double click <tt>rundemo.py</tt>
+<ul><li>you should see several demo.* files output.  (The demo folder is currently missing from the
+Windows  0_6_1 package but can be found in the 0_6_0 Windows package or the 0_6_1 linux package.) 
+</li></ul></li></ol><ol start="7"><li>If you run into errors, confirm that you've installed Boost and added the right paths to your environment.
+<ul><li>Post further errors to the mailing list for assistance.
+</li></ul></li></ol><ol start="8"><li>Head over to <a class="wiki" href="http://trac.mapnik.org/wiki/GettingStarted">GettingStarted</a> for your first tutorial on the Mapnik Python API.
+</li></ol><h2 id="TroubleShooting">Trouble Shooting<a title="Link to this section" href="#TroubleShooting" class="anchor"> ¶</a></h2>
+<h3 id="MapnikDLLnotfound">Mapnik DLL not found<a title="Link to this section" href="#MapnikDLLnotfound" class="anchor"> ¶</a></h3>
+<p>
+You get an error like:
+</p>
+<pre class="wiki">Can't find mapnik.dll
+</pre><p>
+Solution: make sure that you complete <strong>Step 3.a</strong> properly.
+</p>
+<h3 id="MapnikPythonnotfound">Mapnik Python not found<a title="Link to this section" href="#MapnikPythonnotfound" class="anchor"> ¶</a></h3>
+<p>
+Problem: When importing mapnik in python you get:
+</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mapnik</span>
+Traceback <span class="p">(</span>most recent call last<span class="p">):</span>
+  File <span class="s">"&lt;stdin&gt;"</span><span class="p">,</span> line <span class="mf">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span>module<span class="o">&gt;</span>
+<span class="ne">ImportError</span><span class="p">:</span> No module named mapnik
+</pre></div><p>
+Solution: make sure that you have put the 'site-packages' folder on your PYTHONPATH by completing <strong>Step 3.b.</strong>
+</p>
+<h3 id="UnknownWindowsDependencynotfound">Unknown (Windows) Dependency not found<a title="Link to this section" href="#UnknownWindowsDependencynotfound" class="anchor"> ¶</a></h3>
+<p>
+Problem: When importing mapnik in python you get:
+</p>
+<div class="code"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">mapnik</span>
+<span class="p">[</span><span class="o">...</span>snip<span class="o">...</span><span class="p">]</span>
+<span class="kn">from</span> <span class="nn">_mapnik</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="ne">ImportError</span><span class="p">:</span> DLL load failed<span class="p">:</span> This application has failed to start because the application configuration <span class="ow">is</span> incorrect<span class="o">.</span> Reinstalling the application may fix this problem<span class="o">.</span>
+</pre></div><p>
+Solution:
+</p>
+<ul><li>You likely have an older system and need to install the 2008 Visual Studio Runtime Libraries (msvcrt90.dll) from the <a class="ext-link" href="http://www.microsoft.com/downloads/details.aspx?familyid=9B2DA534-3E03-4391-8A4D-074B9F2BC1BF&amp;displaylang=en"><span class="icon">Microsoft Developer Network</span></a>. If that does not fix it you may also be missing the <a class="ext-link" href="http://www.microsoft.com/downloads/details.aspx?familyid=32BC1BEE-A3F9-4C13-9C99-220B62A191EE&amp;displaylang=en"><span class="icon">2005 version</span></a>
+</li><li>This problem may also occur on a freshly installed system that 
+is missing some dependecies or has an incompatible version of some DLLs.
+ In my case I had to install the MSVC dependencies (vcredist_x86.exe) 
+and additionally put a downloaded msvcr90.dll into the mapnik/lib 
+folder.
+</li><li>You can get more information on what is missing or incompatible by examining mapnik.dll with <a class="ext-link" href="http://www.dependencywalker.com/"><span class="icon">Dependency Walker</span></a>. On a 64bit system you must use the 32bit Version.
+</li></ul><h2 id="PreviousReleases">Previous Releases<a title="Link to this section" href="#PreviousReleases" class="anchor"> ¶</a></h2>
+<p>
+<a class="ext-link" href="http://prdownload.berlios.de/mapnik/mapnik_win32_py25-0.5.1.zip"><span class="icon">Mapnik Win32 0.5.0</span></a>
+</p>
+
+        
+        
+      </div>
+          <h3>Attachments</h3>
+          <ul>
+              <li>
+      <a href="http://trac.mapnik.org/attachment/wiki/WindowsInstallation/demo.png" title="View attachment">demo.png</a>
+      (<span title="326095 bytes">318.5 kB</span>) - added by <em>springmeyer</em>
+      <a class="timeline" href="http://trac.mapnik.org/timeline?from=2009-04-01T13%3A52%3A51Z-0400&amp;precision=second" title="2009-04-01T13:52:51Z-0400 in Timeline">2 years</a> ago.
+                <q>Expected output of rundemo.py</q>
+              </li>
+          </ul>
+    </div>
+    <script type="text/javascript">
+        jQuery.loadStyleSheet("/pygments/trac.css", "text/css");
+    </script>
+    <div id="altlinks">
+      <h3>Download in other formats:</h3>
+      <ul>
+        <li class="last first">
+          <a rel="nofollow" href="http://trac.mapnik.org/wiki/WindowsInstallation?format=txt">Plain Text</a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div id="footer" xml:lang="en" lang="en"><hr>
+      <a id="tracpowered" href="http://trac.edgewall.org/"><img src="WindowsInstallation_files/trac_logo_mini.png" alt="Trac Powered" height="30" width="107"></a>
+      <p class="left">
+        Powered by <a href="http://trac.mapnik.org/about"><strong>Trac 0.11.1</strong></a><br>
+        By <a href="http://www.edgewall.org/">Edgewall Software</a>.
+      </p>
+      <p class="right">Visit the Trac open source project at<br><a href="http://trac.edgewall.org/">http://trac.edgewall.org/</a></p>
+    </div>
+    <div id="sitefooter">
+    </div>
+  
+  <!-- Google Analytics Widget Code -->
+<script type="text/javascript">
+  var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+  document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script><script src="WindowsInstallation_files/ga.js" type="text/javascript"></script>
+<script type="text/javascript">
+  jQuery(document).ready( function() {
+    var pageTracker = _gat._getTracker("UA-408098-11");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    jQuery('a').each( function() {
+      var url;
+      if ( this.href.match("http:\/\/trac.mapnik.org") ) {
+        if ( this.href.match(/\.(zip|tar|tar.gz|tar.bzip|egg)$/) ) {
+          url = this.pathname + this.search;
+        };
+      } else {
+        var port = '';
+        if ( this.port != '') port = ':'+this.port;
+        url = '/external/' + this.hostname + port + this.pathname + this.search;
+      };
+      if ( url ) {
+        if ( ! url.match('^\/attachment\/') ) {
+          jQuery(this).click( function() {
+            pageTracker._trackPageview(url);
+          });
+        };
+      };
+    });
+  });
+</script>
+
+</body></html>

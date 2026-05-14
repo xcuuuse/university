@@ -1,0 +1,8 @@
+[Link]
+Application=GELink.mbx
+Module=GELink.mbo
+Module=GELink_Main.mbo
+Module=GELink_ColPick.mbo
+Module=GELink_Util.mbo
+Module=GELink_ExportKML.mbo
+Module=..\..\mapbasic\lib\resstrng.mbo

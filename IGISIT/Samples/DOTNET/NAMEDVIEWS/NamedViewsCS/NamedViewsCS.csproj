@@ -1,0 +1,130 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DD71BB69-6A5F-4EF7-83AC-68BD4CC742BE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MISamples</RootNamespace>
+    <AssemblyName>NamedViews</AssemblyName>
+    <ApplicationIcon>MAPBASIC.ICO</ApplicationIcon>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="miadm, Version=10.5.0.10, Culture=neutral, PublicKeyToken=1c8d81d2ee78b75d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\CORE\Win32\debug\MI\miadm.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AboutNViewDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutNViewDlg.Designer.cs">
+      <DependentUpon>AboutNViewDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddNViewDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddNViewDlg.Designer.cs">
+      <DependentUpon>AddNViewDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controller.cs">
+    </Compile>
+    <Compile Include="InteropHelper.cs" />
+    <Compile Include="MoveSelNodeDlg.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MoveSelNodeDlg.Designer.cs">
+      <DependentUpon>MoveSelNodeDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NViewDlg.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="NViewDlg.Designer.cs">
+      <DependentUpon>NViewDlg.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="TreeNodeUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AboutNViewDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AboutNViewDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddNViewDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>AddNViewDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MoveSelNodeDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>MoveSelNodeDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NViewDlg.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>NViewDlg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MAPBASIC.ICO" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>
