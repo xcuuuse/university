@@ -159,4 +159,3 @@ std::shared_ptr<Node> Parser::parse_formula() {
 
 
 
-

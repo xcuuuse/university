@@ -19,6 +19,7 @@
 #include <stdexcept>
 #include <memory>
 #include <windows.h>
+#include <chrono>
 using namespace std;
 
 bool build_truth_table(const shared_ptr<Node>& root,
@@ -97,7 +98,12 @@ int main() {
 
         bool unsat = false;
         try {
+            auto start = chrono::steady_clock::now();
             unsat = build_truth_table(root, parser.variables, parser.var_indices, formula);
+            auto end = chrono::steady_clock::now();
+            auto ms = chrono::duration_cast<chrono::milliseconds>(end - start).count();
+
+            cout << "\nВремя выполнения: " << ms << " мс\n";
         }
         catch (const exception& ex) {
             cout << "Ошибка вычисления: " << ex.what() << "\n\n";
