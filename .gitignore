@@ -4,6 +4,5 @@ pytest.ini
 .pytest_cache/
 **.coverage
 **/.idea
-WW2/
-OUIS/
+
 MOIS/lab4/
