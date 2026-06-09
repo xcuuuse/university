@@ -43,6 +43,8 @@ char Parser::move_symbol() {
     }
     return src[pos++];
 }
+
+
 /*Ожидает на выходе определенный символ, если он не совпадает с ожидаемым - выбрасывается ошибка*/
 void Parser::expect(char c) {
     if (current() != c) {
