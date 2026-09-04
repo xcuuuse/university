@@ -59,7 +59,10 @@ WHERE specialty = 'ЭВМ'; --12
 SELECT subject_id
 FROM teaching_assignments
 GROUP BY subject_id
-HAVING COUNT(DISTINCT group_id) = (SELECT COUNT(*) FROM student_groups); --13
+HAVING COUNT(DISTINCT group_id) = (
+    SELECT COUNT(*)
+    FROM student_groups
+); --13
 
 SELECT DISTINCT teachers.last_name
 FROM teaching_assignments
@@ -77,10 +80,10 @@ WHERE teaching_assignments.subject_id in (
 
 SELECT *
 FROM subjects
-WHERE subject_id NOT IN (
+WHERE subjects.subject_id NOT IN (
     SELECT subject_id
     FROM teaching_assignments
-    WHERE teacher_id = '221Л'
+    WHERE teacher_id = '221П'
 ); --15
 
 SELECT *
@@ -114,7 +117,8 @@ WHERE teachers.department = 'ЭВМ' AND teachers.specialty LIKE '%АСОИ%'; -
 
 SELECT DISTINCT student_groups.group_id
 FROM student_groups
-JOIN teachers ON student_groups.specialty = teachers.specialty; --19
+JOIN teachers ON student_groups.specialty = teachers.specialty
+OR teachers.specialty LIKE '%' || student_groups.specialty || '%'; --19
 
 
 SELECT DISTINCT teaching_assignments.teacher_id
@@ -155,8 +159,18 @@ WHERE student_groups.group_id NOT IN (
     )
 ); --24
 
--- 1.23. Получить номера студенческих групп, которые изучают те же предметы, что и студенческая
---группа АС-8. ДОДЕЛАТЬ
+SELECT group_id
+FROM teaching_assignments
+WHERE subject_id IN (
+    SELECT subject_id
+    FROM teaching_assignments
+    WHERE group_id = '3Г'
+)
+GROUP BY group_id
+HAVING COUNT(DISTINCT subject_id) = (
+    SELECT COUNT(DISTINCT subject_id)
+    FROM teaching_assignments WHERE group_id = '3Г'
+);
 
 SELECT DISTINCT group_id
 FROM teaching_assignments
