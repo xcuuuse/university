@@ -1,0 +1,144 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №13</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [1, 1, 2, 0, 2, 0, 2];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №13</strong></div>
+
+    <!--1 вопрос -->
+    <p>1. На чем основана обработка изображения с помощью скользящей маски?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           на вычислении линейной комбинации коэффициентов маски со значениями контраста элементов изображения.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+           на вычислении линейной комбинации коэффициентов маски со значениями яркости элементов изображения.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+          на вычислении суммы коэффициентов маски со значениями яркости элементов изображения.
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Чему равна сумма коэффициентов маски обнаружения линий?<br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+          -1.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           0.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+1.          
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3.  На чем основан метод вычитания фона для распознавания движущихся объектов?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+          на изменении уровней яркости.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+        на изменении цветовых схем.</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+          на модуле разности текущего и сохраненного изображения по каждому пикселю.</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. Из каких этапов состоит метод усредненного фона?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+обучение и обработка.           
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+обработка и сглаживание.</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+          обучение и сглаживание.        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5. Какие приборы не используются для дешифрования космических фотоснимков?<br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+            увеличительные.
+</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+           стереоскопические.</label>
+ <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+анализирующие.</label>
+    </p>
+
+    <!--6 вопрос -->
+    <p>6. Какое обязательное правило при составлении тематических карт?<br>
+        <label>
+            <input id="60" type="radio" name="RadioGroup6" value="radio"/>
+изображаемое явление показывают более выразительно, а общегеографические элементы - с меньшей степенью полноты и подробности по сравнению с общегеографической картой.       
+<br/>
+        <label>
+            <input id="61" type="radio" name="RadioGroup6" value="radio"/>
+изображаемое явление показывают с меньшей степенью полноты и подробности по сравнению с общегеографической картой, а общегеографические элементы - более выразительно.         
+</label><br/>
+        <label>
+            <input id="62" type="radio" name="RadioGroup6" value="radio"/>
+изображаемое явление и общегеографические элементы показывают с большей степенью полноты и подробности по сравнению с общегеографической картой.          
+</label>  
+ </p>
+
+    <!--7 вопрос -->
+    <p>7. Чем отличается тематическое дешифрирование космических фотоснимков от топографического?<br>
+        <label>
+            <input id="70" type="radio" name="RadioGroup7" value="radio"/>
+используются дополнительные инструменты.       
+</label>
+        <br/>
+        <label>
+            <input id="71" type="radio" name="RadioGroup7" value="radio"/>
+применяются дополнительные методы дешифрования.          
+</label><br/>
+        <label>
+            <input id="72" type="radio" name="RadioGroup7" value="radio"/>
+            большая степень использования автоматизированных средств.
+</label>
+
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(7)"/>
+
+
+</form>
+</body>
+</html>

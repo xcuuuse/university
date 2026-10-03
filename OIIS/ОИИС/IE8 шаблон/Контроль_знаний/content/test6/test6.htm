@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №6</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [2, 0, 1, 0, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №6 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Как по-другому называют быстрое преобразование Фурье?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           алгоритм Форда-Фалкерсона.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+          алгоритм Хаффмана.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+          алгоритм Кули—Тьюки.
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Чему пропорционально общее число арифметических операций, требуемых для вычислений по прямому методу и по алгоритму БПФ? <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           N2 и N соответственно.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           N и N2 соответственно.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+N3 и N2 соответственно.
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Сколько требуется ячеек оперативной памяти для обработки исходных данных (которые предполагаются комплексными) с помощью алгоритма БПФ?  <br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+            N
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+           2N
+</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+           4N
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4.  Сколько примерно требуется ячеек оперативной памяти для алгоритма БПФ?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+AN         
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+AN2
+</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+         AN4
+        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5. Что вместо "???": алгоритм БПФ значительно ???? ошибку округления, связанную с арифметическими операциями.<br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+           увеличивает
+</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+         уменьшает
+</label>
+ <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+некорректное утверждение.
+</label>
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(5)"/>
+
+
+</form>
+</body>
+</html>

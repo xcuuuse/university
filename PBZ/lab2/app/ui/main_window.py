@@ -1,6 +1,8 @@
 from PyQt6.QtWidgets import QMainWindow, QTabWidget
-from app.ui.categories_tab import CategoriesTab
-from app.ui.products_tab import ProductsTab
+from .categories_tab import CategoriesTab
+from .invoices_tab import InvoicesTab
+from .products_tab import ProductsTab
+from .reports_tab import ReportsTab
 
 
 class MainWindow(QMainWindow):
@@ -8,7 +10,15 @@ class MainWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Sales")
         self.resize(1000, 650)
-        tabs = QTabWidget()
-        tabs.addTab(ProductsTab(), "Products")
-        tabs.addTab(CategoriesTab(), "Categories")
-        self.setCentralWidget(tabs)
+        self.tabs = QTabWidget()
+        self.tabs.addTab(ProductsTab(), "Products")
+        self.tabs.addTab(InvoicesTab(), "Invoices")
+        self.tabs.addTab(ReportsTab(), "Reports")
+        self.tabs.addTab(CategoriesTab(), "Categories")
+        self.tabs.currentChanged.connect(self.on_tab_changed)
+        self.setCentralWidget(self.tabs)
+
+    def on_tab_changed(self, index):
+        refresh = getattr(self.tabs.widget(index), "refresh", None)
+        if refresh:
+            refresh()

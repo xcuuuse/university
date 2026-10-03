@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №10</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [0, 2, 1, 0];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №10 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Итеративный метод, который используется, чтобы разделить изображение на K кластеров называется : <br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           метод, основанный на кластеризации.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+        метод с использованием гистрограммы.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+            сигментация методом водораздела.</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Направление максимального возрастания функции, которое позволяет использовать процедуру подавления немаксимумов это: <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+            отклонение градиента.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+             направление радиента.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+направление градиента.         
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Сколько пороговых значений вводят при проведении гистерезисной фильтрации? <br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+          3
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+          2</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+          1</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4.В каком алгоритме, елси их классифицировать по типу операций,есть зависимость только от предыдущей итерации?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+параллельный.        
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+сквозной.</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+        последовательный.
+        </label>
+    </p>
+
+   
+
+    <input type="button" name="Submit" value="проверка" onclick="check(4)"/>
+
+
+</form>
+</body>
+</html>

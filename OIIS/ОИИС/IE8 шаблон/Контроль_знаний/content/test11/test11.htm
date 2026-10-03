@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №11</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [0, 2, 0, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №11 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Для формирования стереоизображения в основном используются 3 способа. Какие?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           анаглифический, поляризационный и затворный.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+           аналитический, поляризационный и затворный.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+           последовательный, паралелльный, фиксированный.</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Различие взаимного положения точек, отображаемых на сетчатках левого и правого глаза - это? <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           латентность.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+            диспарантность.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+диспаратность.          
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Недостатком какого из методов формирования стереоизображения является наличие необходимости установки дорогого экрана для получения более-менее качественного изображения?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           поляризационного.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+           анаглифического.</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+            затворного.</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. Какой из методов формирования стереоизображения обеспечивает найболее качественное изображение в настоящее время?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+поляризационный.</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+затворный.</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+       анаглифический.
+        </label>
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(4)"/>
+
+
+</form>
+</body>
+</html>

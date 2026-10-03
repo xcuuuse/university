@@ -1,7 +1,3 @@
--- Лабораторная работа № 1. Задание 2
--- База "Поставщики - Детали - Проекты" для SQLite 3
--- Запуск:  sqlite3 lab2.db < init2.sql
-
 PRAGMA foreign_keys = ON;
 
 DROP TABLE IF EXISTS spj;
@@ -10,12 +6,11 @@ DROP TABLE IF EXISTS parts;
 DROP TABLE IF EXISTS suppliers;
 
 
--- ПОСТАВЩИКИ  S ( П#, ИмяП, Статус, Город )
 CREATE TABLE suppliers (
-    supplier_id    TEXT    PRIMARY KEY,  -- П#
-    supplier_name  TEXT    NOT NULL,     -- ИмяП
-    status         INTEGER NOT NULL,     -- Статус
-    city           TEXT    NOT NULL      -- Город
+    supplier_id    TEXT    PRIMARY KEY,
+    supplier_name  TEXT    NOT NULL,
+    status         INTEGER NOT NULL,
+    city           TEXT    NOT NULL
 );
 
 INSERT INTO suppliers (supplier_id, supplier_name, status, city) VALUES
@@ -26,13 +21,12 @@ INSERT INTO suppliers (supplier_id, supplier_name, status, city) VALUES
 ('П5', 'Крюков',   30, 'Киев');
 
 
--- ДЕТАЛИ  P ( Д#, ИмяД, Цвет, Размер, Город )
 CREATE TABLE parts (
-    part_id    TEXT    PRIMARY KEY,  -- Д#
-    part_name  TEXT    NOT NULL,     -- ИмяД
-    color      TEXT    NOT NULL,     -- Цвет
-    size       INTEGER NOT NULL,     -- Размер
-    city       TEXT    NOT NULL      -- Город
+    part_id    TEXT    PRIMARY KEY,
+    part_name  TEXT    NOT NULL,
+    color      TEXT    NOT NULL,
+    size       INTEGER NOT NULL,
+    city       TEXT    NOT NULL
 );
 
 INSERT INTO parts (part_id, part_name, color, size, city) VALUES
@@ -44,14 +38,12 @@ INSERT INTO parts (part_id, part_name, color, size, city) VALUES
 ('Д6', 'Крышки',  'Красный', 19, 'Москва');
 
 
--- ПРОЕКТЫ  J ( ПР#, ИмяПР, Город )
 CREATE TABLE projects (
-    project_id    TEXT PRIMARY KEY,  -- ПР#
-    project_name  TEXT NOT NULL,     -- ИмяПР
-    city          TEXT NOT NULL      -- Город
+    project_id    TEXT PRIMARY KEY,
+    project_name  TEXT NOT NULL,
+    city          TEXT NOT NULL
 );
 
--- ПР5 назван ИПР4, как в методичке (вероятно опечатка, должно быть ИПР5)
 INSERT INTO projects (project_id, project_name, city) VALUES
 ('ПР1', 'ИПР1', 'Минск'),
 ('ПР2', 'ИПР2', 'Таллинн'),
@@ -62,12 +54,11 @@ INSERT INTO projects (project_id, project_name, city) VALUES
 ('ПР7', 'ИПР7', 'Москва');
 
 
--- ПОСТАВКИ  SPJ ( П#, Д#, ПР#, S )
 CREATE TABLE spj (
-    supplier_id  TEXT    NOT NULL,  -- П#
-    part_id      TEXT    NOT NULL,  -- Д#
-    project_id   TEXT    NOT NULL,  -- ПР#
-    qty          INTEGER NOT NULL,  -- S (количество)
+    supplier_id  TEXT    NOT NULL,
+    part_id      TEXT    NOT NULL,
+    project_id   TEXT    NOT NULL,
+    qty          INTEGER NOT NULL,
     PRIMARY KEY (supplier_id, part_id, project_id),
     FOREIGN KEY (supplier_id) REFERENCES suppliers(supplier_id) ON DELETE CASCADE,
     FOREIGN KEY (part_id)     REFERENCES parts(part_id)         ON DELETE CASCADE,

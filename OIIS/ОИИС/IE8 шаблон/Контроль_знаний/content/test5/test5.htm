@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №5</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [1, 0, 2, 0];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №5 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. В дискретном преобразовании Фурье какими являются экспоненциальные функции Wkm?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+            параллельными.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+            ортогональными.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+           ортодоксальными.
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Продолжите: Функции Wkm являются...  <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+            N-периодическими.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           N-мерными.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+N-аргументными.         
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. В каком случае имеется только (N/2+l) независимых спектральных точек ДПФ?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           когда {Х(m)} является последовательностью натуральных чисел.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+          когда {Х(m)} является последовательностью комплексных чисел.
+</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+           когда {Х(m)} является последовательностью действительных чисел.
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. В чем заключается фундаментальное свойство фазового спектра?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+в инвариантности к умножению {Х(m)} на константу.           
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+в инвариантности к умножению {Х(m)} на переменную.
+</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+           в инвариантности к умножению {Х(m)} на константу и переменную.
+        </label>
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(4)"/>
+
+
+</form>
+</body>
+</html>

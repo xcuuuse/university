@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="bpmn-js (https://demo.bpmn.io)" exporterVersion="18.28.0">
+  <bpmn:collaboration id="Collaboration_1">
+    <bpmn:participant id="Pool_admin" name="Администратор рабочего пространства" processRef="Process_Pool_admin" />
+    <bpmn:participant id="Pool_member" name="Участник" processRef="Process_Pool_member" />
+    <bpmn:participant id="Pool_system" name="Система" processRef="Process_Pool_system" />
+    <bpmn:messageFlow id="MessageFlow_1" name="Почта и роль" sourceRef="ad_t1" targetRef="s_start" />
+    <bpmn:messageFlow id="MessageFlow_2" name="Приглашение" sourceRef="s_t3" targetRef="m_start" />
+    <bpmn:messageFlow id="MessageFlow_3" name="Согласие" sourceRef="m_t1" targetRef="s_t4" />
+    <bpmn:messageFlow id="MessageFlow_4" name="Уведомление" sourceRef="s_t5" targetRef="ad_e1" />
+    <bpmn:messageFlow id="MessageFlow_5" name="Список документов" sourceRef="ad_t2" targetRef="s_t6" />
+    <bpmn:messageFlow id="MessageFlow_6" name="Права доступа" sourceRef="s_t7" targetRef="m_e1" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Pool_admin" isExecutable="false">
+    <bpmn:startEvent id="ad_start" name="Нужен новый участник" />
+    <bpmn:task id="ad_t1" name="Ввести почту и роль" />
+    <bpmn:intermediateCatchEvent id="ad_e1" name="Участник подключился">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_1" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="ad_t2" name="Отметить документы и уровень доступа" />
+    <bpmn:endEvent id="ad_end" name="Доступ настроен" />
+    <bpmn:sequenceFlow id="SequenceFlow_1" sourceRef="ad_start" targetRef="ad_t1" />
+    <bpmn:sequenceFlow id="SequenceFlow_2" sourceRef="ad_t1" targetRef="ad_e1" />
+    <bpmn:sequenceFlow id="SequenceFlow_3" sourceRef="ad_e1" targetRef="ad_t2" />
+    <bpmn:sequenceFlow id="SequenceFlow_4" sourceRef="ad_t2" targetRef="ad_end" />
+  </bpmn:process>
+  <bpmn:process id="Process_Pool_member" isExecutable="false">
+    <bpmn:startEvent id="m_start" name="Приглашение получено">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_2" />
+    </bpmn:startEvent>
+    <bpmn:task id="m_t1" name="Принять приглашение" />
+    <bpmn:intermediateCatchEvent id="m_e1" name="Доступ выдан">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_3" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="m_end" name="Работа возможна" />
+    <bpmn:sequenceFlow id="SequenceFlow_5" sourceRef="m_start" targetRef="m_t1" />
+    <bpmn:sequenceFlow id="SequenceFlow_6" sourceRef="m_t1" targetRef="m_e1" />
+    <bpmn:sequenceFlow id="SequenceFlow_7" sourceRef="m_e1" targetRef="m_end" />
+  </bpmn:process>
+  <bpmn:process id="Process_Pool_system" isExecutable="false">
+    <bpmn:startEvent id="s_start" name="Поступили данные участника">
+      <bpmn:messageEventDefinition id="MessageEventDefinition_4" />
+    </bpmn:startEvent>
+    <bpmn:task id="s_t1" name="Проверить наличие участника" />
+    <bpmn:exclusiveGateway id="s_g1" name="Участник уже есть?" />
+    <bpmn:task id="s_t2" name="Создать участника" />
+    <bpmn:task id="s_t3" name="Отправить приглашение" />
+    <bpmn:task id="s_t4" name="Перевести в статус «активен»" />
+    <bpmn:task id="s_t5" name="Уведомить администратора" />
+    <bpmn:task id="s_t6" name="Сохранить права доступа" />
+    <bpmn:task id="s_t7" name="Уведомить участника" />
+    <bpmn:endEvent id="s_end1" name="Участник подключён" />
+    <bpmn:task id="s_t8" name="Сообщить об ошибке" />
+    <bpmn:endEvent id="s_end2" name="Приглашение отклонено" />
+    <bpmn:sequenceFlow id="SequenceFlow_8" sourceRef="s_start" targetRef="s_t1" />
+    <bpmn:sequenceFlow id="SequenceFlow_9" sourceRef="s_t1" targetRef="s_g1" />
+    <bpmn:sequenceFlow id="SequenceFlow_10" name="нет" sourceRef="s_g1" targetRef="s_t2" />
+    <bpmn:sequenceFlow id="SequenceFlow_11" sourceRef="s_t2" targetRef="s_t3" />
+    <bpmn:sequenceFlow id="SequenceFlow_12" sourceRef="s_t3" targetRef="s_t4" />
+    <bpmn:sequenceFlow id="SequenceFlow_13" sourceRef="s_t4" targetRef="s_t5" />
+    <bpmn:sequenceFlow id="SequenceFlow_14" sourceRef="s_t5" targetRef="s_t6" />
+    <bpmn:sequenceFlow id="SequenceFlow_15" sourceRef="s_t6" targetRef="s_t7" />
+    <bpmn:sequenceFlow id="SequenceFlow_16" sourceRef="s_t7" targetRef="s_end1" />
+    <bpmn:sequenceFlow id="SequenceFlow_17" name="да" sourceRef="s_g1" targetRef="s_t8" />
+    <bpmn:sequenceFlow id="SequenceFlow_18" sourceRef="s_t8" targetRef="s_end2" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1">
+      <bpmndi:BPMNShape id="Pool_admin_di" bpmnElement="Pool_admin" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="1680" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ad_start_di" bpmnElement="ad_start">
+        <dc:Bounds x="252" y="157" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ad_t1_di" bpmnElement="ad_t1">
+        <dc:Bounds x="380" y="135" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ad_e1_di" bpmnElement="ad_e1">
+        <dc:Bounds x="1212" y="157" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1196" y="126" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ad_t2_di" bpmnElement="ad_t2">
+        <dc:Bounds x="1340" y="135" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ad_end_di" bpmnElement="ad_end">
+        <dc:Bounds x="1692" y="157" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1_di" bpmnElement="SequenceFlow_1">
+        <di:waypoint x="288" y="175" />
+        <di:waypoint x="380" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_2_di" bpmnElement="SequenceFlow_2">
+        <di:waypoint x="480" y="175" />
+        <di:waypoint x="1212" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_3_di" bpmnElement="SequenceFlow_3">
+        <di:waypoint x="1248" y="175" />
+        <di:waypoint x="1340" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_4_di" bpmnElement="SequenceFlow_4">
+        <di:waypoint x="1440" y="175" />
+        <di:waypoint x="1692" y="175" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Pool_member_di" bpmnElement="Pool_member" isHorizontal="true">
+        <dc:Bounds x="160" y="340" width="1680" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_start_di" bpmnElement="m_start">
+        <dc:Bounds x="892" y="417" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="875" y="386" width="70" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_t1_di" bpmnElement="m_t1">
+        <dc:Bounds x="1020" y="395" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_e1_di" bpmnElement="m_e1">
+        <dc:Bounds x="1532" y="417" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1514" y="393" width="72" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="m_end_di" bpmnElement="m_end">
+        <dc:Bounds x="1692" y="417" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_5_di" bpmnElement="SequenceFlow_5">
+        <di:waypoint x="928" y="435" />
+        <di:waypoint x="1020" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_6_di" bpmnElement="SequenceFlow_6">
+        <di:waypoint x="1120" y="435" />
+        <di:waypoint x="1532" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_7_di" bpmnElement="SequenceFlow_7">
+        <di:waypoint x="1568" y="435" />
+        <di:waypoint x="1692" y="435" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Pool_system_di" bpmnElement="Pool_system" isHorizontal="true">
+        <dc:Bounds x="160" y="600" width="1680" height="260" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_start_di" bpmnElement="s_start">
+        <dc:Bounds x="252" y="677" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t1_di" bpmnElement="s_t1">
+        <dc:Bounds x="380" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_g1_di" bpmnElement="s_g1" isMarkerVisible="true">
+        <dc:Bounds x="565" y="670" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t2_di" bpmnElement="s_t2">
+        <dc:Bounds x="700" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t3_di" bpmnElement="s_t3">
+        <dc:Bounds x="860" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t4_di" bpmnElement="s_t4">
+        <dc:Bounds x="1020" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t5_di" bpmnElement="s_t5">
+        <dc:Bounds x="1180" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t6_di" bpmnElement="s_t6">
+        <dc:Bounds x="1340" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t7_di" bpmnElement="s_t7">
+        <dc:Bounds x="1500" y="655" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_end1_di" bpmnElement="s_end1">
+        <dc:Bounds x="1692" y="677" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_t8_di" bpmnElement="s_t8">
+        <dc:Bounds x="700" y="755" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="s_end2_di" bpmnElement="s_end2">
+        <dc:Bounds x="892" y="777" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_8_di" bpmnElement="SequenceFlow_8">
+        <di:waypoint x="288" y="695" />
+        <di:waypoint x="380" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_9_di" bpmnElement="SequenceFlow_9">
+        <di:waypoint x="480" y="695" />
+        <di:waypoint x="565" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_10_di" bpmnElement="SequenceFlow_10">
+        <di:waypoint x="615" y="695" />
+        <di:waypoint x="700" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_11_di" bpmnElement="SequenceFlow_11">
+        <di:waypoint x="800" y="695" />
+        <di:waypoint x="860" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_12_di" bpmnElement="SequenceFlow_12">
+        <di:waypoint x="960" y="695" />
+        <di:waypoint x="1020" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_13_di" bpmnElement="SequenceFlow_13">
+        <di:waypoint x="1120" y="695" />
+        <di:waypoint x="1180" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_14_di" bpmnElement="SequenceFlow_14">
+        <di:waypoint x="1280" y="695" />
+        <di:waypoint x="1340" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_15_di" bpmnElement="SequenceFlow_15">
+        <di:waypoint x="1440" y="695" />
+        <di:waypoint x="1500" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_16_di" bpmnElement="SequenceFlow_16">
+        <di:waypoint x="1600" y="695" />
+        <di:waypoint x="1692" y="695" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_17_di" bpmnElement="SequenceFlow_17">
+        <di:waypoint x="615" y="695" />
+        <di:waypoint x="657" y="695" />
+        <di:waypoint x="657" y="795" />
+        <di:waypoint x="700" y="795" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_18_di" bpmnElement="SequenceFlow_18">
+        <di:waypoint x="800" y="795" />
+        <di:waypoint x="892" y="795" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_1_di" bpmnElement="MessageFlow_1">
+        <di:waypoint x="430" y="215" />
+        <di:waypoint x="430" y="446" />
+        <di:waypoint x="270" y="446" />
+        <di:waypoint x="270" y="677" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_2_di" bpmnElement="MessageFlow_2">
+        <di:waypoint x="910" y="655" />
+        <di:waypoint x="910" y="453" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="915" y="544" width="70" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_3_di" bpmnElement="MessageFlow_3">
+        <di:waypoint x="1070" y="475" />
+        <di:waypoint x="1070" y="655" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1075" y="555" width="49" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_4_di" bpmnElement="MessageFlow_4">
+        <di:waypoint x="1230" y="655" />
+        <di:waypoint x="1230" y="193" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1235" y="403" width="69" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_5_di" bpmnElement="MessageFlow_5">
+        <di:waypoint x="1390" y="215" />
+        <di:waypoint x="1390" y="655" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1390" y="386" width="60" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="MessageFlow_6_di" bpmnElement="MessageFlow_6">
+        <di:waypoint x="1550" y="655" />
+        <di:waypoint x="1550" y="453" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1562" y="544" width="76" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

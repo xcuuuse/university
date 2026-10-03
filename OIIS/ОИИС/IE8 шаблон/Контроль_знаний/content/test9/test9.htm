@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №9</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [0, 2, 0, 1, 2];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №9 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1.  Что позволяет оценить гистограмма изображения?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+            количество и разнообразие оттенков изображения.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+           общий уровень размытости изображения.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+          максимальный и минимальный уровни яркости изображения.</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2.  Что из перечисленного не является методом редактирования уровней? <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           задание кривой функции соответствия точек начальной и конечной гистограмм изображения.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+             задание набора предустановок, осуществляющих ту или иную коррекцию.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+задание матрицы начального и конечного диапазона начального и итоговых изображений.
+        
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. В зависимости от чего изменяется значение центрального элемента в логической фильтрации?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           от количества однотипных с ним элементов в заданной окрестности.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+           от количества элементов в заданной окрестностию.</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+            от количества различных элементов в заданной окрестности.
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4.  Что происходит в результате увеличения резкозти?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+выделяются контуры объектов.   
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+ подчеркивается разница между цветами.</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+            затемняются нечеткие участки.
+
+        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5.  Что получится в результате тиснения, если сумма коэффициентов ядра тиснения не будет равна 0?<br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+           засветление.
+</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+             затемнение.</label>
+ <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+отклонение к какому либо конкретному цвету.         
+</label>
+    </p>
+
+  
+    <input type="button" name="Submit" value="проверка" onclick="check(5)"/>
+
+
+</form>
+</body>
+</html>

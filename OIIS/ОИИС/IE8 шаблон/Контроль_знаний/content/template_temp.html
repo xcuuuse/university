@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №1</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [0, 1, 0, 1, 2, 1, 0, 2, 0];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №1 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Что такое восприятии в ИИ?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+            процесс преобразования информации о внешнем мире, поступающей от анализаторной системы в форму, пригодную
+            для её использования в любой системе.</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+            процесс преобразования информации о внешнем мире, поступающей от анализаторной системы в форму, пригодную
+            для её использования в интеллектуальной системе.</label>
+        <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+            совокупность программных средств, предназначенных для автоматизации процессов проектирования и
+            разработки программ.
+        </label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. В каком режиме работает комплекс ЭКСПЕРТ-ЭКО?<br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+            пакетный</label>
+        <br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+            диалоговый</label>
+    </p>
+
+    <!--3 вопрос -->
+    <p>3. Какие знания являются точными?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+            те знания, которые формулируются в книгах и руководствах в виде общих, универсальных и строгих
+            суждений, законов, формул, моделей, алгоритмов и т.д. </label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+            те знания, которые обычно не попадают в книги и руководства вследствие их субъективности и
+            приблизительности.</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. Какие задачи называются формальными?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+            те задачи, которые содержат в себе лишь представление о структуре неких понятий.</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+            те задачи, которые решаются на основе формальных знаний.</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+            те задачи, которые определяют представления о средствах и путях получения новых знаний, проверки
+            знаний.
+        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5. Что называется "оболочками"?<br/>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+            языки для автоматической обработки информации с помощью ЭВМ.</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+            множество взаимосвязанных элементов, обособленных от среды и взаимодействующие с ней, как целое.</label>
+        <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+            инструментальные средства, в которых реализован некоторый стандартный способ представления
+            знаний (т.е. реализован некоторый язык представления знаний) и стандартизован механизм вывода
+            решений.
+        </label>
+    </p>
+
+    <!--6 вопрос -->
+    <p>6. Какие выделяют фазы существования экспертных систем?<br/>
+        <label>
+            <input id="60" type="radio" name="RadioGroup6" value="radio"/>
+            создание, использование.</label>
+        <br/>
+        <label>
+            <input id="61" type="radio" name="RadioGroup6" value="radio"/>
+            создание, использование, модификация. </label>
+        <br/>
+        <label>
+            <input id="62" type="radio" name="RadioGroup6" value="radio"/>
+            создание, модификация.
+        </label>
+    </p>
+
+    <!--7 вопрос -->
+    <p>7. Когда экспертная система считается созданной?<br/>
+        <label>
+            <input id="70" type="radio" name="RadioGroup7" value="radio"/>
+            если в базе знаний получена соответствующая корректная модель.</label>
+        <br/>
+        <label>
+            <input id="71" type="radio" name="RadioGroup7" value="radio"/>
+            всегда считается созданной.</label>
+        <br/>
+        <label>
+            <input id="72" type="radio" name="RadioGroup7" value="radio"/>
+            после того,как была проанализирована экспертом.
+        </label>
+    </p>
+
+    <!--8 вопрос -->
+    <p>8. Из чего состоит описание проблемной области?<br/>
+        <label>
+            <input id="80" type="radio" name="RadioGroup8" value="radio"/>
+            описаний атрибутов.</label>
+        <br/>
+        <label>
+            <input id="81" type="radio" name="RadioGroup8" value="radio"/>
+            описаний правил вывода.</label>
+        <br/>
+        <label>
+            <input id="82" type="radio" name="RadioGroup8" value="radio"/>
+            описаний атрибутов и правил вывода.
+        </label>
+    </p>
+
+    <!--9 вопрос -->
+    <p>9. Чем является коэффициент определенности?<br/>
+        <label>
+            <input id="90" type="radio" name="RadioGroup9" value="radio"/>
+            действительным числом с точностью до двух знаков после запятой, принимающим значения из
+            диапазона от -5.00 до 5.00.</label>
+        <br/>
+        <label>
+            <input id="91" type="radio" name="RadioGroup9" value="radio"/>
+            числом, которое используют для сравнения рассеивания двух и более признаков, имеющих различные
+            единицы измерения. </label>
+        <br/>
+        <label>
+            <input id="92" type="radio" name="RadioGroup9" value="radio"/>
+            величиной, характеризующей асимметрию распределения случайной величины.
+        </label>
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(9)"/>
+
+
+</form>
+</body>
+</html>

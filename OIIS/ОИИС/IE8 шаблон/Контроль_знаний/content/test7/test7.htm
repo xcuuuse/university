@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №7</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [1, 2, 0, 0, 1, 2];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №7 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. К чему применимо понятие частоты?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+      к множеству синусоидальных функций, точки пересечения нулевого уровня которых неравномерно распределены по интервалу. 
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+            к множеству синусоидальных функций, точки пересечения нулевого уровня которых равномерно распределены по интервалу. 
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+           к множеству синусоидальных и косинусоидальных функций, точки пересечения нулевого уровня которых равномерно распределены по интервалу. 
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Как может быть определена Обобщенная частота? <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+            как четверть среднего числа пересечений нулевого уровня в секунду.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+          как треть среднего числа пересечений нулевого уровня в секунду.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+как половина среднего числа пересечений нулевого уровня в секунду.       
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Кто ввел термин «частость» при описании обобщенной частоты?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           Хармут
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+          Фурье
+</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+           Фалкерсон
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. В каком случае понятие частости совпадает с понятием частоты?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+синусоидальных функций.       
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+ косинусоидальных функций.
+</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+         синусоидальных и косинусоидальных функций.
+        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5. Что представляют собой функции Радемахера? <br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+           полную систему ортонормированных функций.
+</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+           неполную систему ортонормированных функций.
+</label>
+ <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+неполную систему ортогональных функций.
+</label>
+    </p>
+
+    <!--6 вопрос -->
+    <p>6. Какие коды называются циклическими?<br>
+        <label>
+            <input id="60" type="radio" name="RadioGroup6" value="radio"/>
+у которых все кодовые слова различаются числами в некотором разряде.    
+<br/>
+        <label>
+            <input id="61" type="radio" name="RadioGroup6" value="radio"/>
+у которых все следующие друг за другом кодовые слова различаются только одной цифрой в некотором разряде.
+</label><br/>
+        <label>
+            <input id="62" type="radio" name="RadioGroup6" value="radio"/>
+у которых все следующие друг за другом кодовые слова различаются только одной цифрой в некотором разряде.          
+</label>  
+ </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(6)"/>
+
+
+</form>
+</body>
+</html>

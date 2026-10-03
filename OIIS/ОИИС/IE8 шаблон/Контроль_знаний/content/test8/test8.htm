@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №8</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [0, 1, 0, 2, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №8 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Что такое фрикционные поверхности?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           области, которые замедляют передвижение.
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+           области, движение через которые невозможно.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+         области, которые ускоряют передвижение.
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Если график затрат содержит вертикальный скачок, то на пути встретился:<br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+             абсолютный барьер.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           относительный барьер.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+фрикционный барьер.         
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Для чего необходима трансформация проекции? <br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           для импорта данных, хранящихся в проекции, отличной от той, что принята в проекте.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+         для преобразования проекции в другую систему координат, отличной от той, что принята в проекте.
+</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+           для экспорта данных, хранящихся в проекции в другой проект.
+
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4.  Для чего необходима геопривязка?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+для построения математической модели объектов реального мира.  
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+ для передачи аэрофотоснимков между проектами.
+</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+          для привязки аэрофотоснимков к координатам реального мира.
+        </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5.  Что такое цветоделение?<br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+           разделение исходного изображения на цветовые составляющие, каждая из которых содержит несколько уровней.
+</label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+            разделение исходного изображения на цветовые составляющие, каждая из которых содержит только одномерный уровень.</label>
+ <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+разделение исходного изображения на цветовые составляющие, каждая из которых содержит от одного до двух уровня.         
+</label>
+    </p>
+
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(5)"/>
+
+
+</form>
+</body>
+</html>

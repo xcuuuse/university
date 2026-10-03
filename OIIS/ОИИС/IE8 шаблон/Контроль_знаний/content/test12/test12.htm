@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №12</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [1, 2, 0, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №12 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Какова задача распознавания?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+           отнесение предъявленных объектов с известной классификацией к одному из рассматриваемых классов. 
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+          отнесение предъявленных объектов с неизвестной классификацией к одному из рассматриваемых классов.
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+           отнесение предъявленных объектов с неизвестной классификацией к нескольким классам. </label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Какие функции называются решающими? <br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           описывающие поверхности.
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+            разделяющие области решений.
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+описывающие поверхности, разделяющие области решений.       
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3.  Что такое бионика?  <br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+          область науки, посвященная приложению биологических концепций к электронным устройствам.
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+           область науки, посвященная приложению физических концепций к электронным устройствам.</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+           область науки, посвященная приложению астрономических концепций к электронным устройствам.
+
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. Кто предложил класс устройств, называемых обычно перцептронами?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+ Филлипов         
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+Розенблатт</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+          Жуковский
+        </label>
+    </p>
+
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(4)"/>
+
+
+</form>
+</body>
+</html>

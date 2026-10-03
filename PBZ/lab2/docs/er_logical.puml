@@ -1,0 +1,130 @@
+@startchen
+
+entity "Категория" as CATEGORY {
+  "Код категории" as CatId <<key>>
+  "Название" as CatName
+}
+
+entity "Предприятие-производитель" as MANUFACTURER {
+  "Код предприятия" as ManId <<key>>
+  "Название" as ManName
+  "Адрес" as ManAddress
+}
+
+entity "Товар" as PRODUCT {
+  "Код товара" as ProdCode <<key>>
+  "Наименование" as ProdName
+  "Единица измерения" as ProdUnit
+}
+
+entity "Цена товара" as PRICE <<weak>> {
+  "Дата начала действия" as PriceDate <<key>>
+  "Стоимость" as PriceValue
+}
+
+entity "Накладная" as INVOICE {
+  "Номер накладной" as InvNumber <<key>>
+  "Дата" as InvDate
+}
+
+entity "Покупатель" as BUYER {
+  "Код покупателя" as BuyerId <<key>>
+  "Название / ФИО" as BuyerName
+  "Адрес" as BuyerAddress
+}
+
+entity "Юридическое лицо" as LEGAL {
+  "Расчётный счёт" as Account
+}
+
+entity "Физическое лицо" as NATURAL {
+  "Серия документа" as DocSeries
+  "Номер документа" as DocNumber
+}
+
+entity "Банк" as BANK {
+  "Код банка" as BankCode <<key>>
+  "Название" as BankName
+}
+
+entity "Населённый пункт" as CITY {
+  "Код пункта" as CityId <<key>>
+  "Название" as CityName
+}
+
+entity "Регион" as REGION {
+  "Код региона" as RegionId <<key>>
+  "Название" as RegionName
+}
+
+entity "Страна" as COUNTRY {
+  "Код страны" as CountryId <<key>>
+  "Название" as CountryName
+  "Тип страны" as CountryKind
+}
+
+relationship "Относится к" as BELONGS {
+}
+
+relationship "Производит" as MAKES {
+}
+
+relationship "Имеет цену" as HAS_PRICE <<identifying>> {
+}
+
+relationship "Содержит" as CONTAINS {
+  "Количество" as Quantity
+  "Отпускная цена" as SalePrice
+}
+
+relationship "Оформлена на" as ISSUED {
+}
+
+relationship "Отправлена в" as SENT {
+}
+
+relationship "Обслуживается в" as SERVED {
+}
+
+relationship "Входит в" as IN_REGION {
+}
+
+relationship "Расположен в" as REGION_IN {
+}
+
+relationship "Находится в" as CITY_IN {
+}
+
+PRODUCT =N= BELONGS
+BELONGS -1- CATEGORY
+
+MANUFACTURER -1- MAKES
+MAKES =N= PRODUCT
+
+PRODUCT -1- HAS_PRICE
+HAS_PRICE =N= PRICE
+
+INVOICE =M= CONTAINS
+CONTAINS -N- PRODUCT
+
+INVOICE =N= ISSUED
+ISSUED -1- BUYER
+
+INVOICE =N= SENT
+SENT -1- CITY
+
+BUYER =>= d { LEGAL, NATURAL }
+
+LEGAL =N= SERVED
+SERVED -1- BANK
+
+CITY -N- IN_REGION
+IN_REGION -1- REGION
+
+REGION =N= REGION_IN
+REGION_IN -1- COUNTRY
+
+CITY =N= CITY_IN
+CITY_IN -1- COUNTRY
+
+@endchen

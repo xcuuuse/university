@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №3</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [2, 1, 2, 0, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №3 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Что такое дистанционное зондирование Земли (ДЗЗ)? <br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+получение информации о состоянии земной поверхности по измеренным на расстоянии, по средством непосредственного контакта датчиков с поверхностью.           
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+            получение информации о состоянии земной поверхности по измеренным на расстоянии, без непосредственного контакта датчиков с поверхностью, характеристикам электромагнитного излучения.</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+         получение информации о состоянии земной поверхности по измеренным на расстоянии, без непосредственного контакта датчиков с поверхностью, характеристикам электромагнитного излучения. </label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Что относится к пассивным методам ДЗЗ?<br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           использование естественного отраженного или вторичного теплового излучения объектов на поверхности Земли, обусловленного солнечной радиацией.</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           использование вынужденного излучения объектов, инициированного искусственным источником направленного действия.
+</label></p>
+
+    <!--3 вопрос -->
+    <p>3. Что относится к активным методам ДЗЗ?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+            использование естественного отраженного или вторичного теплового излучения объектов на поверхности Земли, обусловленного солнечной радиацией.</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+           использование вынужденного излучения объектов, инициированного искусственным источником направленного действия.</label>    </p>
+
+    <!--4 вопрос -->
+    <p>4. Что не относится к видам ДЗЗ?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+ультрафиолетовый      
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+средний</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+           частотный
+  </label>
+    </p>
+
+    <!--5 вопрос -->
+    <p>5. Для удобства выполнения процедуры расстановки реперов какие рекомендуется использовать углы поворота?<br>
+        <label>
+            <input id="50" type="radio" name="RadioGroup5" value="radio"/>
+           кратные 45°. </label>
+        <br/>
+        <label>
+            <input id="51" type="radio" name="RadioGroup5" value="radio"/>
+            кратные 90°. <br/>
+        <label>
+            <input id="52" type="radio" name="RadioGroup5" value="radio"/>
+кратные 180°. </label>
+    </p>
+
+
+    <input type="button" name="Submit" value="проверка" onclick="check(5)"/>
+
+
+</form>
+</body>
+</html>

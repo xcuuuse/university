@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <META HTTP-EQUIV="Content-Language" CONTENT="ru">
+    <title>Тест №4</title>
+</head>
+
+<body>
+<script type="text/javascript" src="../jquery.js"></script>
+<script type="text/javascript" src="../check.js"></script>
+<script type="text/javascript">
+    var answers = [1, 2, 0, 1];
+</script>
+
+<form id="form1" name="form1" method="post" action="">
+    <div id="answers">
+    </div>
+    <div align="center">
+        <strong>Тест №4 </strong></div>
+
+    <!--1 вопрос -->
+    <p>1. Что такое сигнал?<br>
+        <label>
+            <input id="10" type="radio" name="RadioGroup1" value="radio"/>
+            нематериальный носитель информации, используемый для передачи сообщений в системе связи. 
+</label>
+        <br/>
+        <label>
+            <input id="11" type="radio" name="RadioGroup1" value="radio"/>
+           материальный носитель информации, используемый для передачи сообщений в системе связи. 
+</label>
+ <br/>
+        <label>
+            <input id="12" type="radio" name="RadioGroup1" value="radio"/>
+        материальный источник информации, используемый для передачи сообщений в системе связи. 
+
+</label>
+    </p>
+
+    <!--2 вопрос -->
+    <p>2. Какие бывают сигналы по физической природе?<br>
+        <label>
+            <input id="20" type="radio" name="RadioGroup2" value="radio"/>
+           регулярные (детерминированные), нерегулярные (случайные). 
+</label>
+<br/>
+        <label>
+            <input id="21" type="radio" name="RadioGroup2" value="radio"/>
+           непрерывные, дискретные, квантованные по уровню, дискретные сигналы, квантованные по уровню (цифровые).
+</label><br/>
+        <label>
+            <input id="22" type="radio" name="RadioGroup2" value="radio"/>
+электрические,электромагнитные,оптические,акустические.
+</label>    </p>
+
+    <!--3 вопрос -->
+    <p>3. Какие бывают сигналы по способу задания?<br>
+        <label>
+            <input id="30" type="radio" name="RadioGroup3" value="radio"/>
+           регулярные (детерминированные), нерегулярные (случайные). 
+</label>
+        <br/>
+        <label>
+            <input id="31" type="radio" name="RadioGroup3" value="radio"/>
+             непрерывные, дискретные, квантованные по уровню, дискретные сигналы, квантованные по уровню (цифровые).
+</label><br/>
+        <label>
+            <input id="32" type="radio" name="RadioGroup3" value="radio"/>
+            электрические,электромагнитные,оптические,акустические.
+</label>
+    </p>
+
+    <!--4 вопрос -->
+    <p>4. Какие бывают сигналы В зависимости от функции, описывающей параметры сигнала?<br/>
+        <label>
+            <input id="40" type="radio" name="RadioGroup4" value="radio"/>
+регулярные (детерминированные), нерегулярные (случайные).    
+</label>
+        <br/>
+        <label>
+            <input id="41" type="radio" name="RadioGroup4" value="radio"/>
+непрерывные, дискретные, квантованные по уровню, дискретные сигналы, квантованные по уровню (цифровые).
+</label>
+        <br/>
+        <label>
+            <input id="42" type="radio" name="RadioGroup4" value="radio"/>
+          электрические,электромагнитные,оптические,акустические.
+
+        </label>
+    </p>
+
+    <input type="button" name="Submit" value="проверка" onclick="check(4)"/>
+
+
+</form>
+</body>
+</html>

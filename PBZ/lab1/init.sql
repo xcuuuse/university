@@ -1,6 +1,3 @@
--- Лабораторная работа № 1. Задание 1
--- Схема и данные для SQLite 3
--- Запуск:  sqlite3 lab1.db < init.sql
 
 PRAGMA foreign_keys = ON;
 
@@ -10,14 +7,13 @@ DROP TABLE IF EXISTS subjects;
 DROP TABLE IF EXISTS teachers;
 
 
--- ТАБЛИЦА 1.1. ПРЕПОДАВАТЕЛЬ
 CREATE TABLE teachers (
-    teacher_id  TEXT    PRIMARY KEY,  -- ЛичныйНомер
-    last_name   TEXT    NOT NULL,     -- Фамилия
-    post        TEXT    NOT NULL,     -- Должность
-    department  TEXT    NOT NULL,     -- Кафедра
-    specialty   TEXT    NOT NULL,     -- Специальность
-    home_phone  INTEGER NOT NULL      -- ТелефонДомашний
+    teacher_id  TEXT    PRIMARY KEY, 
+    last_name   TEXT    NOT NULL,    
+    post        TEXT    NOT NULL, 
+    department  TEXT    NOT NULL,
+    specialty   TEXT    NOT NULL,
+    home_phone  INTEGER NOT NULL
 );
 
 INSERT INTO teachers (teacher_id, last_name, post, department, specialty, home_phone) VALUES
@@ -28,13 +24,12 @@ INSERT INTO teachers (teacher_id, last_name, post, department, specialty, home_p
 ('110Л', 'Петров',  'Ассистент', 'Экономики', 'Международная экономика', 324);
 
 
--- ТАБЛИЦА 1.2. ПРЕДМЕТ
 CREATE TABLE subjects (
-    subject_id    TEXT    PRIMARY KEY,  -- КодовыйНомерПредмета
-    subject_name  TEXT    NOT NULL,     -- НазваниеПредмета
-    hours_num     INTEGER NOT NULL,     -- КоличествоЧасов
-    specialty     TEXT    NOT NULL,     -- Специальность
-    semester      INTEGER NOT NULL      -- Семестр
+    subject_id    TEXT    PRIMARY KEY,
+    subject_name  TEXT    NOT NULL,
+    hours_num     INTEGER NOT NULL,
+    specialty     TEXT    NOT NULL,
+    semester      INTEGER NOT NULL
 );
 
 INSERT INTO subjects (subject_id, subject_name, hours_num, specialty, semester) VALUES
@@ -46,13 +41,12 @@ INSERT INTO subjects (subject_id, subject_name, hours_num, specialty, semester) 
 ('22П', 'Аудит',    24, 'Бухучета', 3);
 
 
--- ТАБЛИЦА 1.3. СТУДЕНЧЕСКАЯ_ГРУППА
 CREATE TABLE student_groups (
-    group_id           TEXT    PRIMARY KEY,  -- КодовыйНомерГруппы
-    group_name         TEXT    NOT NULL,     -- НазваниеГруппы
-    student_count      INTEGER NOT NULL,     -- КоличествоЧеловек
-    specialty          TEXT    NOT NULL,     -- Специальность
-    headman_last_name  TEXT    NOT NULL      -- ФамилияСтаросты
+    group_id           TEXT    PRIMARY KEY, 
+    group_name         TEXT    NOT NULL,    
+    student_count      INTEGER NOT NULL,
+    specialty          TEXT    NOT NULL,
+    headman_last_name  TEXT    NOT NULL
 );
 
 INSERT INTO student_groups (group_id, group_name, student_count, specialty, headman_last_name) VALUES
@@ -65,12 +59,11 @@ INSERT INTO student_groups (group_id, group_name, student_count, specialty, head
 ('10Г', 'Б-4',  21, 'Бухучет',                 'Зязюткин');
 
 
--- ТАБЛИЦА 1.4. ПРЕПОДАВАТЕЛЬ_ПРЕПОДАЕТ_ПРЕДМЕТЫ_В_ГРУППАХ
 CREATE TABLE teaching_assignments (
-    group_id    TEXT    NOT NULL,  -- КодовыйНомерГруппы
-    subject_id  TEXT    NOT NULL,  -- КодовыйНомерПредмета
-    teacher_id  TEXT    NOT NULL,  -- ЛичныйНомер
-    classroom   INTEGER NOT NULL,  -- НомерАудитории
+    group_id    TEXT    NOT NULL,
+    subject_id  TEXT    NOT NULL,
+    teacher_id  TEXT    NOT NULL,
+    classroom   INTEGER NOT NULL,
     PRIMARY KEY (group_id, subject_id, teacher_id),
     FOREIGN KEY (group_id)   REFERENCES student_groups(group_id) ON DELETE CASCADE,
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id)     ON DELETE CASCADE,

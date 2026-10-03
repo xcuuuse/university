@@ -75,7 +75,13 @@ WHERE teaching_assignments.subject_id in (
         FROM teaching_assignments
         WHERE subject_id = '14П'
     )
-); --14
+) AND teaching_assignments.teacher_id NOT IN (
+    SELECT teacher_id
+    FROM teaching_assignments
+    WHERE subject_id = '14П');
+
+     --14
+
 
 
 SELECT *
@@ -83,7 +89,7 @@ FROM subjects
 WHERE subjects.subject_id NOT IN (
     SELECT subject_id
     FROM teaching_assignments
-    WHERE teacher_id = '221П'
+    WHERE teacher_id = '221Л'
 ); --15
 
 SELECT *
@@ -159,18 +165,20 @@ WHERE student_groups.group_id NOT IN (
     )
 ); --24
 
-SELECT group_id
+SELECT DISTINCT group_id
 FROM teaching_assignments
 WHERE subject_id IN (
     SELECT subject_id
     FROM teaching_assignments
-    WHERE group_id = '3Г'
-)
-GROUP BY group_id
-HAVING COUNT(DISTINCT subject_id) = (
-    SELECT COUNT(DISTINCT subject_id)
-    FROM teaching_assignments WHERE group_id = '3Г'
-);
+    JOIN student_groups ON teaching_assignments.group_id = student_groups.group_id
+    WHERE student_groups.group_name = 'АС-8'
+) AND group_id NOT IN (
+    SELECT group_id
+    FROM student_groups
+    WHERE group_name = 'АС-8');
+
+
+
 
 SELECT DISTINCT group_id
 FROM teaching_assignments
