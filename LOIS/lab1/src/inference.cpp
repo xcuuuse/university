@@ -125,14 +125,14 @@ std::string toString(const FuzzySet& set) {
 
 // Собирает запись факта A(x) = {...}.
 std::string toString(const Fact& fact) {
-    return fact.name + "(" + fact.var + ") = " + toString(fact.set);
+    return fact.name + "(" + fact.var + ")=" + toString(fact.set);
 }
 
 // Собирает запись правила A(x) ~> B(y).
 std::string toString(const KnowledgeBase& kb, const Rule& rule) {
     const Fact& a = kb.facts[rule.premise];
     const Fact& b = kb.facts[rule.conclusion];
-    return a.name + "(" + a.var + ") ~> " + b.name + "(" + b.var + ")";
+    return a.name + "(" + a.var + ")~>" + b.name + "(" + b.var + ")";
 }
 
 // Для каждого y перебирает все x посылки: A'(x), I(A(x), B(y)), их произведение и максимум.
@@ -146,10 +146,10 @@ FuzzySet conclude(const FuzzySet& aPrime, const FuzzySet& a, const FuzzySet& b, 
             const double given = degreeOf(aPrime, x);
             const double implication = goguen(ax, by);
             best = std::max(best, tnorm(given, implication));
-            terms += (terms.empty() ? "" : ", ") + fmt(given) + "*" + fmt(implication);
+            terms += (terms.empty() ? "" : ",") + fmt(given) + "*" + fmt(implication);
         }
         result.emplace_back(y, roundDegree(best));
-        log << "      " << name << "'(" << y << ") = max{" << terms << "} = " << fmt(best) << "\n";
+        log << "      " << name << "'(" << y << ")=max{" << terms << "}=" << fmt(best) << "\n";
     }
     return result;
 }
@@ -159,7 +159,7 @@ FuzzySet conclude(const FuzzySet& aPrime, const FuzzySet& a, const FuzzySet& b, 
 Result infer(KnowledgeBase kb, std::ostream& log, const std::function<Command(int)>& ask) {
     log << "\nНечёткие импликации (Гоген):\n";
     for (const Rule& rule : kb.rules) {
-        log << "  " << toString(kb, rule) << " = "
+        log << "  " << toString(kb, rule) << "="
             << implicationText(kb.facts[rule.premise].set, kb.facts[rule.conclusion].set) << "\n";
     }
     const std::size_t initialCount = kb.facts.size();
@@ -185,10 +185,10 @@ Result infer(KnowledgeBase kb, std::ostream& log, const std::function<Command(in
                 const Fact& a = kb.facts[kb.rules[r].premise];
                 const Fact& b = kb.facts[kb.rules[r].conclusion];
                 if (!fits(given, a)) continue;
-                const std::string origin = "{" + given.name + "(" + given.var + "), " + toString(kb, kb.rules[r]) + "}";
-                log << "  " << origin << " |~ " << b.name << "'(" << b.var << ")\n";
+                const std::string origin = "{" + given.name + "(" + given.var + ")," + toString(kb, kb.rules[r]) + "}";
+                log << "  " << origin << "|~" << b.name << "'(" << b.var << ")\n";
                 Fact derived{"", b.var, conclude(given.set, a.set, b.set, b.name, log), origin};
-                log << "      " << b.name << "'(" << b.var << ") = " << toString(derived.set);
+                log << "      " << b.name << "'(" << b.var << ")=" << toString(derived.set);
                 const auto same = std::find_if(kb.facts.begin(), kb.facts.end(), [&](const Fact& fact) {
                     return fact.var == derived.var && sameSet(fact.set, derived.set);
                 });

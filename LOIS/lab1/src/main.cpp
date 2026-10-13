@@ -34,9 +34,8 @@ int main() {
     SetConsoleOutputCP(CP_UTF8);  // русский текст в консоли Windows
     SetConsoleCP(CP_UTF8);
 #endif
-    std::cout << "Введите имя файла базы знаний: ";
-    std::string path;
-    std::getline(std::cin, path);
+    std::string path = "base.txt";
+    //std::getline(std::cin, path);
     path = trim(path);
     std::ifstream file(path);
     if (!file) {
