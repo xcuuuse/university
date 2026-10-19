@@ -35,6 +35,8 @@ struct Fact {
 struct Rule {
     std::size_t premise;
     std::size_t conclusion;
+    std::string premiseVar;
+    std::string conclusionVar;
 };
 
 // База знаний: факты и правила.

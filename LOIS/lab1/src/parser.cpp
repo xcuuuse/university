@@ -33,15 +33,10 @@ std::size_t findFact(const KnowledgeBase& kb, const std::string& name) {
 }
 
 // Находит факт, на который ссылается правило, и проверяет, что переменная совпадает с переменной факта.
-std::size_t resolve(const KnowledgeBase& kb, const std::string& name, const std::string& var, int line) {
+std::size_t resolve(const KnowledgeBase& kb, const std::string& name, int line) {
     const std::size_t i = findFact(kb, name);
     if (i == kb.facts.size()) {
         fail(line, "предикат " + name + " не задан ни одним фактом");
-    }
-    if (kb.facts[i].var != var) {
-        fail(
-            line,
-            "предикат " + name + " задан с переменной " + kb.facts[i].var + ", а в правиле указана " + var);
     }
     return i;
 }
@@ -70,7 +65,8 @@ KnowledgeBase parseKnowledgeBase(std::istream& in) {
             continue;
         }
         if (std::regex_match(text, match, ruleLine)) {
-            kb.rules.push_back({resolve(kb, match[1], match[2], line), resolve(kb, match[3], match[4], line)});
+            kb.rules.push_back({resolve(kb, match[1], line), resolve(kb, match[3],line),
+            match[2], match[4]});
         } else if (std::regex_match(text, match, factLine)) {
             if (!kb.rules.empty()) {
                 fail(line, "факт после правил: сначала должны идти все факты, затем правила");

@@ -50,13 +50,14 @@ bool sameSet(const FuzzySet& first, const FuzzySet& second) {
     return true;
 }
 
-// Проверяет, может ли факт быть посылкой A'(x) для правила с посылкой A(x):
-// та же переменная, и все элементы факта есть в области определения A.
+// Проверяет, может ли факт быть посылкой A' для правила с посылкой A: все элементы факта есть
+// в области определения A. Имя переменной не сравнивается — переменные унифицируются
+// (факт C(y) с элементами из области A подставляется в правило как C(x)).
 bool fits(const Fact& fact, const Fact& premise) {
-    return fact.var == premise.var && std::all_of(fact.set.begin(), fact.set.end(), [&](const auto& p) {
-               return std::any_of(premise.set.begin(), premise.set.end(),
-                                  [&](const auto& q) { return q.first == p.first; });
-           });
+    return std::all_of(fact.set.begin(), fact.set.end(), [&](const auto& p) {
+        return std::any_of(premise.set.begin(), premise.set.end(),
+                           [&](const auto& q) { return q.first == p.first; });
+    });
 }
 
 // Проверяет, остались ли пары "правило — факт", к которым правило ещё не применялось
@@ -97,7 +98,7 @@ double tnorm(double a, double b) {
     return a * b;
 }
 
-// Импликация Гогена — остаточная операция для произведения:
+// Импликация Гогена — остаточная операция для произведения (Голенков, с. 62):
 // I(a, b) = sup{d из [0, 1] | a * d <= b}; при a <= b это 1, иначе b / a.
 double goguen(double a, double b) {
     return a <= b ? 1.0 : b / a;
@@ -125,11 +126,10 @@ std::string toString(const Fact& fact) {
     return fact.name + "(" + fact.var + ")=" + toString(fact.set);
 }
 
-// Собирает запись правила A(x) ~> B(y).
+// Собирает запись правила A(x) ~> B(y) с переменными, как они записаны в правиле.
 std::string toString(const KnowledgeBase& kb, const Rule& rule) {
-    const Fact& a = kb.facts[rule.premise];
-    const Fact& b = kb.facts[rule.conclusion];
-    return a.name + "(" + a.var + ")~>" + b.name + "(" + b.var + ")";
+    return kb.facts[rule.premise].name + "(" + rule.premiseVar + ")~>" + kb.facts[rule.conclusion].name + "(" +
+           rule.conclusionVar + ")";
 }
 
 // Для каждого y перебирает все x посылки: A'(x), I(A(x), B(y)), их произведение и максимум.
@@ -177,18 +177,24 @@ Result infer(KnowledgeBase kb, std::ostream& log, const std::function<Command(in
         log << "\n--- Итерация " << result.iterations << " ---\n";
         const std::size_t known = kb.facts.size();
         for (std::size_t r = 0; r < kb.rules.size(); ++r) {
+            const Rule& rule = kb.rules[r];
             for (std::size_t f = done[r]; f < known; ++f) {
                 const Fact& given = kb.facts[f];
-                const Fact& a = kb.facts[kb.rules[r].premise];
-                const Fact& b = kb.facts[kb.rules[r].conclusion];
+                const Fact& a = kb.facts[rule.premise];
+                const Fact& b = kb.facts[rule.conclusion];
                 if (!fits(given, a)) continue;
-                const std::string origin = "{" + given.name + "(" + given.var + ")," + toString(kb, kb.rules[r]) + "}";
-                log << "  " << origin << "|~" << b.name << "'(" << b.var << ")\n";
-                Fact derived{"", b.var, conclude(given.set, a.set, b.set, b.name, log), origin};
-                log << "      " << b.name << "'(" << b.var << ")=" << toString(derived.set);
-                const auto same = std::find_if(kb.facts.begin(), kb.facts.end(), [&](const Fact& fact) {
-                    return fact.var == derived.var && sameSet(fact.set, derived.set);
-                });
+                // Унификация: факт подставляется в правило с переменной посылки, например C(y) как C(x).
+                const std::string premise = given.name + "(" + rule.premiseVar + ")";
+                const std::string origin = "{" + premise + "," + toString(kb, rule) + "}";
+                log << "  " << origin << "|~" << b.name << "'(" << rule.conclusionVar << ")";
+                if (given.var != rule.premiseVar) {
+                    log << "   (" << given.name << "(" << given.var << ") унифицирован как " << premise << ")";
+                }
+                log << "\n";
+                Fact derived{"", rule.conclusionVar, conclude(given.set, a.set, b.set, b.name, log), origin};
+                log << "      " << b.name << "'(" << rule.conclusionVar << ")=" << toString(derived.set);
+                const auto same = std::find_if(kb.facts.begin(), kb.facts.end(),
+                                               [&](const Fact& fact) { return sameSet(fact.set, derived.set); });
                 if (same != kb.facts.end()) {
                     log << "  -> совпадает с " << same->name << "(" << same->var << "), не добавлен\n";
                     continue;
