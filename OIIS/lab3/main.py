@@ -41,4 +41,4 @@ def open_images(img1_path: str, img2_path: str):
 
 
 if __name__ == "__main__":
-    open_images('data/1.jpg', 'data/2.jpg')
+    open_images('data/2.jpg', 'data/1.jpg')

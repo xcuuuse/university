@@ -7,11 +7,11 @@
  * вывод {A'(x), A(x) ~> B(y)} |~ {B'(y)}, B'(y) = max по x { A'(x) * I(A(x), B(y)) }.
  * Вывод идёт итерациями: каждое правило применяется к каждому исходному и выведенному факту,
  * пока появляются новые факты или пока пользователь не прервёт вывод. Против зацикливания:
- * каждая пара "правило — факт" обрабатывается один раз, совпадающий факт не добавляется,
+ * каждая пара "правило - факт" обрабатывается один раз, совпадающий факт не добавляется,
  * вычисленные степени округляются до 4 знаков (возможных фактов конечное число).
  * Использованные материалы - Логические основы интеллектуальных систем. Практикум: учеб.-метод. пособие /
- *     В. В. Голенков [и др.]. — Минск: БГУИР, 2011. — 70 с.
- * Рыжов А. П. Элементы теории нечётких множеств и её приложений. — М., 2003.
+ *     В. В. Голенков [и др.]. - Минск: БГУИР, 2011. - 70 с.
+ * Рыжов А. П. Элементы теории нечётких множеств и её приложений. - М., 2003.
  */
 #include "logic.h"
 
@@ -42,26 +42,30 @@ std::string fmt(double value) {
 // Сравнивает множества поэлементно (элемент без пары имеет степень 0).
 bool sameSet(const FuzzySet& first, const FuzzySet& second) {
     for (const auto& [element, degree] : first) {
-        if (std::fabs(degree - degreeOf(second, element)) > 1e-9) return false;
+        if (std::fabs(degree - degreeOf(second, element)) > 1e-9)
+            return false;
     }
     for (const auto& [element, degree] : second) {
-        if (std::fabs(degree - degreeOf(first, element)) > 1e-9) return false;
+        if (std::fabs(degree - degreeOf(first, element)) > 1e-9)
+            return false;
     }
     return true;
 }
 
 // Проверяет, может ли факт быть посылкой A' для правила с посылкой A: все элементы факта есть
-// в области определения A. Имя переменной не сравнивается — переменные унифицируются
+// в области определения A.
 // (факт C(y) с элементами из области A подставляется в правило как C(x)).
 bool fits(const Fact& fact, const Fact& premise) {
     return std::all_of(fact.set.begin(), fact.set.end(), [&](const auto& p) {
-        return std::any_of(premise.set.begin(), premise.set.end(),
-                           [&](const auto& q) { return q.first == p.first; });
+        return std::any_of(
+            premise.set.begin(),
+            premise.set.end(),
+            [&](const auto& q) { return q.first == p.first; });
     });
 }
 
-// Проверяет, остались ли пары "правило — факт", к которым правило ещё не применялось
-// (done[r] — сколько первых фактов правило r уже обработало).
+// Проверяет, остались ли пары "правило - факт", к которым правило ещё не применялось
+// (done[r] - сколько первых фактов правило r уже обработало).
 bool hasWork(const KnowledgeBase& kb, const std::vector<std::size_t>& done) {
     for (std::size_t r = 0; r < kb.rules.size(); ++r) {
         for (std::size_t f = done[r]; f < kb.facts.size(); ++f) {
@@ -76,7 +80,10 @@ std::string newName(const std::vector<Fact>& facts, const std::string& base, std
     std::string name;
     do {
         name = base + std::to_string(++counter[base]);
-    } while (std::any_of(facts.begin(), facts.end(), [&](const Fact& fact) { return fact.name == name; }));
+    } while (std::any_of(
+        facts.begin(),
+        facts.end(),
+        [&](const Fact& fact) { return fact.name == name; }));
     return name;
 }
 
@@ -85,7 +92,8 @@ std::string implicationText(const FuzzySet& a, const FuzzySet& b) {
     std::string text = "{";
     for (const auto& [x, ax] : a) {
         for (const auto& [y, by] : b) {
-            text += (text.size() > 1 ? "," : "") + std::string("<<") + x + "," + y + ">," + fmt(goguen(ax, by)) + ">";
+            text += (text.size() > 1 ? "," : "") +
+                std::string("<<") + x + "," + y + ">," + fmt(goguen(ax, by)) + ">";
         }
     }
     return text + "}";
@@ -98,7 +106,7 @@ double tnorm(double a, double b) {
     return a * b;
 }
 
-// Импликация Гогена — остаточная операция для произведения:
+// Импликация Гогена - остаточная операция для произведения:
 // I(a, b) = sup{d из [0, 1] | a * d <= b}; при a <= b это 1, иначе b / a.
 double goguen(double a, double b) {
     return a <= b ? 1.0 : b / a;
@@ -183,18 +191,20 @@ Result infer(KnowledgeBase kb, std::ostream& log, const std::function<Command(in
                 const Fact& a = kb.facts[rule.premise];
                 const Fact& b = kb.facts[rule.conclusion];
                 if (!fits(given, a)) continue;
-                // Унификация: факт подставляется в правило с переменной посылки, например C(y) как C(x).
+                // унификация
                 const std::string premise = given.name + "(" + rule.premiseVar + ")";
                 const std::string origin = "{" + premise + "," + toString(kb, rule) + "}";
                 log << "  " << origin << "|~" << b.name << "'(" << rule.conclusionVar << ")";
-                if (given.var != rule.premiseVar) {
-                    log << "   (" << given.name << "(" << given.var << ") унифицирован как " << premise << ")";
-                }
                 log << "\n";
-                Fact derived{"", rule.conclusionVar, conclude(given.set, a.set, b.set, b.name, log), origin};
+                Fact derived{"", rule.conclusionVar,
+                    conclude(given.set,
+                        a.set, b.set, b.name, log),
+                    origin};
                 log << "      " << b.name << "'(" << rule.conclusionVar << ")=" << toString(derived.set);
-                const auto same = std::find_if(kb.facts.begin(), kb.facts.end(),
-                                               [&](const Fact& fact) { return sameSet(fact.set, derived.set); });
+                const auto same = std::find_if(
+                    kb.facts.begin(),
+                    kb.facts.end(),
+                    [&](const Fact& fact) { return sameSet(fact.set, derived.set); });
                 if (same != kb.facts.end()) {
                     log << "  -> совпадает с " << same->name << "(" << same->var << "), не добавлен\n";
                     continue;
@@ -206,8 +216,8 @@ Result infer(KnowledgeBase kb, std::ostream& log, const std::function<Command(in
             done[r] = known;
         }
     }
-    log << (result.stabilized ? "\nНовых фактов больше нет: вывод стабилизировался.\n"
-                              : "\nВывод прерван пользователем.\n");
+    log << (result.stabilized ? "\nВывод стабилизировался: не осталось фактов, которые можно подставить в правила.\n"
+                          : "\nВывод прерван пользователем.\n");
     result.derived.assign(kb.facts.begin() + static_cast<std::ptrdiff_t>(initialCount), kb.facts.end());
     return result;
 }

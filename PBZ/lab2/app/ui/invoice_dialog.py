@@ -79,7 +79,6 @@ class InvoiceDialog(QDialog):
         form.addRow("Buyer:", self.buyer_box)
         form.addRow("Destination:", self.city_box)
 
-        # --- добавление позиции ---
         self.product_box = QComboBox()
         for product in repo.get_products():
             self.product_box.addItem(
@@ -164,7 +163,6 @@ class InvoiceDialog(QDialog):
         if any(item[0] == product_id for item in self.items):
             warn(self, "This product is already in the invoice")
             return
-        # отпускная цена — цена из истории на дату накладной
         price = repo.price_at(product_id, self.doc_date())
         if price is None:
             warn(self, "The product has no price on the invoice date")
