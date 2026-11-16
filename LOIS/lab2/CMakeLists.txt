@@ -5,4 +5,6 @@ set(CMAKE_CXX_STANDARD 20)
 
 add_executable(lab2 main.cpp
         parser.h
-        parser.cpp)
+        parser.cpp
+        solver.h
+        solver.cpp)
