@@ -34,7 +34,7 @@ namespace {
         return s.str();
     }
 
-    double gougen(double a, double b) {
+    double goguen(double a, double b) {
         return a <= b + EPS ? 1.0 : b / a;
     }
 
@@ -44,6 +44,7 @@ namespace {
         for (size_t j = 0; j < m; j++) {
             out << (j ? ", ": "") << "<" << t.Y[j] << ", " << f4(t.b[j]) << ">";
         }
+        out << "}\nПравило R(x, y) (строки - y, столбцы - x):\n" << setw(10) << "";
         for (auto& x : t.X) {
             out << setw(10) << x;
         }
@@ -69,7 +70,7 @@ namespace {
         for (size_t i = 0; i < t.X.size(); i++) {
             out << "  Â(" << t.X[i] << ") = min(";
             for (size_t j = 0; j < t.Y.size(); j++) {
-                double g = gougen(t.r[j][i], t.b[j]);
+                double g = goguen(t.r[j][i], t.b[j]);
                 up[i] = min(up[i], g);
                 out << (j ? ", " : "") << "I_G(" << f4(t.r[j][i]) << ", " << f4(t.b[j]) << ")=" << f4(g);
             }

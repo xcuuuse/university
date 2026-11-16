@@ -27,4 +27,4 @@ struct Task {
     std::vector<std::vector<double>> r;
 };
 
-Task parse(const std::string& file);
+bool parse(const std::string& file, Task& t, ParserError& err);
