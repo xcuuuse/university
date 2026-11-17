@@ -12,7 +12,7 @@
  */
 
 #include "parser.h"
-#include "solver.h"
+#include "inference.h"
 #include <fstream>
 #include <iostream>
 #ifdef _WIN32

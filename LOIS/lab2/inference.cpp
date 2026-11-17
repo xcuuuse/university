@@ -15,7 +15,7 @@
  *     "Лабораторная работа №3. Метод решения систем уравнений нечётких множеств")
  */
 
-#include "solver.h"
+#include "inference.h"
 #include <algorithm>
 #include <cmath>
 #include <functional>
